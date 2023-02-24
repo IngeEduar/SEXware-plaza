@@ -1,4 +1,4 @@
-package com.sexware.sexware.Model;
+package com.sexware.sexware.Model.ConfigUser;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

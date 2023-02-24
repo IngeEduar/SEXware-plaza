@@ -1,7 +1,6 @@
 package com.sexware.sexware.Security;
 
-import com.sexware.sexware.Model.JwtRequest;
-import com.sexware.sexware.Model.JwtResponse;
+import com.sexware.sexware.Model.Login.JwtRequest;
 import com.sexware.sexware.Repositorys.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

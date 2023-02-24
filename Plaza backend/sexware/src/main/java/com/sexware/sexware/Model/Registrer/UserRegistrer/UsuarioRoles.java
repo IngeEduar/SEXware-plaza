@@ -1,4 +1,4 @@
-package com.sexware.sexware.Model;
+package com.sexware.sexware.Model.Registrer.UserRegistrer;
 
 import lombok.Getter;
 import lombok.Setter;

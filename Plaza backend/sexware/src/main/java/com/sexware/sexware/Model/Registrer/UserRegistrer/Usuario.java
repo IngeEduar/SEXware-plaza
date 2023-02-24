@@ -1,4 +1,4 @@
-package com.sexware.sexware.Model;
+package com.sexware.sexware.Model.Registrer.UserRegistrer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,8 @@
 package com.sexware.sexware.Services.Impl;
 
-import com.sexware.sexware.Model.Auditoria;
-import com.sexware.sexware.Model.Usuario;
-import com.sexware.sexware.Model.UsuarioRoles;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.UsuarioRoles;
 import com.sexware.sexware.Repositorys.AuditoriaRepository;
 import com.sexware.sexware.Repositorys.RolRepository;
 import com.sexware.sexware.Repositorys.UsuarioRepository;
@@ -28,6 +28,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario guardarUsuario(Usuario usuario, Set<UsuarioRoles> usuarioRoles,String email) throws Exception {
         Usuario usuarioLocal = usuarioRepository.findByEmail(usuario.getEmail());
+
         if (usuarioLocal != null){
             System.out.println("El usuario ya existe");
             throw new Exception("El usuario ya esta presente");

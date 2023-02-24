@@ -1,7 +1,7 @@
 package com.sexware.sexware.Services;
 
-import com.sexware.sexware.Model.Usuario;
-import com.sexware.sexware.Model.UsuarioRoles;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.UsuarioRoles;
 
 import java.util.Set;
 

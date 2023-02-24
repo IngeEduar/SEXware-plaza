@@ -1,5 +1,6 @@
-package com.sexware.sexware.Model;
+package com.sexware.sexware.Model.Registrer.UserRegistrer;
 
+import com.sexware.sexware.Model.Registrer.UserRegistrer.UsuarioRoles;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

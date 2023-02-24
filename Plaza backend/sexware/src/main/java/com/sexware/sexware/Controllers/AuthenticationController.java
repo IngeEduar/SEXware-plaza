@@ -2,6 +2,11 @@ package com.sexware.sexware.Controllers;
 
 
 import com.sexware.sexware.Model.*;
+import com.sexware.sexware.Model.Login.JwtRequest;
+import com.sexware.sexware.Model.Login.JwtResponse;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.UsuarioRoles;
 import com.sexware.sexware.Security.AuthenticateService;
 import com.sexware.sexware.Security.JwtUtils;
 import com.sexware.sexware.Services.Impl.UserDatailsServiceImpl;
@@ -17,7 +22,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -36,6 +43,7 @@ public class AuthenticationController {
     private UsuarioService usuarioService;
     @Autowired
     private AuthenticateService authenticateService;
+
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest jwtRequest) throws Exception {
@@ -68,15 +76,17 @@ public class AuthenticationController {
     }
 
     @GetMapping("/save-admin")
-    public String guardarAdmin() throws Exception {
+    public ResponseEntity<AdminResponse> guardarAdmin() throws Exception {
 
         Usuario usuario = new Usuario();
         usuario.setNombre("admin");
-        usuario.setApellido("admin");
-        usuario.setNIdentidad("1005085311");
-        usuario.setCelular("3105081250");
-        usuario.setEmail("admin@gmail.com");
-        usuario.setPassword(passwordEncoder.encode("admin"));
+        usuario.setApellido("fesc");
+        usuario.setNIdentidad("800235151");
+        usuario.setCelular("+57 3227613865");
+        usuario.setEmail("adminFesc@fesc.edu.co");
+        String pass = generarPassword();
+        usuario.setPassword(passwordEncoder.encode(pass));
+        System.out.println(pass);
 
         Rol rol = new Rol();
         rol.setId(1L);
@@ -92,6 +102,31 @@ public class AuthenticationController {
         Usuario usuarioGuardado = usuarioService.guardarAdmin(usuario,usuarioRoles);
         System.out.println(usuarioGuardado.getNombre());
 
-        return "Admin guardado exitosamente";
+        return ResponseEntity.ok(new AdminResponse(usuario.getEmail(), pass));
+    }
+
+    public String generarPassword(){
+
+        final String caracteres ="ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789@/._-?&%$#!";
+
+        int cant = (int)(Math.random()*(15-6+1)+6);
+        StringBuilder contrasena = new StringBuilder();
+        List<Integer> numeros = new ArrayList<>();
+
+        for (int i = 0; i<cant;i++){
+
+            int cantidadDeCaracteres = caracteres.length();
+            int nRandom = (int) (Math.random()*cantidadDeCaracteres);
+
+            if (numeros.contains(nRandom)){
+                i--;
+            }else {
+                numeros.add(nRandom);
+                contrasena.append(caracteres.charAt(nRandom));
+            }
+
+        }
+
+        return contrasena.toString();
     }
 }

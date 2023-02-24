@@ -1,14 +1,16 @@
 package com.sexware.sexware.Controllers;
 
-import com.sexware.sexware.Model.*;
+import com.sexware.sexware.Model.ConfigUser.UpdatePassRequest;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.UsuarioRoles;
 import com.sexware.sexware.Repositorys.AuditoriaRepository;
 import com.sexware.sexware.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,7 +28,7 @@ public class UsuarioController {
     private AuditoriaRepository auditoriaRepository;
 
     @PostMapping("/registrar/{email}")
-    public Usuario registrar(@PathVariable("email") String email ,@RequestBody Usuario usuario) throws Exception {
+    public Usuario registrar(@PathVariable("email") String email , @RequestBody Usuario usuario) throws Exception {
 
         Set<UsuarioRoles> usuarioRol = new HashSet<>();
 
