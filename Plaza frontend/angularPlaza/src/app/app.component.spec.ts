@@ -19,13 +19,13 @@ describe('AppComponent', () => {
   it(`should have as title 'angularPlaza'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('angularPlaza');
+    expect(app.title).toEqual('Plaza FESC');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('angularPlaza app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('FESC plaza está corriendo!');
   });
 });
