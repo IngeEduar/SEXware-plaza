@@ -21,11 +21,17 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 50, nullable = false)
     private String nombre;
+    @Column(length = 50,nullable = false)
     private String apellido;
+    @Column(unique = true,nullable = false)
     private String email;
+    @Column(length = 13,nullable = false)
     private String celular;
+    @Column(length = 15,nullable = false)
     private String nIdentidad;
+    @Column(nullable = false)
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "usuario")

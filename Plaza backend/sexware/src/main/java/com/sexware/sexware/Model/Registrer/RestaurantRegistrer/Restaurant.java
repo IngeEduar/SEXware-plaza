@@ -16,10 +16,15 @@ public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 50,nullable = false)
     private String nombre;
+    @Column(length = 100, nullable = false)
     private String nit;
+    @Column(nullable = false)
     private String direccion;
+    @Column(length = 13,nullable = false)
     private String telefono;
+    @Column(length = 50,nullable = false)
     private String urlLogo;
 
     @ManyToOne(optional = false,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
