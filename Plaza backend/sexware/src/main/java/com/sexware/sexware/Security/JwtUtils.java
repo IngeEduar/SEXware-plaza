@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class JwtUtils {
 
 
-    private String SECRET_KEY = "plazaSoftware";
+    private String SECRET_KEY = "pl4z4S0ftw4r3";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
