@@ -82,7 +82,7 @@ public class AuthenticationController {
         usuario.setNombre("admin");
         usuario.setApellido("fesc");
         usuario.setNIdentidad("800235151");
-        usuario.setCelular("+57 3227613865");
+        usuario.setCelular("+573227613865");
         usuario.setEmail("adminFesc@fesc.edu.co");
         String pass = generarPassword();
         usuario.setPassword(passwordEncoder.encode(pass));

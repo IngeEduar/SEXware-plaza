@@ -26,7 +26,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     private AuditoriaRepository auditoriaRepository;
 
     @Override
-    public Usuario guardarUsuario(Usuario usuario, Set<UsuarioRoles> usuarioRoles,String email) throws Exception {
+    public Usuario guardarUsuario(Usuario usuario,Set<UsuarioRoles> usuarioRoles, String email) throws Exception {
         Usuario usuarioLocal = usuarioRepository.findByEmail(usuario.getEmail());
 
         if (usuarioLocal != null){
@@ -36,6 +36,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             for (UsuarioRoles roles:usuarioRoles){
                 rolRepository.save(roles.getRol());
             }
+
             usuario.getRoles().addAll(usuarioRoles);
             usuarioLocal = usuarioRepository.save(usuario);
 

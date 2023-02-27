@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
@@ -60,5 +61,11 @@ public class RestaurantServiceImpl implements RestaurantService {
         auditoriaRepository.save(auditoria);
 
         return restaurant;
+    }
+
+    @Override
+    public List<Restaurant> listarRestaurantes() {
+
+        return restaurantRepository.findAll();
     }
 }

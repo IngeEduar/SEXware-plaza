@@ -44,10 +44,6 @@ public class UsuarioController {
 
         usuarioRol.add(usuarioRoles);
 
-
-
-
-
         return usuarioService.guardarUsuario(usuario,usuarioRol,email);
     }
 

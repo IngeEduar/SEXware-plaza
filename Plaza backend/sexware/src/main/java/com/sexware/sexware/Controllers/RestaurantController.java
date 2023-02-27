@@ -6,6 +6,8 @@ import com.sexware.sexware.Services.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/restaurante")
 @CrossOrigin("*")
@@ -19,6 +21,11 @@ public class RestaurantController {
 
         return restaurantService.guardarRestaurant(restaurantRequest);
 
+    }
+
+    @GetMapping("/listar")
+    public List<Restaurant> listarRestaurantes(){
+        return restaurantService.listarRestaurantes();
     }
 
 }
