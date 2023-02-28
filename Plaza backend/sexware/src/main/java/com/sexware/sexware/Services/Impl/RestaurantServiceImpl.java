@@ -64,8 +64,32 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<Restaurant> listarRestaurantes() {
+    public Restaurant obtenerRestaurante(Long id) {
+        return restaurantRepository.findByUsuarioId(id);
+    }
 
+    @Override
+    public List<Restaurant> listarRestaurante() {
         return restaurantRepository.findAll();
+    }
+
+    @Override
+    public String eliminarRestaurant(Long id) {
+
+        try{
+            restaurantRepository.deleteById(id);
+            return "Restaurante eliminado correctamente";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Error al eliminar el restaurante";
+        }
+
+
+
+    }
+
+    @Override
+    public Restaurant actualizarRestaurante(Restaurant restaurant) {
+        return restaurantRepository.save(restaurant);
     }
 }

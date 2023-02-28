@@ -1,9 +1,11 @@
 package com.sexware.sexware.Services.Impl;
 
+import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.UsuarioRoles;
 import com.sexware.sexware.Repositorys.AuditoriaRepository;
+import com.sexware.sexware.Repositorys.RestaurantRepository;
 import com.sexware.sexware.Repositorys.RolRepository;
 import com.sexware.sexware.Repositorys.UsuarioRepository;
 import com.sexware.sexware.Services.UsuarioService;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -24,6 +27,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     private RolRepository rolRepository;
     @Autowired
     private AuditoriaRepository auditoriaRepository;
+    @Autowired
+    private RestaurantRepository restaurantRepository;
 
     @Override
     public Usuario guardarUsuario(Usuario usuario,Set<UsuarioRoles> usuarioRoles, String email) throws Exception {
@@ -63,8 +68,21 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void eliminarUsuario(Long usuarioId) {
-        usuarioRepository.deleteById(usuarioId);
+    public List<Usuario> listarUsuario() {
+        return usuarioRepository.findAll();
+    }
+
+    @Override
+    public String eliminarUsuario(Long usuarioId) {
+
+        try {
+            usuarioRepository.deleteById(usuarioId);
+
+            return "Usuario eliminado correctamente";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Error al eliminar el usuario";
+        }
     }
 
     @Override

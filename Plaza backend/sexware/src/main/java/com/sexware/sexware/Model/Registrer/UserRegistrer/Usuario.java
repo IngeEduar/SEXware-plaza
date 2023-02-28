@@ -29,7 +29,7 @@ public class Usuario implements UserDetails {
     private String email;
     @Column(length = 13,nullable = false)
     private String celular;
-    @Column(length = 15,nullable = false)
+    @Column(unique = true, length = 15, nullable = false)
     private String nIdentidad;
     @Column(nullable = false)
     private String password;
@@ -71,4 +71,5 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

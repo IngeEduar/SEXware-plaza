@@ -7,6 +7,7 @@ import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.UsuarioRoles;
 import com.sexware.sexware.Repositorys.AuditoriaRepository;
 import com.sexware.sexware.Services.UsuarioService;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -53,8 +54,13 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/eliminar/{usuarioId}")
-    public void eliminarUsuario(@PathVariable("usuarioId") Long usuarioId){
-        usuarioService.eliminarUsuario(usuarioId);
+    public String eliminarUsuario(@PathVariable("usuarioId") Long usuarioId){
+
+        return usuarioService.eliminarUsuario(usuarioId);
+    }
+    @GetMapping("/listar-usuario")
+    public List<Usuario> listarUsuario(){
+        return usuarioService.listarUsuario();
     }
 
     @PostMapping("/actualizar-password")

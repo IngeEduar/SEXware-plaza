@@ -18,7 +18,7 @@ public class Restaurant {
     private Long id;
     @Column(length = 50,nullable = false)
     private String nombre;
-    @Column(length = 100, nullable = false)
+    @Column(unique = true, length = 100, nullable = false)
     private String nit;
     @Column(nullable = false)
     private String direccion;
@@ -27,7 +27,7 @@ public class Restaurant {
     @Column(length = 50,nullable = false)
     private String urlLogo;
 
-    @ManyToOne(optional = false,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(optional = false,fetch = FetchType.EAGER)
     private Usuario usuarioId;
 
 }
