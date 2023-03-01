@@ -43,8 +43,8 @@ public class RestaurantController {
     @PostMapping("/actualizar")
     public Restaurant actualizarRestaurante(@RequestBody ActualizarRestaurantRequest request){
 
-        Restaurant rest = restaurantService.obtenerRestaurante(request.getId());
-        Usuario usuario = usuarioService.obtenerUsuario(request.getEmailPropietario());
+        Restaurant rest = restaurantService.obtenerRestaurante(request.getNombre());
+        Usuario usuario = usuarioService.obtenerUsuario(request.getEmail());
 
         rest.setUsuarioId(usuario);
 

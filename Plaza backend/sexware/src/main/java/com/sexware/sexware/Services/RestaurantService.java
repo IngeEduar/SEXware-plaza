@@ -9,7 +9,7 @@ public interface RestaurantService {
 
     public Restaurant guardarRestaurant(RestaurantRequest restaurantRequest);
 
-    public Restaurant obtenerRestaurante(Long id);
+    public Restaurant obtenerRestaurante(String nombre);
     public List<Restaurant> listarRestaurante();
 
     public String eliminarRestaurant (Long id);

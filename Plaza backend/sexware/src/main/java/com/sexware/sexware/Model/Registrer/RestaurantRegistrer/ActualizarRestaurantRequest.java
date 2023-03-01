@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter @Getter @AllArgsConstructor @NoArgsConstructor
 public class ActualizarRestaurantRequest {
 
-    private Long id;
-    private String emailPropietario;
+    private String nombre;
+    private String email; //este es el email del nuevo propietario
 
 }
