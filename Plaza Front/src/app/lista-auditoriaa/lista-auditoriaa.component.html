@@ -1,0 +1,20 @@
+<app-navbar></app-navbar>
+
+<h2>Lista empleados</h2>
+<table class="table table-striped">
+    <thead class="table-dark">
+        <tr >
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let auditorias of auditoria">
+            <td>{{auditorias.titulo}}</td>
+            <td>{{auditorias.descripcion}}</td>
+            <td>{{auditorias.fecha}}</td>
+
+        </tr>
+    </tbody>
+</table>

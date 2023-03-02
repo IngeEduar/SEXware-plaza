@@ -1,0 +1,86 @@
+<app-navbar></app-navbar>
+
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-6 offset-md-3">
+                <div class="container text-center">
+                    <img src="../../../assets/add-friend.png" width="100" height="100"> 
+                </div>
+                <h1 class="text-center">Registrar propietarios</h1>
+
+                <form (ngSubmit) ="formSubmit()">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Ingrese correo</mat-label>
+                        <input type="email" required matInput placeholder="Digite su email"
+                        id="email"
+                        [(ngModel)]="user.email"
+                        name="email">
+
+
+                    </mat-form-field>
+
+                
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Contraseña: </mat-label>
+                        <input required
+                         type="password"      
+                         matInput placeholder="Digite su contraseña"
+                         id="password"
+                         [(ngModel)]="user.password"
+                         name="password">
+
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Nombre: </mat-label>
+                        <input matInput placeholder="Nombre"
+                        id="nombre"
+                        [(ngModel)]="user.nombre"
+                        name="nombre">
+
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Apellido: </mat-label>
+                        <input matInput placeholder="Apellido"
+                        id="apellido"
+                        [(ngModel)]="user.apellido"
+                        name="apellido">
+
+                    </mat-form-field>
+
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Celular: </mat-label>
+                        <input matInput placeholder="Telefono"
+                        id="celular"
+                        [(ngModel)]="user.celular"
+                        name="celular">
+
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Numero de identidad: </mat-label>
+                        <input matInput placeholder="Documento"
+                        id="nidentidad"
+                        [(ngModel)]="user.nidentidad"
+                        name="nidentidad">
+
+                    </mat-form-field>
+
+                    <div class="container text-center">
+                        <button mat-raised-button color="primary" id="btn1">Registrar</button>
+                        <button type="reset" style="margin-left: 20px;" mat-raised-button color="accent" id="btn2">Limpiar</button>
+                    </div>
+
+                </form>
+
+                <br><br><br>
+
+            </div>
+
+        </div>
+    </div>
+</div>
