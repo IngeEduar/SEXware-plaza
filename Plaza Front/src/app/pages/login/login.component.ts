@@ -25,6 +25,8 @@ export class LoginComponent{
 
   }
 
+
+
   formSubmit()
   {
     //console.log("Click en el boton de login", this.loginData.username, this.loginData.password);
@@ -53,6 +55,7 @@ export class LoginComponent{
         this.loginService.loginUser(data.token);
         this.loginService.getCurrentUser().subscribe((user:any) =>{
           console.log(user);
+          close();
           open("/admin");
         })
 

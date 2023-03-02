@@ -35,6 +35,16 @@ export class ActualizarPasswordComponent {
 
     console.log(this.contrasegna);
 
+    if(this.contrasegna.pass.length <= 6){
+      this.snack.open('La contraseña no puede ser tan corta', 'Aceptar', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+
+      });
+      return;
+    }
+
     this.userService.cambiarPassword
 
     this.userService.cambiarPassword(this.contrasegna).subscribe(

@@ -12,7 +12,7 @@
                 <form (ngSubmit) ="formSubmit()">
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label>Nombre restaurante</mat-label>
-                        <input required matInput placeholder="Digite su usuario"
+                        <input required matInput placeholder="Digite el nombre de su restaurante"
                         id="nombre"
                         [(ngModel)]="restaurante.nombre"
                         name="nombre">
@@ -25,7 +25,7 @@
                         <mat-label>NIT: </mat-label>
                         <input required
                          type="nit"      
-                         matInput placeholder="Digite su contraseña"
+                         matInput placeholder="Digite su NIT: 10122012334-5"
                          id="nit"
                          [(ngModel)]="restaurante.nit"
                          name="nit">
@@ -52,13 +52,13 @@
 
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label>Logo: </mat-label>
-                        <input matInput placeholder="logo"
+                        <input matInput placeholder="logo .pgn .jpg .jpeg"
                         id="logo"
                         [(ngModel)]="restaurante.logo"
                         name="logo">
 
                     </mat-form-field>
-
+<!--
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label>admin: </mat-label>
                         <input matInput placeholder="admin"
@@ -66,11 +66,11 @@
                         [(ngModel)]="restaurante.admin"
                         name="admin">
 
-                    </mat-form-field>
+                    </mat-form-field>-->
 
                     <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>usuario: </mat-label>
-                        <input matInput placeholder="usuario"
+                        <mat-label>Propietario: </mat-label>
+                        <input matInput placeholder="Ingrese el email del propietario"
                         id="usuario"
                         [(ngModel)]="restaurante.user"
                         name="user">

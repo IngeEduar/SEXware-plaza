@@ -1,3 +1,4 @@
+import { identifierName } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -8,13 +9,22 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class DashboardAdminComponent {
 
+
   constructor (public LoginService: LoginService){
 
   }
 
+
   getName(){
-    var nombre = this.LoginService.getUser().username;
+    return this.LoginService.getUser().username;
     
+  }
+
+  salir(){
+    console.log("Saliendo");
+    close();
+    open("/login");
+    this.LoginService.logout();
   }
 
 

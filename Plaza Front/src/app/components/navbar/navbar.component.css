@@ -21,6 +21,19 @@
     border-radius: 10px;
   }
 
+  #but {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-radius: 10px;
+    border: none;
+    background-color: #00000000;
+    
+  }
+
   
   /* Change background on mouse-over */
   .navbar .cont:hover {

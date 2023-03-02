@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  constructor(private loginService:LoginService)
+  {
+
+  }
+
+  salir(){
+    console.log("Saliendo");
+    close();
+    open("/login");
+    this.loginService.logout();
+  }
 }
