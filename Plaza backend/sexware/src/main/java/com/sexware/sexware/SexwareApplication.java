@@ -1,5 +1,6 @@
 package com.sexware.sexware;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +27,13 @@ public class SexwareApplication {
 						.allowedHeaders("*");
 			}
 		};
+	}
+
+	@Bean
+	public ModelMapper modelMapper() {
+
+		ModelMapper modelMapper = new ModelMapper();
+		return modelMapper;
 	}
 
 
