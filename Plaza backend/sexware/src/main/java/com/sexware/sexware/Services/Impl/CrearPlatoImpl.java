@@ -1,9 +1,6 @@
 package com.sexware.sexware.Services.Impl;
 
-import com.sexware.sexware.Model.Registrer.PlatoRegister.Categoria;
-import com.sexware.sexware.Model.Registrer.PlatoRegister.CrearPlatoRequest;
-import com.sexware.sexware.Model.Registrer.PlatoRegister.CrearPlatoResponse;
-import com.sexware.sexware.Model.Registrer.PlatoRegister.Plato;
+import com.sexware.sexware.Model.Registrer.PlatoRegister.*;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
@@ -15,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Service
 public class CrearPlatoImpl implements PlatoService {
@@ -69,6 +67,20 @@ public class CrearPlatoImpl implements PlatoService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public List<Categoria> listarCategorias() {
+        return categoriaRepository.findAll();
+    }
+
+    @Override
+    public Categoria agregarCategoria(AgregarCategoriaRequest categoriaRequest) {
+
+        Categoria categoria = new Categoria();
+        categoria.setCategoriaNombre(categoriaRequest.getNombre());
+
+        return categoriaRepository.save(categoria);
     }
 
     public void agregarPlatoAuditoria(String email,String nombrePlato){
