@@ -78,4 +78,9 @@ public class UsuarioController {
     public List<Auditoria> auditoria(){
         return auditoriaRepository.findAll();
     }
+
+    @GetMapping("/lista-propietarios")
+    public List<Usuario> listarPropietarios(){
+        return usuarioService.listarPropietarios();
+    }
 }

@@ -18,5 +18,6 @@ public interface UsuarioService {
     public String actualizarPass(Usuario usuario);
 
     public Usuario guardarAdmin(Usuario usuario,Set<UsuarioRoles> usuarioRoles)throws Exception;
+    public List<Usuario> listarPropietarios();
 
 }

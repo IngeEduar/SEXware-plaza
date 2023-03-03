@@ -4,6 +4,7 @@ import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.ActualizarRestaur
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.RestaurantRequest;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
+import com.sexware.sexware.Repositorys.RestaurantRepository;
 import com.sexware.sexware.Services.RestaurantService;
 import com.sexware.sexware.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,4 +52,10 @@ public class RestaurantController {
         return restaurantService.actualizarRestaurante(rest);
     }
 
+
+    @PostMapping("/lista-propietario/{id}")
+    public List<Restaurant> listarRest(@PathVariable("id") Long id){
+
+        return restaurantService.listaRestaurantPropietario(id);
+    }
 }

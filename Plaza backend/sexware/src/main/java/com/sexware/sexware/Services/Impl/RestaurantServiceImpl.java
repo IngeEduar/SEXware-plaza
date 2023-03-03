@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
@@ -71,6 +73,22 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public List<Restaurant> listarRestaurante() {
         return restaurantRepository.findAll();
+    }
+
+    @Override
+    public List<Restaurant> listaRestaurantPropietario(Long id) {
+
+
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+        List<Restaurant> restaurantList = new ArrayList<>();
+
+        for(Restaurant rest:restaurants){
+            if (Objects.equals(rest.getUsuarioId().getId(), id)){
+                restaurantList.add(rest);
+            }
+        }
+
+        return restaurantList;
     }
 
     @Override

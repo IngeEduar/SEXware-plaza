@@ -1,19 +1,16 @@
 package com.sexware.sexware.Services.Impl;
 
-import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.UsuarioRoles;
-import com.sexware.sexware.Repositorys.AuditoriaRepository;
-import com.sexware.sexware.Repositorys.RestaurantRepository;
-import com.sexware.sexware.Repositorys.RolRepository;
-import com.sexware.sexware.Repositorys.UsuarioRepository;
+import com.sexware.sexware.Repositorys.*;
 import com.sexware.sexware.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,13 +19,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-
     @Autowired
     private RolRepository rolRepository;
     @Autowired
-    private AuditoriaRepository auditoriaRepository;
+    private UsuarioRolRepository usuarioRolRepository;
     @Autowired
-    private RestaurantRepository restaurantRepository;
+    private AuditoriaRepository auditoriaRepository;
 
     @Override
     public Usuario guardarUsuario(Usuario usuario,Set<UsuarioRoles> usuarioRoles, String email) throws Exception {
@@ -110,6 +106,25 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         return usuarioLocal;
+    }
+
+    @Override
+    public List<Usuario> listarPropietarios() {
+
+        List<UsuarioRoles> usuarioRoles = usuarioRolRepository.findAll();
+        List<Usuario> usuarios = new ArrayList<>();
+
+        for (UsuarioRoles user: usuarioRoles) {
+            String rol = user.getRol().getRolNombre();
+
+            if(rol.equals("PROPIETARIO")){
+                usuarios.add(user.getUsuario());
+            }
+        }
+
+
+
+        return usuarios;
     }
 
 
