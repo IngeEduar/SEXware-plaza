@@ -12,7 +12,7 @@ public class RestaurantRequest {
     private String nit;
     private String direccion;
     private String telefono;
-    private String logo;
+    private String urlLogo;
     private String admin;
     private String user;
 

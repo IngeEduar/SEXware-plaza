@@ -44,7 +44,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurant.setDireccion(restaurantRequest.getDireccion());
         restaurant.setNit(restaurantRequest.getNit());
         restaurant.setTelefono(restaurantRequest.getTelefono());
-        restaurant.setUrlLogo(restaurantRequest.getLogo());
+        restaurant.setUrlLogo(restaurantRequest.getUrlLogo());
         restaurant.setUsuarioId(usuario);
 
         restaurantRepository.save(restaurant);
