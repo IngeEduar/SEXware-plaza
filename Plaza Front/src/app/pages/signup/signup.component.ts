@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -22,9 +23,16 @@ export class SignupComponent {
 
   }
 
-  constructor(private userServices:UserService, private snack: MatSnackBar)
+  constructor(private userServices:UserService, private snack: MatSnackBar, private LoginService:LoginService)
   {
 
+  }
+
+  salir(){
+    console.log("Saliendo");
+    close();
+    open("/login");
+    this.LoginService.logout();
   }
 
   ngOnInit(): void

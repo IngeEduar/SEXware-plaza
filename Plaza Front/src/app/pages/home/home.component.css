@@ -55,6 +55,7 @@ body {
 .btn-primary {
   color: #fff;
   background: linear-gradient(to right, #FF4B2B, #FF416C);
+  padding-top: 15px;
 }
 
 .btn-primary:hover{
@@ -199,6 +200,7 @@ body {
 
 #about h3 {
   font-size: 2rem;
+  color: #000;
 }
 
 #about p {

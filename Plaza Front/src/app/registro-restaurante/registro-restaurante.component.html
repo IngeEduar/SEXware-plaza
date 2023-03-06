@@ -1,98 +1,141 @@
-
-<app-navbar></app-navbar>
+<div class="w-full md:flex justify-between body" style="background-color: #bbbbbb;">
+    <div class="flex-shrenk-0 w-full md:w-80 h-screen sticky top-0 overflow-y-auto" style="border-right: 1px solid rgb(87, 87, 87);background-color: #374151; ">
+      <nav class="navbar shadow-lg p-5" style="background-color: #252c36;">
+        <div class="font-semibold" >PLAZA FESC</div>
+      </nav>
+      <ul class="menu p-5">
+        <li class="menu-title"><span>Navigation</span></li>
+        <li><a href="/admin"><i class="fa-solid fa-house-chimney"></i> Inicio</a></li>
+        <li><a href="/signup"><i class="fa-regular fa-user"></i> Propietarios</a></li>
+        <li><a class="active" href="/registro-restaurante"><i class="fa-solid fa-utensils"></i> Restaurantes</a></li>
+        <li><a href="/auditoria"><i class="fa-regular fa-newspaper"></i> Auditorias</a></li>
+        <li><a href="/actualizar-contrasegna"><i class="fa-solid fa-lock"></i>Cambiar clave</a></li>
+              <div style="display: flex; justify-content: center; width: 75%;">
+                <form (ngSubmit) ="salir()">
+                  <button id="but" type="submit" class="cont">
+                    <li style="bottom: 10px; position: absolute;"><i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 20px;"></i></li>
+                  </button>
+                </form>
+              </div>
+              
+              
+      </ul>
+    </div>
+    <div class="flex-1">
+      <div class="flex items-center justify-between p-5">
+        <div class="breadcrumbs">
+            <h1 class="text-center" style="color: #252c36;"><i style="font-size: 30px; margin-right: 10px;" class="fa-solid fa-shop"> </i>Registrar restaurante</h1>
+        </div>
+        <div>
+            
+          <div class="avatar gap-5">
+            <input type="search" class="input input-bordered rounded-full" placeholder="Search">
+            <div class="w-12 rounded-full">
+              <img src="https://api.lorem.space/image/face?hash=64318">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- main content /-->
+      <div class="w-full p-5">
+  
+  
+        
+       
 <div class="bootstrap-wrapper">
     <div class="container">
         <div class="row" style="margin-top: 20px;">
             <div class="col-md-6 offset-md-3">
-                <div class="container text-center">
-                    <img src="../../../assets/restaurante.png" width="100" height="100"> 
-                </div>
-                <h1 class="text-center">Registrar restaurante</h1>
 
-                <form (ngSubmit) ="formSubmit()">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Nombre restaurante</mat-label>
-                        <input required matInput placeholder="Digite el nombre de su restaurante"
-                        id="nombre"
-                        [(ngModel)]="restaurante.nombre"
-                        name="nombre">
+                    <form (ngSubmit) ="formSubmit()" id="form">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <input required matInput placeholder="Digite el nombre de su restaurante"
+                            id="nombre"
+                            [(ngModel)]="restaurante.nombre"
+                            name="nombre">
 
-                        <mat-hint>El nombre del usuario debe ser único</mat-hint>
-                    </mat-form-field>
-
-                
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>NIT: </mat-label>
-                        <input required
-                         type="nit"      
-                         matInput placeholder="Digite su NIT: 10122012334-5"
-                         id="nit"
-                         [(ngModel)]="restaurante.nit"
-                         name="nit">
-
-                    </mat-form-field>
-
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Direccion: </mat-label>
-                        <input matInput placeholder="Direccion"
-                        id="direccion"
-                        [(ngModel)]="restaurante.direccion"
-                        name="direccion">
-
-                    </mat-form-field>
-
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Telefono: </mat-label>
-                        <input matInput placeholder="telefono"
-                        id="telefono"
-                        [(ngModel)]="restaurante.telefono"
-                        name="telefono">
-
-                    </mat-form-field>
-
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Logo: </mat-label>
-                        <input matInput placeholder="logo .pgn .jpg .jpeg"
-                        id="logo"
-                        [(ngModel)]="restaurante.logo"
-                        name="logo">
-
-                    </mat-form-field>
-<!--
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>admin: </mat-label>
-                        <input matInput placeholder="admin"
-                        id="admin"
-                        [(ngModel)]="restaurante.admin"
-                        name="admin">
-
-                    </mat-form-field>-->
-
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Propietario: </mat-label>
-                        <input matInput placeholder="Ingrese el email del propietario"
-                        id="usuario"
-                        [(ngModel)]="restaurante.user"
-                        name="user">
-
-                    </mat-form-field>
+                        </mat-form-field>
 
                     
+                        <mat-form-field class="full-width" appearance="outline">
+                            <input required
+                            type="nit"      
+                            matInput placeholder="Digite su NIT: 10122012334-5"
+                            id="nit"
+                            [(ngModel)]="restaurante.nit"
+                            name="nit">
 
- 
+                        </mat-form-field>
 
-                    <div class="container text-center">
-                        <button mat-raised-button color="primary" id="btn1">Registrar</button>
-                        <button type="reset" style="margin-left: 20px;" mat-raised-button color="accent" id="btn2">Limpiar</button>
-                    </div>
+                        <mat-form-field class="full-width" appearance="outline">
+                            <input matInput placeholder="Direccion"
+                            id="direccion"
+                            [(ngModel)]="restaurante.direccion"
+                            name="direccion">
 
-                </form>
+                        </mat-form-field>
 
-                <br><br><br>
+                        <mat-form-field class="full-width" appearance="outline">
+                            <input matInput placeholder="telefono"
+                            id="telefono"
+                            [(ngModel)]="restaurante.telefono"
+                            name="telefono">
+
+                        </mat-form-field>
+
+                        <mat-form-field class="full-width" appearance="outline">
+                            <input matInput placeholder="logo .pgn .jpg .jpeg"
+                            id="logo"
+                            [(ngModel)]="restaurante.logo"
+                            name="logo">
+
+                        </mat-form-field>
+    <!--
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>admin: </mat-label>
+                            <input matInput placeholder="admin"
+                            id="admin"
+                            [(ngModel)]="restaurante.admin"
+                            name="admin">
+
+                        </mat-form-field>-->
+
+                        <mat-form-field class="full-width" appearance="outline">
+                            <input matInput placeholder="Ingrese el email del propietario"
+                            id="usuario"
+                            [(ngModel)]="restaurante.user"
+                            name="user">
+
+                        </mat-form-field>
+
+                        
+
+    
+
+                        <div class="container text-center">
+                            <button mat-raised-button color="primary" id="btn1">Registrar</button>
+                            <button type="reset" style="margin-left: 20px;" mat-raised-button color="accent" id="btn2">Limpiar</button>
+                        </div>
+
+                    </form>
+
+                    <br><br><br>
+
+                </div>
 
             </div>
-
         </div>
     </div>
-</div>
+
+
+
+
+
+        <!--END Report-->
+        
+        
+      </div>
+      <!-- END main content /-->
+    </div>
+  </div>
 

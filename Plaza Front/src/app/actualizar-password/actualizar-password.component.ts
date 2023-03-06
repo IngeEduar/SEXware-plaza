@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../services/user.service';
 import Swal from 'sweetalert2';
 import { LoginComponent } from '../pages/login/login.component';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-actualizar-password',
@@ -12,13 +13,19 @@ import { LoginComponent } from '../pages/login/login.component';
 export class ActualizarPasswordComponent {
 
 
-  constructor(private userService:UserService, private snack:MatSnackBar)
+  constructor(private userService:UserService, private snack:MatSnackBar, private LoginService: LoginService)
   {
 
   }
 
 
-
+  salir(){
+    console.log("Saliendo");
+    close();
+    close();
+    open("/login");
+    this.LoginService.logout();
+  }
 
 
   public contrasegna =

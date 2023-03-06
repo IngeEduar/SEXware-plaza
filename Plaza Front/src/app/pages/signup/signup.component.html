@@ -1,86 +1,135 @@
-<app-navbar></app-navbar>
+<div class="w-full md:flex justify-between body" style="background-color: #bbbbbb;">
+    <div class="flex-shrenk-0 w-full md:w-80 h-screen sticky top-0 overflow-y-auto" style="border-right: 1px solid rgb(87, 87, 87);background-color: #374151; ">
+      <nav class="navbar shadow-lg p-5" style="background-color: #252c36;">
+        <div class="font-semibold" >PLAZA FESC</div>
+      </nav>
+      <ul class="menu p-5">
+        <li class="menu-title"><span>Navigation</span></li>
+        <li><a href="/admin"><i class="fa-solid fa-house-chimney"></i> Inicio</a></li>
+        <li><a class="active" href="/signup"><i class="fa-regular fa-user"></i> Propietarios</a></li>
+        <li><a href="/registro-restaurante"><i class="fa-solid fa-utensils"></i> Restaurantes</a></li>
+        <li><a href="/auditoria"><i class="fa-regular fa-newspaper"></i> Auditorias</a></li>
+        <li><a href="/actualizar-contrasegna"><i class="fa-solid fa-lock"></i>Cambiar clave</a></li>
+              <div style="display: flex; justify-content: center; width: 75%;">
+                <form (ngSubmit) ="salir()">
+                  <button id="but" type="submit" class="cont">
+                    <li style="bottom: 10px; position: absolute;"><i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 20px;"></i></li>
+                  </button>
+                </form>
+              </div>
+              
+              
+      </ul>
+    </div>
+    <div class="flex-1">
+      <div class="flex items-center justify-between p-5">
+        <div class="breadcrumbs">
+            <h1 class="text-center" style="color: #252c36;"><i style="font-size: 30px; margin-right: 10px;" class="fa-solid fa-address-card"> </i>Registrar propietarios</h1>
+        </div>
+        <div>
+            
+          <div class="avatar gap-5">
+            <input type="search" class="input input-bordered rounded-full" placeholder="Search">
+            <div class="w-12 rounded-full">
+              <img src="https://api.lorem.space/image/face?hash=64318">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- main content /-->
+      <div class="w-full p-5">
+  
+  
+        
+        
 
-<div class="bootstrap-wrapper">
-    <div class="container">
-        <div class="row" style="margin-top: 20px;">
-            <div class="col-md-6 offset-md-3">
-                <div class="container text-center">
-                    <img src="../../../assets/add-friend.png" width="100" height="100"> 
-                </div>
-                <h1 class="text-center">Registrar propietarios</h1>
+        <div class="bootstrap-wrapper">
+            <div class="container">
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-6 offset-md-3">
+                        
 
-                <form (ngSubmit) ="formSubmit()">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Ingrese correo</mat-label>
-                        <input type="email" required matInput placeholder="Digite su email"
-                        id="email"
-                        [(ngModel)]="user.email"
-                        name="email">
+                        <form (ngSubmit) ="formSubmit()" id="form">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <input type="email" required matInput placeholder="Digite su email"
+                                id="email"
+                                [(ngModel)]="user.email"
+                                name="email">
 
 
-                    </mat-form-field>
+                            </mat-form-field>
 
-                
+                        
 
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Contraseña: </mat-label>
-                        <input required
-                         type="password"      
-                         matInput placeholder="Digite su contraseña"
-                         id="password"
-                         [(ngModel)]="user.password"
-                         name="password">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <input required
+                                type="password"      
+                                matInput placeholder="Digite su contraseña"
+                                id="password"
+                                [(ngModel)]="user.password"
+                                name="password">
 
-                    </mat-form-field>
+                            </mat-form-field>
 
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Nombre: </mat-label>
-                        <input matInput placeholder="Nombre"
-                        id="nombre"
-                        [(ngModel)]="user.nombre"
-                        name="nombre">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <input matInput placeholder="Nombre"
+                                id="nombre"
+                                [(ngModel)]="user.nombre"
+                                name="nombre">
 
-                    </mat-form-field>
+                            </mat-form-field>
 
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Apellido: </mat-label>
-                        <input matInput placeholder="Apellido"
-                        id="apellido"
-                        [(ngModel)]="user.apellido"
-                        name="apellido">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <input matInput placeholder="Apellido"
+                                id="apellido"
+                                [(ngModel)]="user.apellido"
+                                name="apellido">
 
-                    </mat-form-field>
+                            </mat-form-field>
 
 
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Celular: </mat-label>
-                        <input matInput placeholder="Telefono: +57 3115204335"
-                        id="celular"
-                        [(ngModel)]="user.celular"
-                        name="celular">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <input matInput placeholder="Telefono: +57 3115204335"
+                                id="celular"
+                                [(ngModel)]="user.celular"
+                                name="celular">
 
-                    </mat-form-field>
+                            </mat-form-field>
 
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Numero de identidad: </mat-label>
-                        <input matInput placeholder="Documento"
-                        id="nidentidad"
-                        [(ngModel)]="user.nidentidad"
-                        name="nidentidad">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <input matInput placeholder="Documento"
+                                id="nidentidad"
+                                [(ngModel)]="user.nidentidad"
+                                name="nidentidad">
 
-                    </mat-form-field>
+                            </mat-form-field>
 
-                    <div class="container text-center">
-                        <button mat-raised-button color="primary" id="btn1">Registrar</button>
-                        <button type="reset" style="margin-left: 20px;" mat-raised-button color="accent" id="btn2">Limpiar</button>
+                            <div class="container text-center">
+                                <button mat-raised-button color="primary" id="btn1">Registrar</button>
+                                <button type="reset" style="margin-left: 20px;" mat-raised-button color="accent" id="btn2">Limpiar</button>
+                            </div>
+
+                        </form>
+
+                        <br><br><br>
+
                     </div>
 
-                </form>
-
-                <br><br><br>
-
+                </div>
             </div>
-
         </div>
+
+
+
+
+        <!--END Report-->
+        
+        
+      </div>
+      <!-- END main content /-->
     </div>
-</div>
+  </div>
+
+
+
+

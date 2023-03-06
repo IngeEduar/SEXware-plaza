@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Auditoria } from '../auditoria';
+import { LoginService } from '../services/login.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { UserService } from '../services/user.service';
 export class ListaAuditoriaaComponent {
 
   auditoria:Auditoria[];
-  constructor(private usuarioServicio:UserService)
+  constructor(private usuarioServicio:UserService, private LoginService: LoginService)
   {
 
   }
@@ -19,6 +20,13 @@ export class ListaAuditoriaaComponent {
   {
     this.obtenerAuditoria();
 
+  }
+
+  salir(){
+    console.log("Saliendo");
+    close();
+    open("/login");
+    this.LoginService.logout();
   }
 
   obtenerAuditoria()
