@@ -26,7 +26,7 @@ public class Plato implements Serializable {
     @Column(nullable = false, length = 10)
     private String precio;
     @Column(nullable = false)
-    private String urlImg;
+    private String img;
     private boolean estado = true;
 
     @ManyToOne(optional = false)
