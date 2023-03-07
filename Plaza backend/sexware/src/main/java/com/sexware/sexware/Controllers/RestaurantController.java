@@ -95,9 +95,9 @@ public class RestaurantController {
     }
 
 
-    @PostMapping("/lista-propietario/{nombre}")
-    public List<Restaurant> listarRest(@PathVariable("nombre") String nombre){
+    @PostMapping("/lista-propietario/{correo}")
+    public List<Restaurant> listarRest(@PathVariable("correo") String correo){
 
-        return restaurantService.listaRestaurantPropietario(nombre);
+        return restaurantService.listaRestaurantPropietario(correo);
     }
 }
