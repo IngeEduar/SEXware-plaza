@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class CrearPlatoImpl implements PlatoService {
@@ -81,6 +84,22 @@ public class CrearPlatoImpl implements PlatoService {
         categoria.setCategoriaNombre(categoriaRequest.getNombre());
 
         return categoriaRepository.save(categoria);
+    }
+
+    @Override
+    public List<Plato> listarPlatoRest(String nombre) {
+
+        List<Plato> platoList = new ArrayList<>();
+        List<Plato> platos = platoRepository.findAll();
+
+        for (Plato plato: platos) {
+            if(Objects.equals(plato.getRestaurant().getNombre(),nombre)){
+                platoList.add(plato);
+            }
+        }
+
+
+        return platoList;
     }
 
     public void agregarPlatoAuditoria(String email,String nombrePlato){

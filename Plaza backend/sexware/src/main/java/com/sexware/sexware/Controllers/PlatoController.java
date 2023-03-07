@@ -1,13 +1,15 @@
 package com.sexware.sexware.Controllers;
 
-import com.sexware.sexware.Model.Registrer.PlatoRegister.AgregarCategoriaRequest;
-import com.sexware.sexware.Model.Registrer.PlatoRegister.Categoria;
-import com.sexware.sexware.Model.Registrer.PlatoRegister.CrearPlatoRequest;
-import com.sexware.sexware.Model.Registrer.PlatoRegister.CrearPlatoResponse;
+import com.google.gson.Gson;
+import com.sexware.sexware.Model.Registrer.PlatoRegister.*;
+import com.sexware.sexware.SaveImage.FileUploadUtil;
 import com.sexware.sexware.Services.PlatoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -25,6 +27,35 @@ public class PlatoController {
 
         return platoService.crearPlato(crearPlatoRequest);
 
+    }
+
+    @PostMapping("/agregar-img")
+    public CrearPlatoResponse agregarPlatoimg(@RequestParam("plato")String strPlato, @RequestParam("img")MultipartFile img){
+        try{
+            String filename = StringUtils.cleanPath(img.getOriginalFilename());
+            filename = "P"+filename;
+
+            String dirFile = "images/plato";
+
+            Gson gson = new Gson();
+            CrearPlatoRequest crearPlatoRequest = gson.fromJson(strPlato, CrearPlatoRequest.class);
+            crearPlatoRequest.setImg(filename);
+
+            CrearPlatoResponse crearPlatoResponse = platoService.crearPlato(crearPlatoRequest);
+
+            FileUploadUtil.saveFile(dirFile,filename,img);
+
+            return crearPlatoResponse;
+
+        }catch (IOException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @GetMapping("/lista-rest/{nombre}")
+    public List<Plato> listarPlatosRest(@PathVariable("nombre")String nombre){
+        return platoService.listarPlatoRest(nombre);
     }
 
     // Metodos para controlar categorias
