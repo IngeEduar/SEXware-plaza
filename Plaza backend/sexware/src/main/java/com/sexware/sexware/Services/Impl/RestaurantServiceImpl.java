@@ -76,14 +76,14 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<Restaurant> listaRestaurantPropietario(Long id) {
+    public List<Restaurant> listaRestaurantPropietario(String nombre) {
 
 
         List<Restaurant> restaurants = restaurantRepository.findAll();
         List<Restaurant> restaurantList = new ArrayList<>();
 
         for(Restaurant rest:restaurants){
-            if (Objects.equals(rest.getUsuarioId().getId(), id)){
+            if (Objects.equals(rest.getUsuarioId().getNombre(), nombre)){
                 restaurantList.add(rest);
             }
         }

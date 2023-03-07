@@ -11,7 +11,7 @@ public interface RestaurantService {
 
     public Restaurant obtenerRestaurante(String nombre);
     public List<Restaurant> listarRestaurante();
-    public List<Restaurant> listaRestaurantPropietario(Long id);
+    public List<Restaurant> listaRestaurantPropietario(String nombre);
     public String eliminarRestaurant (Long id);
 
     public Restaurant actualizarRestaurante(Restaurant restaurant);
