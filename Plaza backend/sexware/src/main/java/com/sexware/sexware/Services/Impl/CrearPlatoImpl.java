@@ -15,6 +15,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class CrearPlatoImpl implements PlatoService {
@@ -100,6 +101,18 @@ public class CrearPlatoImpl implements PlatoService {
 
 
         return platoList;
+    }
+
+    @Override
+    public boolean eliminarPlato(Long id) {
+
+        try{
+            platoRepository.deleteById(id);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public void agregarPlatoAuditoria(String email,String nombrePlato){
