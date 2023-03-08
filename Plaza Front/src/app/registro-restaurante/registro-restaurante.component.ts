@@ -3,6 +3,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../services/user.service';
 import Swal from 'sweetalert2';
 import { LoginService } from '../services/login.service';
+import { Restaurante } from 'src/restaurante';
+import { FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-registro-restaurante',
@@ -11,6 +14,69 @@ import { LoginService } from '../services/login.service';
 })
 export class RegistroRestauranteComponent {
 
+  restaurante: Restaurante = new Restaurante;
+  
+  title = 'formImage';
+  nombre = new FormControl('');
+  direccion = new FormControl('');
+  telefono = new FormControl('');
+  nit = new FormControl('');
+  admin = new FormControl('');
+  user = new FormControl('');
+  formData = new FormData();
+
+  constructor(private userService: UserService, private snack: MatSnackBar, private LoginService:LoginService, private httpClient:HttpClient)
+  {
+
+  }
+
+
+  enviarFormulario() {
+    //Creamos el objeto usuario, con las propiedades de nuestro formulario
+    let usuario = {
+      nombre: this.nombre.value,
+      direccion: this.direccion.value,
+      telefono: this.telefono.value,
+      nit: this.nit.value,
+      admin: this.admin.value,
+      user: this.user.value
+    };
+
+    //Añadimos a nuestro objeto formData nuestro objeto convertido a String
+    this.formData.append('restaurante', JSON.stringify(usuario));
+
+    //Realizamos la petición a SpringBoot
+    
+
+    this.httpClient
+      .post<any>('http://localhost:8080/restaurante/guardar', this.formData)
+      .subscribe((data) => {
+        //En este punto nuestra petición ha funcionado correctamente
+        alert('Usuario creado correctamente');
+      });
+  }
+  
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+
+    this.formData.append('img', file);
+  }
+
+  salir(){
+    console.log("Saliendo");
+    close();
+    open("/login");
+    this.LoginService.logout();
+  }
+
+  formSubmit()
+  {
+    
+  }
+
+
+  /*
   public restaurante =
   {
     nombre: '',
@@ -23,10 +89,6 @@ export class RegistroRestauranteComponent {
 
   }
 
-  constructor(private userService: UserService, private snack: MatSnackBar, private LoginService:LoginService)
-  {
-
-  }
 
   salir(){
     console.log("Saliendo");
@@ -152,4 +214,6 @@ export class RegistroRestauranteComponent {
 
   }
 
+
+  */
 }

@@ -8,7 +8,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class NavbarComponent {
 
-  constructor(private loginService:LoginService)
+  constructor(public loginService:LoginService)
   {
 
   }

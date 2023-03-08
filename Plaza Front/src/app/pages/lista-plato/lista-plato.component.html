@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+
+<h1>{{nombre}}</h1>
+
+<div class=" p-5">
+    <table class="table table-dark table-striped">
+        <thead class="table-dark">
+            <tr >
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Imagen</th>
+
+            </tr>
+        </thead>
+        <tbody>
+          
+            <tr *ngFor="let auditorias of listaPlato">
+                <td><font color="#000000">{{auditorias.nombre}}</font></td>
+                <td><font color="#000000">{{auditorias.descripcion}}</font></td>
+                <td><font color="#000000">{{auditorias.precio}}</font></td>
+                <td><font color="#000000">{{auditorias.img}}</font></td>
+                <!-- <td><font color="#000000">{{auditorias.categoria}}</font></td> -->
+                <!-- <td><img src="http://localhost:8080/img/photos/{{auditorias.urlLogo}}" alt="imagen" height="100px" width="200px" /></td> -->
+                <!-- <td><font color="#000000"><a href="/registrar-plato">Registro del plato</a></font></td> -->
+                <!-- <td><font color="#000000"><a href="/listar-platos">Ver platos</a></font></td> -->
+
+                
+            
+            </tr>
+
+        
+        </tbody>
+
+        
+
+        
+        
+      </table>
+    
+
+    <!--END Report-->
+    
+    
+  </div>

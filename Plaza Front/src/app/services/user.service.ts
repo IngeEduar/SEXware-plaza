@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import baseUrl from './helper';
 import { Observable } from 'rxjs';
 import { Auditoria } from '../auditoria';
+import { Restaurante } from 'src/restaurante';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,12 @@ export class UserService {
   obtenerUsuarioLogeado(loginData:any)
   {
     return (loginData.email)
+  }
+
+  obtenerImagen():Observable<Restaurante>{
+
+    return this.httpClient.get<Restaurante>('http://localhost:8080/img/photos/')
+
   }
 
 

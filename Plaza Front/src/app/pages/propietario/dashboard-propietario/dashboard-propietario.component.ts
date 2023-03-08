@@ -1,16 +1,14 @@
-import { identifierName } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
-  selector: 'app-dashboard-admin',
-  templateUrl: './dashboard-admin.component.html',
-  styleUrls: ['./dashboard-admin.component.css']
+  selector: 'app-dashboard-propietario',
+  templateUrl: './dashboard-propietario.component.html',
+  styleUrls: ['./dashboard-propietario.component.css']
 })
-export class DashboardAdminComponent {
+export class DashboardPropietarioComponent {
 
-
-  constructor (public LoginService: LoginService){
+  constructor (public LoginService: LoginService, public loginService:LoginService){
 
   }
 
@@ -24,7 +22,5 @@ export class DashboardAdminComponent {
     this.LoginService.logout();
     window.location.reload();
   }
-
-
 
 }

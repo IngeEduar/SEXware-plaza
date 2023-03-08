@@ -1,0 +1,90 @@
+<app-navbar></app-navbar>
+
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-6 offset-md-3">
+                
+
+                <form (ngSubmit) ="formSubmit()" id="form">
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <input type="nombre" required matInput placeholder="nombre"
+                        id="nombre"
+                        [(ngModel)]="plato.nombre"
+                        name="nombre">
+
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <input required    
+                        matInput placeholder="Descripcion"
+                        id="descripcion"
+                        [(ngModel)]="plato.descripcion"
+                        name="descripcion">
+
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <input matInput placeholder="precio"
+                        id="precio"
+                        [(ngModel)]="plato.precio"
+                        name="precio">
+
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <input matInput placeholder="Img"
+                        id="img"
+                        [(ngModel)]="plato.img"
+                        name="img">
+
+                    </mat-form-field>
+
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <input matInput placeholder="Categoria"
+                        id="categoria"
+                        [(ngModel)]="plato.categoria"
+                        name="categoria">
+
+                    </mat-form-field>
+                      <!--  
+                    <mat-form-field class="full-width" appearance="outline">
+                        <input matInput placeholder="Logeado"
+                        id="Logeado"
+                        [(ngModel)]="plato.logeado"
+                        name="logeado">
+
+                    </mat-form-field>
+
+                -->
+
+                    
+
+                <!--  
+                    <mat-form-field class="full-width" appearance="outline">
+                        <input matInput placeholder="Restaurante"
+                        id="restaurante"
+                        [(ngModel)]="plato.restaurante"
+                        name="restaurante">
+
+                    </mat-form-field>
+
+                -->
+                    
+
+                    <div class="container text-center">
+                        <button mat-raised-button color="primary" id="btn1">Registrar</button>
+                        <button type="reset" style="margin-left: 20px;" mat-raised-button color="accent" id="btn2">Limpiar</button>
+                    </div>
+
+                </form>
+
+                <br><br><br>
+
+            </div>
+
+        </div>
+    </div>
+</div>

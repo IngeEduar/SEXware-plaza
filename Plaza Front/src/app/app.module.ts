@@ -12,7 +12,7 @@ import { LoginComponent } from './pages/login/login.component';
 
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { HomeComponent } from './pages/home/home.component';
@@ -23,6 +23,10 @@ import { AuthInterceptor, authInterceptorProviders } from './services/auth.inter
 import { ListaAuditoriaaComponent } from './lista-auditoriaa/lista-auditoriaa.component';
 import { RegistroRestauranteComponent } from './registro-restaurante/registro-restaurante.component';
 import { ActualizarPasswordComponent } from './actualizar-password/actualizar-password.component';
+import { DashboardPropietarioComponent } from './pages/propietario/dashboard-propietario/dashboard-propietario.component';
+import { RegistrarPlatoComponent } from './pages/registrar-plato/registrar-plato.component';
+import { ListaRestaurantesComponent } from './pages/lista-restaurantes/lista-restaurantes.component';
+import { ListaPlatoComponent } from './pages/lista-plato/lista-plato.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,12 @@ import { ActualizarPasswordComponent } from './actualizar-password/actualizar-pa
     HomeComponent,
     ListaAuditoriaaComponent,
     RegistroRestauranteComponent,
-    ActualizarPasswordComponent
+    ActualizarPasswordComponent,
+    DashboardPropietarioComponent,
+    RegistrarPlatoComponent,
+    ListaRestaurantesComponent,
+    ListaPlatoComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -47,10 +56,10 @@ import { ActualizarPasswordComponent } from './actualizar-password/actualizar-pa
     MatSnackBarModule, 
     MatCardModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule, 
+    ReactiveFormsModule
   ],
-  providers: [
-    {
+  providers: [    {
         provide : HTTP_INTERCEPTORS,
         useClass : AuthInterceptor,
         multi:true

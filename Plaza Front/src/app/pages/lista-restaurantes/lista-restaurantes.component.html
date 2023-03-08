@@ -1,0 +1,39 @@
+<app-navbar></app-navbar>
+
+<div class=" p-5">
+    <table class="table table-dark table-striped" id="tablaRestaurantes">
+        <thead class="table-dark">
+            <tr >
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>NIT</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Logo</th>
+                <th>Registrar plato</th>
+                <th>Platos disponibles</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let auditorias of listaRestaurantes">
+                <td><font color="#000000">{{auditorias.id}}</font></td>
+                <td><font color="#000000">{{auditorias.nombre}}</font></td>
+                <td><font color="#000000">{{auditorias.nit}}</font></td>
+                <td><font color="#000000">{{auditorias.direccion}}</font></td>
+                <td><font color="#000000">{{auditorias.telefono}}</font></td>
+                <td><img src="http://localhost:8080/img/photos/{{auditorias.urlLogo}}" alt="imagen" height="100px" width="200px" /></td>
+                <!-- <td><font color="#000000"><a href="/registrar-plato">Registro del plato</a></font></td> -->
+                <td><button (click)="obtenerNombreRestauranteRegistro(auditorias.nombre)"><font color="#000000">Registrar platos</font></button></td>
+                <!-- <td><font color="#000000"><a href="/lista-plato">Ver platos</a></font></td> -->
+                <td><button (click)="obtenerNombreRestaurante(auditorias.nombre)"><font color="#000000">Ver platos</font></button></td>
+                <!-- <td><button (click)="obtenerNombreRestaurante(auditorias.nombre)">Obtener nombre</button></td> -->
+            </tr>
+        </tbody>
+
+                    
+      </table>
+
+    <!--END Report-->
+    
+    
+  </div>

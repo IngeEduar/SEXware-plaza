@@ -17,6 +17,7 @@ export class LoginComponent{
 
   constructor(private snack: MatSnackBar, private loginService:LoginService)
   {
+    this.loginService.logout();
 
   }
 
@@ -54,9 +55,24 @@ export class LoginComponent{
 
         this.loginService.loginUser(data.token);
         this.loginService.getCurrentUser().subscribe((user:any) =>{
+          this.loginService.setUsuario(user);
           console.log(user);
-          close();
-          open("/admin");
+          //close();
+          //open("/admin");
+
+          if(this.loginService.getUserRol() =="ADMIN")
+          {
+            window.location.href ="/admin";
+          }
+          else if(this.loginService.getUserRol() == "PROPIETARIO")
+          {
+            window.location.href = "/propietario";
+          }
+          else
+          {
+            this.loginService.logout();
+
+          }
         })
 
       }, (error) => {
