@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Table(name = "restaurantes")
-public class Restaurant {
+public class Restaurant implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +29,7 @@ public class Restaurant {
     private String urlLogo;
 
     @ManyToOne(optional = false,fetch = FetchType.EAGER)
+    @JoinColumn(name = "propietario_id",referencedColumnName = "CEDULA")
     private Usuario usuarioId;
 
 }

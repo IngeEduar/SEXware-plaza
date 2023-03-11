@@ -21,7 +21,8 @@ public class Auditoria {
     private String descripcion;
     private String fecha;
 
-    @ManyToOne(optional = false,cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false,fetch = FetchType.EAGER)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "CEDULA")
     private Usuario usuario;
 
 }

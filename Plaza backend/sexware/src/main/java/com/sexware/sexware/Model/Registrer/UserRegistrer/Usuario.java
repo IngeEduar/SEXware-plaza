@@ -6,17 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.*;
 
 @Entity
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Table(name = "usuarios")
-public class Usuario implements UserDetails {
+public class Usuario implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,25 +25,25 @@ public class Usuario implements UserDetails {
     private String nombre;
     @Column(length = 50,nullable = false)
     private String apellido;
-    @Column(unique = true,nullable = false)
+    @Column(nullable = false)
     private String email;
     @Column(length = 13,nullable = false)
     private String celular;
-    @Column(unique = true, length = 15, nullable = false)
-    private String nIdentidad;
+    @Column(length = 15, nullable = false)
+    private String cedula;
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "usuario")
-    @JsonIgnore
-    private Set<UsuarioRoles> roles = new HashSet<>();
+    @ManyToOne(optional = false,fetch = FetchType.EAGER)
+    @JoinColumn(unique = true,nullable = false)
+    private Rol roles;
+
+    private boolean activo = true;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Authority> autoridades = new HashSet<>();
-        this.roles.forEach(usuarioRol -> {
-            autoridades.add(new Authority(usuarioRol.getRol().getRolNombre()));
-        });
+        List<GrantedAuthority> autoridades = new ArrayList<>();
+        autoridades.add(new SimpleGrantedAuthority(roles.getRolNombre()));
         return autoridades;
     }
 

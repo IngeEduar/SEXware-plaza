@@ -4,17 +4,13 @@ import com.sexware.sexware.Model.ConfigUser.UpdatePassRequest;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
-import com.sexware.sexware.Model.Registrer.UserRegistrer.UsuarioRoles;
 import com.sexware.sexware.Repositorys.AuditoriaRepository;
 import com.sexware.sexware.Services.UsuarioService;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/admin")
@@ -31,7 +27,6 @@ public class UsuarioController {
     @PostMapping("/registrar/{email}")
     public Usuario registrar(@PathVariable("email") String email , @RequestBody Usuario usuario) throws Exception {
 
-        Set<UsuarioRoles> usuarioRol = new HashSet<>();
 
         Rol rol = new Rol();
         rol.setId(2L);
@@ -39,13 +34,8 @@ public class UsuarioController {
 
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
-        UsuarioRoles usuarioRoles = new UsuarioRoles();
-        usuarioRoles.setUsuario(usuario);
-        usuarioRoles.setRol(rol);
 
-        usuarioRol.add(usuarioRoles);
-
-        return usuarioService.guardarUsuario(usuario,usuarioRol,email);
+        return usuarioService.guardarUsuario(usuario,rol,email);
     }
 
     @GetMapping("/buscar/{email}")

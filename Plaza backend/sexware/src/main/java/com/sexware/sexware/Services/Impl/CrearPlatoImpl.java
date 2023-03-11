@@ -102,6 +102,26 @@ public class CrearPlatoImpl implements PlatoService {
         return platoList;
     }
 
+    @Override
+    public String modificarPlato(ModificarPlatoRequest modificarPlatoRequest) {
+        try{
+
+            Plato plato = platoRepository.findByNombre(modificarPlatoRequest.getNombre());
+
+            plato.setPrecio(modificarPlatoRequest.getPrecio());
+            plato.setDescripcion(modificarPlatoRequest.getDescripcion());
+
+            platoRepository.save(plato);
+
+            return "Plato editado con exito";
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Error al editar el plato";
+        }
+
+    }
+
     public void agregarPlatoAuditoria(String email,String nombrePlato){
 
         Usuario usuario = usuarioRepository.findByEmail(email);

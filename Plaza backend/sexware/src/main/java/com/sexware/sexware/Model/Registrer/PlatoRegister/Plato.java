@@ -12,9 +12,7 @@ import java.io.Serializable;
 @Entity
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Table(name = "plato")
-public class Plato implements Serializable {
-
-    private static final long serialVersionUID=1L;
+public class Plato implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +32,7 @@ public class Plato implements Serializable {
     private Categoria categoria;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_restaurante")
+    @JoinColumn(name = "id_restaurante", referencedColumnName = "NIT")
     private Restaurant restaurant;
 
 

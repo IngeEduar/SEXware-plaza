@@ -57,7 +57,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         auditoria.setTitulo("REGISTRO");
         auditoria.setDescripcion("Registro el restaurante "+restaurant.getNombre()+
                 " Propietario: "+usuario.getNombre()+" "+usuario.getApellido()+
-                " Documento: "+usuario.getNIdentidad());
+                " Documento: "+usuario.getCedula());
         auditoria.setFecha(fecha+" "+hora);
 
         auditoriaRepository.save(auditoria);

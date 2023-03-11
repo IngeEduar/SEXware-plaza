@@ -58,6 +58,13 @@ public class PlatoController {
         return platoService.listarPlatoRest(nombre);
     }
 
+    @PostMapping("/modificar")
+    public String mdificarPlato(@RequestBody ModificarPlatoRequest modificarPlatoRequest){
+
+        return platoService.modificarPlato(modificarPlatoRequest);
+
+    }
+
     // Metodos para controlar categorias
     @PostMapping("/agregar-categoria")
     public Categoria agregarCategoria(@RequestBody AgregarCategoriaRequest categoriaRequest){

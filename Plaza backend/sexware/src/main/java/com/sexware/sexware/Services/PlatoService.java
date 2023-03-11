@@ -10,6 +10,7 @@ public interface PlatoService {
     public List<Categoria> listarCategorias();
     public Categoria agregarCategoria(AgregarCategoriaRequest categoriaRequest);
     public List<Plato> listarPlatoRest(String nombre);
+    public String modificarPlato(ModificarPlatoRequest modificarPlatoRequest);
 
 
 }

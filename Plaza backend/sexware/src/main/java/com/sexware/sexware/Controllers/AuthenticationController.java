@@ -6,7 +6,6 @@ import com.sexware.sexware.Model.Login.JwtRequest;
 import com.sexware.sexware.Model.Login.JwtResponse;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
-import com.sexware.sexware.Model.Registrer.UserRegistrer.UsuarioRoles;
 import com.sexware.sexware.Security.AuthenticateService;
 import com.sexware.sexware.Security.JwtUtils;
 import com.sexware.sexware.Services.Impl.UserDatailsServiceImpl;
@@ -23,9 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
@@ -81,7 +78,7 @@ public class AuthenticationController {
         Usuario usuario = new Usuario();
         usuario.setNombre("admin");
         usuario.setApellido("fesc");
-        usuario.setNIdentidad("800235151");
+        usuario.setCedula("800235151");
         usuario.setCelular("+573227613865");
         usuario.setEmail("adminFesc@fesc.edu.co");
         String pass = generarPassword();
@@ -92,14 +89,9 @@ public class AuthenticationController {
         rol.setId(1L);
         rol.setRolNombre("ADMIN");
 
-        Set<UsuarioRoles> usuarioRoles = new HashSet<>();
-        UsuarioRoles usuarioRol = new UsuarioRoles();
-        usuarioRol.setUsuario(usuario);
-        usuarioRol.setRol(rol);
+        usuario.setRoles(rol);
 
-        usuarioRoles.add(usuarioRol);
-
-        Usuario usuarioGuardado = usuarioService.guardarAdmin(usuario,usuarioRoles);
+        Usuario usuarioGuardado = usuarioService.guardarAdmin(usuario,rol);
         System.out.println(usuarioGuardado.getNombre());
 
         return ResponseEntity.ok(new AdminResponse(usuario.getEmail(), pass));

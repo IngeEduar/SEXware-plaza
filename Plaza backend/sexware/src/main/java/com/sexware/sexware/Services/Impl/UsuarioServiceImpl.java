@@ -1,8 +1,8 @@
 package com.sexware.sexware.Services.Impl;
 
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
-import com.sexware.sexware.Model.Registrer.UserRegistrer.UsuarioRoles;
 import com.sexware.sexware.Repositorys.*;
 import com.sexware.sexware.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -22,24 +21,18 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private RolRepository rolRepository;
     @Autowired
-    private UsuarioRolRepository usuarioRolRepository;
-    @Autowired
     private AuditoriaRepository auditoriaRepository;
 
     @Override
-    public Usuario guardarUsuario(Usuario usuario,Set<UsuarioRoles> usuarioRoles, String email) throws Exception {
-        Usuario usuarioLocal = usuarioRepository.findByEmail(usuario.getEmail());
+    public Usuario guardarUsuario(Usuario usuario, Rol rol, String email) throws Exception {
 
-        if (usuarioLocal != null){
-            System.out.println("El usuario ya existe");
-            throw new Exception("El usuario ya esta presente");
-        }else {
-            for (UsuarioRoles roles:usuarioRoles){
-                rolRepository.save(roles.getRol());
-            }
 
-            usuario.getRoles().addAll(usuarioRoles);
-            usuarioLocal = usuarioRepository.save(usuario);
+
+
+            rolRepository.save(rol);
+
+            usuario.setRoles(rol);
+            Usuario usuarioLocal = usuarioRepository.save(usuario);
 
             String fecha = String.valueOf(LocalDate.now());
             String hora = String.valueOf(LocalTime.now());
@@ -48,12 +41,11 @@ public class UsuarioServiceImpl implements UsuarioService {
             Auditoria auditoria = new Auditoria();
             auditoria.setUsuario(usuarioAdmin);
             auditoria.setTitulo("REGISTRO");
-            auditoria.setDescripcion("Registro al usuario "+usuario.getNombre()+" Correo: "+usuario.getEmail());
+            auditoria.setDescripcion("Registro al usuario "+usuarioLocal.getNombre()+" Correo: "+usuarioLocal.getEmail());
             auditoria.setFecha(fecha+" "+hora);
 
             auditoriaRepository.save(auditoria);
 
-        }
 
         return usuarioLocal;
     }
@@ -90,16 +82,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario guardarAdmin(Usuario usuario, Set<UsuarioRoles> usuarioRoles) throws Exception {
+    public Usuario guardarAdmin(Usuario usuario,Rol rol) throws Exception {
         Usuario usuarioLocal = usuarioRepository.findByEmail(usuario.getEmail());
         if (usuarioLocal != null){
             System.out.println("El usuario ya existe");
             throw new Exception("El usuario ya esta presente");
         }else {
-            for (UsuarioRoles roles:usuarioRoles){
-                rolRepository.save(roles.getRol());
-            }
-            usuario.getRoles().addAll(usuarioRoles);
+
+            rolRepository.save(rol);
+
             usuarioLocal = usuarioRepository.save(usuario);
 
 
@@ -111,14 +102,14 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public List<Usuario> listarPropietarios() {
 
-        List<UsuarioRoles> usuarioRoles = usuarioRolRepository.findAll();
+        List<Usuario> usuarioList = usuarioRepository.findAll();
         List<Usuario> usuarios = new ArrayList<>();
 
-        for (UsuarioRoles user: usuarioRoles) {
-            String rol = user.getRol().getRolNombre();
+        for (Usuario user: usuarioList) {
+            String rol = user.getRoles().getRolNombre();
 
             if(rol.equals("PROPIETARIO")){
-                usuarios.add(user.getUsuario());
+                usuarios.add(user);
             }
         }
 

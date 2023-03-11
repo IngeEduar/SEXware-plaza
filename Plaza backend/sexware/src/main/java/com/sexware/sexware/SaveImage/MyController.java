@@ -36,28 +36,6 @@ public class MyController {
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(image);
     }
 
-    @PostMapping("/users/save")
-    public void saveUser(@RequestParam("usuario") String strUsuario, @RequestParam("fichero") MultipartFile multipartFile) throws IOException {
-        //Obtenemos el nombre del fichero
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        //Establecemos el directorio donde se subiran nuestros ficheros
-        String uploadDir = "images";
-
-        Gson gson = new Gson();
-        User usuario = gson.fromJson(strUsuario, User.class);
-        //Obtenemos la propiedades del usuario
-        System.out.println(usuario.getNombre());
-        System.out.println(usuario.getApellidos());
-        System.out.println(usuario.getEmail());
-
-        //Establacecemos la imagen
-        usuario.setImagen(fileName);
-        System.out.println(usuario.getImagen());
-
-        //Guardamos la imagen
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-    }
-
     public static boolean eliminarIMG(String name) {
         try {
 
