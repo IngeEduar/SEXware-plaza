@@ -62,7 +62,8 @@ public class CrearPlatoImpl implements PlatoService {
             CrearPlatoResponse crearPlatoResponse = modelMapper.map(plato1, CrearPlatoResponse.class);
             crearPlatoResponse.setCategoria(plato1.getCategoria().getCategoriaNombre());
 
-            agregarPlatoAuditoria(crearPlatoRequest.getLogeado(),crearPlatoRequest.getNombre());
+            agregarPlatoAuditoria(crearPlatoRequest.getLogeado(),crearPlatoRequest.getNombre(),
+                    "Se registro el plato: ","REGISTRO");
 
 
             return crearPlatoResponse;
@@ -112,6 +113,8 @@ public class CrearPlatoImpl implements PlatoService {
             plato.setDescripcion(modificarPlatoRequest.getDescripcion());
 
             platoRepository.save(plato);
+            agregarPlatoAuditoria(modificarPlatoRequest.getLogeado(),modificarPlatoRequest.getNombre(),
+                    "Se edito el plato: ","MODIFICO");
 
             return "Plato editado con exito";
 
@@ -122,7 +125,7 @@ public class CrearPlatoImpl implements PlatoService {
 
     }
 
-    public void agregarPlatoAuditoria(String email,String nombrePlato){
+    public void agregarPlatoAuditoria(String email,String nombrePlato,String mensaje,String titulo){
 
         Usuario usuario = usuarioRepository.findByEmail(email);
         String fecha = String.valueOf(LocalDate.now());
@@ -130,8 +133,8 @@ public class CrearPlatoImpl implements PlatoService {
 
         Auditoria auditoria = new Auditoria();
 
-        auditoria.setTitulo("REGISTRO");
-        auditoria.setDescripcion("Se Registro el plato: "+ nombrePlato);
+        auditoria.setTitulo(titulo);
+        auditoria.setDescripcion(mensaje+ nombrePlato);
         auditoria.setFecha(fecha+" "+hora);
         auditoria.setUsuario(usuario);
 
