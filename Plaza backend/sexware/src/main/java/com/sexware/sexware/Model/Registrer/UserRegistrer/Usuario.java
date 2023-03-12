@@ -35,7 +35,7 @@ public class Usuario implements UserDetails, Serializable {
     private String password;
 
     @ManyToOne(optional = false,fetch = FetchType.EAGER)
-    @JoinColumn(unique = true,nullable = false)
+    @JoinColumn(nullable = false)
     private Rol roles;
 
     private boolean activo = true;

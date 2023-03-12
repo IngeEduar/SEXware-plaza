@@ -26,9 +26,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario guardarUsuario(Usuario usuario, Rol rol, String email) throws Exception {
 
+        Usuario usuario1 = usuarioRepository.findByEmail(usuario.getEmail());
 
 
-
+        if (usuario1 != null){
+            String rol1 = usuario1.getRoles().getRolNombre();
+            if (rol1.equals(rol.getRolNombre())) {
+                throw new Exception("EL usuario ya esta registrado con este rol");
+            }
+        }
             rolRepository.save(rol);
 
             usuario.setRoles(rol);
