@@ -40,6 +40,8 @@ public class Usuario implements UserDetails, Serializable {
 
     private boolean activo = true;
 
+    private String tokenPassword;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> autoridades = new ArrayList<>();

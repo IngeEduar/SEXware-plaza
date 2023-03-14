@@ -1,5 +1,7 @@
 package com.sexware.sexware.Controllers;
 
+import com.sexware.sexware.ForgotPassword.DTO.ChangePasswordDTO;
+import com.sexware.sexware.ForgotPassword.DTO.Mensaje;
 import com.sexware.sexware.Model.ConfigUser.UpdatePassRequest;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
@@ -7,9 +9,13 @@ import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Repositorys.AuditoriaRepository;
 import com.sexware.sexware.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -53,15 +59,17 @@ public class UsuarioController {
         return usuarioService.listarUsuario();
     }
 
-    @PostMapping("/actualizar-password")
-    public String cambiarPass( @RequestBody UpdatePassRequest passRequest){
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody UpdatePassRequest passRequest) {
 
-        Usuario usuario = usuarioService.obtenerUsuario(passRequest.getEmail());
-
-        usuario.setPassword(passwordEncoder.encode(passRequest.getPass()));
-
-        return usuarioService.actualizarPass(usuario);
-
+        Usuario usuarioOpt = usuarioService.obtenerUsuario(passRequest.getEmail());
+        if(usuarioOpt == null)
+            return new ResponseEntity(new Mensaje("No existe ningún usuario con esas credenciales"), HttpStatus.NOT_FOUND);
+        String newPassword = passwordEncoder.encode(passRequest.getPass());
+        usuarioOpt.setPassword(newPassword);
+        usuarioOpt.setTokenPassword(null);
+        usuarioService.save(usuarioOpt);
+        return new ResponseEntity(new Mensaje("Contraseña actualizada"), HttpStatus.OK);
     }
 
     @GetMapping("/auditoria")

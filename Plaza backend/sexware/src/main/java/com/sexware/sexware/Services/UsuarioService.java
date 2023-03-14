@@ -18,5 +18,7 @@ public interface UsuarioService {
 
     public Usuario guardarAdmin(Usuario usuario, Rol rol)throws Exception;
     public List<Usuario> listarPropietarios();
+    public Usuario getByTokenPassword(String token);
+    public void save(Usuario usuario);
 
 }

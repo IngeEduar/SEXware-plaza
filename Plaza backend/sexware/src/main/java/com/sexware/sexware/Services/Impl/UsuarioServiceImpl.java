@@ -124,5 +124,15 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarios;
     }
 
+    @Override
+    public Usuario getByTokenPassword(String token) {
+        return usuarioRepository.findByTokenPassword(token);
+    }
+
+    @Override
+    public void save(Usuario usuario) {
+        usuarioRepository.save(usuario);
+    }
+
 
 }

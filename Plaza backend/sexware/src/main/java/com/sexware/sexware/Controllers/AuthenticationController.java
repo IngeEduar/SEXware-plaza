@@ -53,8 +53,10 @@ public class AuthenticationController {
         }
 
         UserDetails userDetails =  this.userDatailsService.loadUserByUsername(jwtRequest.getEmail());
+        Usuario user = usuarioService.obtenerUsuario(jwtRequest.getEmail());
+        String pass = user.getPassword();
         String token = this.jwtUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
+        return ResponseEntity.ok(new JwtResponse(token,pass));
     }
 
     private void autenticar(String username,String password) throws Exception {
@@ -82,8 +84,7 @@ public class AuthenticationController {
         usuario.setCelular("+573227613865");
         usuario.setEmail("adminFesc@fesc.edu.co");
         String pass = generarPassword();
-        usuario.setPassword(passwordEncoder.encode(pass));
-        System.out.println(pass);
+        usuario.setPassword(pass);
 
         Rol rol = new Rol();
         rol.setId(1L);
