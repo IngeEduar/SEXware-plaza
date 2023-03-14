@@ -83,8 +83,8 @@ public class AuthenticationController {
         usuario.setCedula("800235151");
         usuario.setCelular("+573227613865");
         usuario.setEmail("adminFesc@fesc.edu.co");
-        String pass = generarPassword();
-        usuario.setPassword(pass);
+        String pass = "Ac.ñ@1p!87Da$-#";
+        usuario.setPassword(passwordEncoder.encode(pass));
 
         Rol rol = new Rol();
         rol.setId(1L);
@@ -98,6 +98,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(new AdminResponse(usuario.getEmail(), pass));
     }
 
+    /*
     public String generarPassword(){
 
         final String caracteres ="ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789@/._-?&%$#!";
@@ -121,5 +122,5 @@ public class AuthenticationController {
         }
 
         return contrasena.toString();
-    }
+    }*/
 }
