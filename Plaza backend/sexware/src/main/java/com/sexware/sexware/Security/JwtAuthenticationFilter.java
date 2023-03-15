@@ -22,7 +22,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDatailsServiceImpl userDetailsService;
 
     @Autowired
     private JwtUtils jwtUtil;
@@ -33,6 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String requestTokenHeader = request.getHeader("Authorization");
         String email = null;
         String jwtToken = null;
+        String rol=null;
 
 
         if(requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")){
@@ -40,6 +41,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             try{
                 email = this.jwtUtil.extractUsername(jwtToken);
+                rol = this.jwtUtil.obtenerRol(jwtToken);
+                System.out.println("----- "+rol+" -----");
 
             }catch (ExpiredJwtException exception){
                 System.out.println("El token ha expirado");
@@ -52,7 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         if(email != null && SecurityContextHolder.getContext().getAuthentication() == null){
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
+            UserDetails userDetails = this.userDetailsService.loadUser(email, rol);
             if(this.jwtUtil.validateToken(jwtToken,userDetails)){
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails,

@@ -8,6 +8,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
@@ -34,11 +36,13 @@ public class JwtUtils {
     private Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(SECRET_KEY.getBytes()).parseClaimsJws(token).getBody();
     }
-/*
+
     public String obtenerRol(String token){
-        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
-        return claims.get("roles", String.class);
-    }*/
+        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY.getBytes()).parseClaimsJws(token).getBody();
+        List<String> rol = Collections.singletonList(claims.get("rol", String.class));
+        return rol.get(0);
+
+    }
 
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
@@ -47,14 +51,18 @@ public class JwtUtils {
     public String generateToken(UserDetails userDetails) {
 
         List<String> roles = (List<String>) userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        String rol="";
+        for (String rols:roles){
+            rol = rols;
+        }
 
-        return createToken(roles, userDetails.getUsername());
+        return createToken(rol, userDetails.getUsername());
     }
 
-    private String createToken(List<String> roles, String subject) {
+    private String createToken(String rol, String subject) {
 
         return Jwts.builder()
-                .claim("roles",roles)
+                .claim("rol",rol)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
