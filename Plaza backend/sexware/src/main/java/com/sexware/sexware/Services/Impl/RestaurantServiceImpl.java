@@ -36,8 +36,22 @@ public class RestaurantServiceImpl implements RestaurantService {
         String emailUser = restaurantRequest.getUser();
         String emailAdmin = restaurantRequest.getAdmin();
 
-        Usuario usuario = usuarioService.obtenerUsuario(emailUser);
-        Usuario usuarioAdmin = usuarioService.obtenerUsuario(emailAdmin);
+        List<Usuario> usuario = usuarioService.listarUsuario();
+        Usuario userP = null;
+
+        Usuario userA = null;
+        for (Usuario user:usuario){
+            if (user.getRoles().getRolNombre().equals("PROPIETARIO")&&
+                    Objects.equals(user.getEmail(), emailUser)){
+                userP = user;
+            }
+        }
+        for (Usuario user:usuario){
+            if (user.getRoles().getRolNombre().equals("ADMIN")&&
+                    Objects.equals(user.getEmail(), emailAdmin)){
+                userA = user;
+            }
+        }
 
         Restaurant restaurant = new Restaurant();
         restaurant.setNombre(restaurantRequest.getNombre());
@@ -45,7 +59,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurant.setNit(restaurantRequest.getNit());
         restaurant.setTelefono(restaurantRequest.getTelefono());
         restaurant.setUrlLogo(restaurantRequest.getUrlLogo());
-        restaurant.setUsuarioId(usuario);
+        restaurant.setUsuarioId(userP);
 
         restaurantRepository.save(restaurant);
 
@@ -53,11 +67,12 @@ public class RestaurantServiceImpl implements RestaurantService {
         String hora = String.valueOf(LocalTime.now());
 
         Auditoria auditoria = new Auditoria();
-        auditoria.setUsuario(usuarioAdmin);
+        auditoria.setUsuario(userA);
         auditoria.setTitulo("REGISTRO");
+        assert userP != null;
         auditoria.setDescripcion("Registro el restaurante "+restaurant.getNombre()+
-                " Propietario: "+usuario.getNombre()+" "+usuario.getApellido()+
-                " Documento: "+usuario.getCedula());
+                " Propietario: "+userP.getNombre()+" "+userP.getApellido()+
+                " Documento: "+userP.getCedula());
         auditoria.setFecha(fecha+" "+hora);
 
         auditoriaRepository.save(auditoria);

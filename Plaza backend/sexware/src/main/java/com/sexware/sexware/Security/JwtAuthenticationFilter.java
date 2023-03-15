@@ -1,5 +1,6 @@
 package com.sexware.sexware.Security;
 
+import com.sexware.sexware.Services.Impl.UserDatailsServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String email = null;
         String jwtToken = null;
 
+
         if(requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")){
             jwtToken = requestTokenHeader.substring(7);
 
             try{
                 email = this.jwtUtil.extractUsername(jwtToken);
+
             }catch (ExpiredJwtException exception){
                 System.out.println("El token ha expirado");
             }catch (Exception e){

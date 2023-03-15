@@ -11,5 +11,6 @@ public class UpdatePassRequest {
     private String pass;
 
     private String email;
+    private String rol;
 
 }

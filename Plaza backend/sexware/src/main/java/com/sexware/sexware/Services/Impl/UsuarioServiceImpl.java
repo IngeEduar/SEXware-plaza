@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -26,13 +27,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario guardarUsuario(Usuario usuario, Rol rol, String email) throws Exception {
 
-        Usuario usuario1 = usuarioRepository.findByEmail(usuario.getEmail());
+        List<Usuario> usuario1 = usuarioRepository.findAll();
 
 
-        if (usuario1 != null){
-            String rol1 = usuario1.getRoles().getRolNombre();
-            if (rol1.equals(rol.getRolNombre())) {
-                throw new Exception("EL usuario ya esta registrado con este rol");
+        if (!usuario1.isEmpty()){
+            for (Usuario user:usuario1){
+                if (Objects.equals(user.getRoles().getRolNombre(),rol.getRolNombre()) &&
+                        Objects.equals(user.getEmail(), usuario.getEmail())){
+                    throw new Exception("Ya existe un usuario con este rol");
+                }
             }
         }
             rolRepository.save(rol);
@@ -43,14 +46,19 @@ public class UsuarioServiceImpl implements UsuarioService {
             String fecha = String.valueOf(LocalDate.now());
             String hora = String.valueOf(LocalTime.now());
 
-            Usuario usuarioAdmin = obtenerUsuario(email);
-            Auditoria auditoria = new Auditoria();
-            auditoria.setUsuario(usuarioAdmin);
-            auditoria.setTitulo("REGISTRO");
-            auditoria.setDescripcion("Registro al usuario "+usuarioLocal.getNombre()+" Correo: "+usuarioLocal.getEmail());
-            auditoria.setFecha(fecha+" "+hora);
+            for (Usuario users:usuario1){
 
-            auditoriaRepository.save(auditoria);
+                if (users.getRoles().getRolNombre().equals("ADMIN")&&
+                        Objects.equals(users.getEmail(), email)){
+                    Auditoria auditoria = new Auditoria();
+                    auditoria.setUsuario(users);
+                    auditoria.setTitulo("REGISTRO");
+                    auditoria.setDescripcion("Registro al usuario "+usuarioLocal.getNombre()+" Correo: "+usuarioLocal.getEmail());
+                    auditoria.setFecha(fecha+" "+hora);
+
+                    auditoriaRepository.save(auditoria);
+                }
+            }
 
 
         return usuarioLocal;
@@ -60,6 +68,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Usuario obtenerUsuario(String email) {
         return usuarioRepository.findByEmail(email);
     }
+
 
     @Override
     public List<Usuario> listarUsuario() {
@@ -89,20 +98,25 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario guardarAdmin(Usuario usuario,Rol rol) throws Exception {
-        Usuario usuarioLocal = usuarioRepository.findByEmail(usuario.getEmail());
-        if (usuarioLocal != null){
-            System.out.println("El usuario ya existe");
-            throw new Exception("El usuario ya esta presente");
-        }else {
+        List<Usuario> usuarioLocal = usuarioRepository.findAll();
+        Usuario user = null;
+        if (!usuarioLocal.isEmpty()) {
+            for (Usuario users : usuarioLocal) {
+                if (Objects.equals(users.getRoles().getRolNombre(), rol.getRolNombre())&&
+                        Objects.equals(users.getEmail(), usuario.getEmail())) {
+                    throw new Exception("Ya existe un usuario con este rol");
+                }
+            }
+        } else {
 
             rolRepository.save(rol);
 
-            usuarioLocal = usuarioRepository.save(usuario);
+            user = usuarioRepository.save(usuario);
 
 
         }
 
-        return usuarioLocal;
+        return user;
     }
 
     @Override

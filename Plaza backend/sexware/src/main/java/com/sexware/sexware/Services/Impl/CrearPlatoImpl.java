@@ -127,7 +127,15 @@ public class CrearPlatoImpl implements PlatoService {
 
     public void agregarPlatoAuditoria(String email,String nombrePlato,String mensaje,String titulo){
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        List<Usuario> usuario = usuarioRepository.findAll();
+        Usuario user = null;
+        for (Usuario users:usuario){
+            if (users.getRoles().getRolNombre().equals("PROPIETARIO")&&
+                    Objects.equals(users.getEmail(), email)){
+                user = users;
+            }
+        }
+
         String fecha = String.valueOf(LocalDate.now());
         String hora = String.valueOf(LocalTime.now());
 
@@ -136,7 +144,7 @@ public class CrearPlatoImpl implements PlatoService {
         auditoria.setTitulo(titulo);
         auditoria.setDescripcion(mensaje+ nombrePlato);
         auditoria.setFecha(fecha+" "+hora);
-        auditoria.setUsuario(usuario);
+        auditoria.setUsuario(user);
 
         auditoriaRepository.save(auditoria);
 

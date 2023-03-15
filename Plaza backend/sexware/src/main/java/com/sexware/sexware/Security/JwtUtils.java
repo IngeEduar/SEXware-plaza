@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class JwtUtils {
 
 
-    private String SECRET_KEY = "pl4z4S0ftw4r3";
+    private final String SECRET_KEY = "pl4z4S0ftw4r3";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -34,6 +34,11 @@ public class JwtUtils {
     private Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(SECRET_KEY.getBytes()).parseClaimsJws(token).getBody();
     }
+/*
+    public String obtenerRol(String token){
+        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        return claims.get("roles", String.class);
+    }*/
 
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());

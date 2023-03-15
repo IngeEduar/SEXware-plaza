@@ -83,6 +83,7 @@ public class RestaurantController {
         }
     }
 
+    /*
     @PostMapping("/actualizar")
     public Restaurant actualizarRestaurante(@RequestBody ActualizarRestaurantRequest request){
 
@@ -92,7 +93,7 @@ public class RestaurantController {
         rest.setUsuarioId(usuario);
 
         return restaurantService.actualizarRestaurante(rest);
-    }
+    }*/
 
 
     @GetMapping("/lista-propietario/{correo}")

@@ -15,8 +15,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -39,10 +42,19 @@ public class EmailController {
 
     @PostMapping("/send-email")
     public ResponseEntity<?> sendEmailTemplate(@RequestBody EmailValuesDTO dto) throws Exception {
-        Usuario usuarioOpt = usuarioService.obtenerUsuario(dto.getMailTo());
-        if(usuarioOpt == null)
-            return new ResponseEntity(new Mensaje("No existe ningún usuario con esas credenciales"), HttpStatus.NOT_FOUND);
-        Usuario usuario = modelMapper.map(usuarioOpt, Usuario.class);
+        List<Usuario> usuarioOpt = usuarioService.listarUsuario();
+        if(usuarioOpt.isEmpty())
+            return new ResponseEntity<>(new Mensaje("No existe ningún usuario con esas credenciales"), HttpStatus.NOT_FOUND);
+        Usuario user = null;
+        for (Usuario users : usuarioOpt){
+            if (Objects.equals(users.getRoles().getRolNombre(),dto.getRol())&&
+                    Objects.equals(users.getEmail(), dto.getMailTo())){
+                user = users;
+            }
+        }
+
+
+        Usuario usuario = modelMapper.map(user, Usuario.class);
         dto.setMailFrom(mailFrom);
         dto.setMailTo(usuario.getEmail());
         dto.setSubject(subject);
@@ -53,24 +65,24 @@ public class EmailController {
         usuario.setTokenPassword(tokenPassword);
         usuarioService.save(usuario);
         emailService.sendEmail(dto);
-        return new ResponseEntity(new Mensaje("Te hemos enviado un correo"), HttpStatus.OK);
+        return new ResponseEntity<>(new Mensaje("Te hemos enviado un correo"), HttpStatus.OK);
     }
 
     @PostMapping("/change-password")
     public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordDTO dto, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
-            return new ResponseEntity(new Mensaje("Campos mal puestos"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Mensaje("Campos mal puestos"), HttpStatus.BAD_REQUEST);
         if(!dto.getPassword().equals(dto.getConfirmPassword()))
-            return new ResponseEntity(new Mensaje("Las contraseñas no coinciden"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Mensaje("Las contraseñas no coinciden"), HttpStatus.BAD_REQUEST);
         Usuario usuarioOpt = usuarioService.getByTokenPassword(dto.getTokenPassword());
         if(usuarioOpt == null)
-            return new ResponseEntity(new Mensaje("No existe ningún usuario con esas credenciales"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Mensaje("No existe ningún usuario con esas credenciales"), HttpStatus.NOT_FOUND);
         Usuario usuario = modelMapper.map(usuarioOpt, Usuario.class);
         String newPassword = passwordEncoder.encode(dto.getPassword());
         usuario.setPassword(newPassword);
         usuario.setTokenPassword(null);
         usuarioService.save(usuario);
-        return new ResponseEntity(new Mensaje("Contraseña actualizada"), HttpStatus.OK);
+        return new ResponseEntity<>(new Mensaje("Contraseña actualizada"), HttpStatus.OK);
     }
 
 

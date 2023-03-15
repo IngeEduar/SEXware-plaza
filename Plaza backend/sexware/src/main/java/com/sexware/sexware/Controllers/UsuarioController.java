@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/admin")
@@ -44,10 +45,10 @@ public class UsuarioController {
         return usuarioService.guardarUsuario(usuario,rol,email);
     }
 
-    @GetMapping("/buscar/{email}")
+    /*@GetMapping("/buscar/{email}")
     public Usuario obtenerUsuario(@PathVariable("email") String email){
         return usuarioService.obtenerUsuario(email);
-    }
+    }*/
 
     @DeleteMapping("/eliminar/{usuarioId}")
     public String eliminarUsuario(@PathVariable("usuarioId") Long usuarioId){
@@ -62,14 +63,23 @@ public class UsuarioController {
     @PostMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody UpdatePassRequest passRequest) {
 
-        Usuario usuarioOpt = usuarioService.obtenerUsuario(passRequest.getEmail());
-        if(usuarioOpt == null)
-            return new ResponseEntity(new Mensaje("No existe ningún usuario con esas credenciales"), HttpStatus.NOT_FOUND);
+        List<Usuario> usuarioOpt = usuarioService.listarUsuario();
+        Usuario user = null;
+        if(usuarioOpt.isEmpty())
+            return new ResponseEntity<>(new Mensaje("No existe ningún usuario con esas credenciales"), HttpStatus.NOT_FOUND);
+        for (Usuario users:usuarioOpt){
+            if (Objects.equals(users.getRoles().getRolNombre(),passRequest.getRol())&&
+                    Objects.equals(users.getEmail(), passRequest.getEmail())){
+                user = users;
+            }
+        }
+
         String newPassword = passwordEncoder.encode(passRequest.getPass());
-        usuarioOpt.setPassword(newPassword);
-        usuarioOpt.setTokenPassword(null);
-        usuarioService.save(usuarioOpt);
-        return new ResponseEntity(new Mensaje("Contraseña actualizada"), HttpStatus.OK);
+        assert user != null;
+        user.setPassword(newPassword);
+        user.setTokenPassword(null);
+        usuarioService.save(user);
+        return new ResponseEntity<>(new Mensaje("Contraseña actualizada"), HttpStatus.OK);
     }
 
     @GetMapping("/auditoria")
