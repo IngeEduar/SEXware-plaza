@@ -53,19 +53,22 @@ public class EmailController {
             }
         }
 
-
-        Usuario usuario = modelMapper.map(user, Usuario.class);
-        dto.setMailFrom(mailFrom);
-        dto.setMailTo(usuario.getEmail());
-        dto.setSubject(subject);
-        dto.setUserName(usuario.getNombre());
-        UUID uuid = UUID.randomUUID();
-        String tokenPassword = uuid.toString();
-        dto.setTokenPassword(tokenPassword);
-        usuario.setTokenPassword(tokenPassword);
-        usuarioService.save(usuario);
-        emailService.sendEmail(dto);
-        return new ResponseEntity<>(new Mensaje("Te hemos enviado un correo"), HttpStatus.OK);
+        if (user != null) {
+            Usuario usuario = modelMapper.map(user, Usuario.class);
+            dto.setMailFrom(mailFrom);
+            dto.setMailTo(usuario.getEmail());
+            dto.setSubject(subject);
+            dto.setUserName(usuario.getNombre());
+            UUID uuid = UUID.randomUUID();
+            String tokenPassword = uuid.toString();
+            dto.setTokenPassword(tokenPassword);
+            usuario.setTokenPassword(tokenPassword);
+            usuarioService.save(usuario);
+            emailService.sendEmail(dto);
+            return new ResponseEntity<>(new Mensaje("Te hemos enviado un correo"), HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(new Mensaje("Usuario no existe"),HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/change-password")
