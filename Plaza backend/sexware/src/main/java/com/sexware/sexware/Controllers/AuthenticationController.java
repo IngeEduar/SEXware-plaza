@@ -5,6 +5,8 @@ import com.sexware.sexware.ForgotPassword.DTO.Mensaje;
 import com.sexware.sexware.Model.*;
 import com.sexware.sexware.Model.Login.JwtRequest;
 import com.sexware.sexware.Model.Login.JwtResponse;
+import com.sexware.sexware.Model.Login.UserDatosRequest;
+import com.sexware.sexware.Model.Login.UserDatosRespons;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Security.AuthenticateService;
@@ -19,8 +21,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,7 +47,7 @@ public class AuthenticationController {
 
 
         String mensaje = autenticar(jwtRequest.getEmail(),jwtRequest.getPassword(),jwtRequest.getRol());
-
+        System.out.println("------- "+jwtRequest.getRol()+" --------");
         switch (mensaje){
             case "OK":
                 UserDetails userDetails =  this.userDatailsService.loadUser(jwtRequest.getEmail(),jwtRequest.getRol());
@@ -85,10 +85,11 @@ public class AuthenticationController {
 
     }
 
-    @GetMapping("/actual-usuario")
-    public Usuario obtenerUsuarioActual(Principal principal){
-        return (Usuario) this.userDatailsService.loadUserByUsername(principal.getName());
+    @PostMapping("/actual-usuario")
+    public Usuario obtenerUsuarioActual(@RequestBody JwtRequest principal){
+        return (Usuario) this.userDatailsService.loadUser(principal.getEmail(), principal.getRol());
     }
+
 
     @GetMapping("/save-admin")
     public ResponseEntity<AdminResponse> guardarAdmin() throws Exception {

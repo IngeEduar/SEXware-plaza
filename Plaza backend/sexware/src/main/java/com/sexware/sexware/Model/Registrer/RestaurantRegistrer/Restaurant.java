@@ -29,7 +29,7 @@ public class Restaurant implements Serializable{
     private String urlLogo;
 
     @ManyToOne(optional = false,fetch = FetchType.EAGER)
-    @JoinColumn(name = "propietario_id",referencedColumnName = "CEDULA")
+    @JoinColumn(name = "propietario_id",referencedColumnName = "ID")
     private Usuario usuarioId;
 
 }

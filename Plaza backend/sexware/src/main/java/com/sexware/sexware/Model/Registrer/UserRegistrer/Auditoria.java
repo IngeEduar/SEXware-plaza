@@ -22,7 +22,7 @@ public class Auditoria {
     private String fecha;
 
     @ManyToOne(optional = false,fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuario_id", referencedColumnName = "CEDULA")
+    @JoinColumn(name = "usuario_id", referencedColumnName = "ID")
     private Usuario usuario;
 
 }
