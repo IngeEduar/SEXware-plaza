@@ -34,13 +34,25 @@ public class CrearPlatoImpl implements PlatoService {
     private ModelMapper modelMapper;
 
     @Override
-    public CrearPlatoResponse crearPlato(CrearPlatoRequest crearPlatoRequest) {
+    public CrearPlatoResponse crearPlato(CrearPlatoRequest crearPlatoRequest) throws Exception {
 
-        try {
+
 
             Categoria categoria = categoriaRepository.findByCategoriaNombre(crearPlatoRequest.getCategoria());
-
+            List<Usuario> userList = usuarioRepository.findAll();
             Restaurant restaurant = restaurantRepository.findByNombre(crearPlatoRequest.getRestaurante());
+            Usuario users = null;
+            for (Usuario user: userList){
+                if (user.getRoles().getRolNombre().equals("PROPIETARIO")){
+                    if (Objects.equals(restaurant.getUsuarioId().getEmail(),crearPlatoRequest.getLogeado() )){
+                        users = user;
+                    }
+                }
+            }
+
+            if (users == null){
+                throw new Exception("No eres el propietario");
+            }
 
             Plato plato = modelMapper.map(crearPlatoRequest, Plato.class);
             plato.setRestaurant(restaurant);
@@ -67,10 +79,7 @@ public class CrearPlatoImpl implements PlatoService {
 
 
             return crearPlatoResponse;
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
+
     }
 
     @Override
@@ -104,8 +113,21 @@ public class CrearPlatoImpl implements PlatoService {
     }
 
     @Override
-    public String modificarPlato(ModificarPlatoRequest modificarPlatoRequest) {
-        try{
+    public String modificarPlato(ModificarPlatoRequest modificarPlatoRequest) throws Exception {
+
+            List<Usuario> usuarioList = usuarioRepository.findAll();
+            Restaurant restaurant = restaurantRepository.findByNombre(modificarPlatoRequest.getRestaurante());
+            Usuario userP = null;
+        for (Usuario user: usuarioList){
+            if (user.getRoles().getRolNombre().equals("PROPIETARIO")){
+                if (Objects.equals(restaurant.getUsuarioId().getEmail(),modificarPlatoRequest.getLogeado() )){
+                    userP = user;
+                }
+            }
+        }
+        if (userP == null){
+            throw new Exception("No eres el propietario");
+        }
 
             Plato plato = platoRepository.findByNombre(modificarPlatoRequest.getNombre());
 
@@ -118,10 +140,7 @@ public class CrearPlatoImpl implements PlatoService {
 
             return "Plato editado con exito";
 
-        }catch (Exception e){
-            e.printStackTrace();
-            return "Error al editar el plato";
-        }
+
 
     }
 

@@ -5,12 +5,15 @@ import com.sexware.sexware.ForgotPassword.DTO.Mensaje;
 import com.sexware.sexware.Model.ConfigUser.UpdatePassRequest;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.UserRegisterRespons;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Repositorys.AuditoriaRepository;
 import com.sexware.sexware.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -31,18 +34,27 @@ public class UsuarioController {
     @Autowired
     private AuditoriaRepository auditoriaRepository;
 
+
     @PostMapping("/registrar/{email}")
-    public Usuario registrar(@PathVariable("email") String email , @RequestBody Usuario usuario) throws Exception {
+    public ResponseEntity<?> registrar(@PathVariable("email") String email , @RequestBody Usuario usuario) {
 
 
-        Rol rol = new Rol();
-        rol.setId(2L);
-        rol.setRolNombre("PROPIETARIO");
+            Rol rol = new Rol();
+            rol.setId(2L);
+            rol.setRolNombre("PROPIETARIO");
 
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+            usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        try{
+            Usuario user = usuarioService.guardarUsuario(usuario,rol,email);
+            return new ResponseEntity<>(new UserRegisterRespons(user.getNombre(),
+                    user.getApellido(),
+                    user.getCedula(),
+                    user.getRoles().getRolNombre()), HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(new Mensaje("Error al registrar el usuario, No eres Admin"),HttpStatus.NOT_FOUND);
+        }
 
-
-        return usuarioService.guardarUsuario(usuario,rol,email);
     }
 
     /*@GetMapping("/buscar/{email}")

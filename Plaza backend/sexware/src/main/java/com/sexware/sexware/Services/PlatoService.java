@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface PlatoService {
 
-    public CrearPlatoResponse crearPlato(CrearPlatoRequest crearPlatoRequest);
+    public CrearPlatoResponse crearPlato(CrearPlatoRequest crearPlatoRequest) throws Exception;
     public List<Categoria> listarCategorias();
     public Categoria agregarCategoria(AgregarCategoriaRequest categoriaRequest);
     public List<Plato> listarPlatoRest(String nombre);
-    public String modificarPlato(ModificarPlatoRequest modificarPlatoRequest);
+    public String modificarPlato(ModificarPlatoRequest modificarPlatoRequest) throws Exception;
 
 
 }

@@ -1,8 +1,10 @@
 package com.sexware.sexware.Controllers;
 
 import com.google.gson.Gson;
+import com.sexware.sexware.ForgotPassword.DTO.Mensaje;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.ActualizarRestaurantRequest;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
+import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.RestaurantRegisterRespons;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.RestaurantRequest;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Repositorys.RestaurantRepository;
@@ -12,6 +14,8 @@ import com.sexware.sexware.Services.RestaurantService;
 import com.sexware.sexware.Services.UsuarioService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,7 +37,7 @@ public class RestaurantController {
 
 
     @PostMapping("/guardar")
-    public Restaurant guardarRestaurant(@RequestParam("restaurante") String strRestaurant, @RequestParam("img")MultipartFile img){
+    public ResponseEntity<?> guardarRestaurant(@RequestParam("restaurante") String strRestaurant, @RequestParam("img")MultipartFile img){
 
         try {
             String fileName = StringUtils.cleanPath(img.getOriginalFilename());
@@ -48,15 +52,18 @@ public class RestaurantController {
             Restaurant rest = restaurantService.guardarRestaurant(restaurantRequest);
             FileUploadUtil.saveFile(dirFile,fileName,img);
 
-            return rest;
+            return new ResponseEntity<>(new RestaurantRegisterRespons(rest.getNombre(),
+                    rest.getNit(),
+                    rest.getUsuarioId().getNombre()),
+                    HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return null;
+            return new ResponseEntity<>(new Mensaje("Error al crear restaurante, No eres Admin"),HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/guardar-sin")
-    public Restaurant guardarSinImagen(@RequestBody RestaurantRequest restaurantRequest){
+    public Restaurant guardarSinImagen(@RequestBody RestaurantRequest restaurantRequest) throws Exception {
 
         restaurantRequest.setUrlLogo("default.jpg");
         return restaurantService.guardarRestaurant(restaurantRequest);

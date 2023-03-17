@@ -28,7 +28,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Usuario guardarUsuario(Usuario usuario, Rol rol, String email) throws Exception {
 
         List<Usuario> usuario1 = usuarioRepository.findAll();
-
+        Usuario usuarioAdmin = null;
 
         if (!usuario1.isEmpty()){
             for (Usuario user:usuario1){
@@ -37,6 +37,16 @@ public class UsuarioServiceImpl implements UsuarioService {
                     throw new Exception("Ya existe un usuario con este rol");
                 }
             }
+            for (Usuario users:usuario1){
+
+                if (users.getRoles().getRolNombre().equals("ADMIN")&&
+                        Objects.equals(users.getEmail(), email)){
+                        usuarioAdmin = users;
+                }
+            }
+        }
+        if (usuarioAdmin == null){
+            throw new Exception("No estas registrado como admin");
         }
             rolRepository.save(rol);
 
@@ -46,20 +56,14 @@ public class UsuarioServiceImpl implements UsuarioService {
             String fecha = String.valueOf(LocalDate.now());
             String hora = String.valueOf(LocalTime.now());
 
-            for (Usuario users:usuario1){
 
-                if (users.getRoles().getRolNombre().equals("ADMIN")&&
-                        Objects.equals(users.getEmail(), email)){
-                    Auditoria auditoria = new Auditoria();
-                    auditoria.setUsuario(users);
-                    auditoria.setTitulo("REGISTRO");
-                    auditoria.setDescripcion("Registro al usuario "+usuarioLocal.getNombre()+" Correo: "+usuarioLocal.getEmail());
-                    auditoria.setFecha(fecha+" "+hora);
+            Auditoria auditoria = new Auditoria();
+            auditoria.setUsuario(usuarioAdmin);
+            auditoria.setTitulo("REGISTRO");
+            auditoria.setDescripcion("Registro al usuario "+usuarioLocal.getNombre()+" Correo: "+usuarioLocal.getEmail());
+            auditoria.setFecha(fecha+" "+hora);
 
-                    auditoriaRepository.save(auditoria);
-                }
-            }
-
+            auditoriaRepository.save(auditoria);
 
         return usuarioLocal;
     }

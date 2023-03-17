@@ -12,5 +12,6 @@ public class ModificarPlatoRequest {
     private String precio;
     private String nombre; // Este es el nombre del plato que va a modificar
     private String logeado; // correo de la persona que esta logeada
+    private String restaurante; // Me envia el nombre del restaurante al que se le va amodificar el plato
 
 }

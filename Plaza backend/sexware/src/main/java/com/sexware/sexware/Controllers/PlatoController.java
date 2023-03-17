@@ -1,10 +1,13 @@
 package com.sexware.sexware.Controllers;
 
 import com.google.gson.Gson;
+import com.sexware.sexware.ForgotPassword.DTO.Mensaje;
 import com.sexware.sexware.Model.Registrer.PlatoRegister.*;
 import com.sexware.sexware.SaveImage.FileUploadUtil;
 import com.sexware.sexware.Services.PlatoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,14 +26,14 @@ public class PlatoController {
 
 
     @PostMapping("/agregar")
-    public CrearPlatoResponse agregarPlato(@RequestBody CrearPlatoRequest crearPlatoRequest){
+    public CrearPlatoResponse agregarPlato(@RequestBody CrearPlatoRequest crearPlatoRequest) throws Exception {
 
         return platoService.crearPlato(crearPlatoRequest);
 
     }
 
     @PostMapping("/agregar-img")
-    public CrearPlatoResponse agregarPlatoimg(@RequestParam("plato")String strPlato, @RequestParam("img")MultipartFile img){
+    public ResponseEntity<?> agregarPlatoimg(@RequestParam("plato")String strPlato, @RequestParam("img")MultipartFile img){
         try{
             String filename = StringUtils.cleanPath(img.getOriginalFilename());
             filename = "P"+filename;
@@ -45,11 +48,16 @@ public class PlatoController {
 
             FileUploadUtil.saveFile(dirFile,filename,img);
 
-            return crearPlatoResponse;
+            return new ResponseEntity<>(new CrearPlatoResponse(crearPlatoResponse.getNombre(),
+                    crearPlatoResponse.getDescripcion(),
+                    crearPlatoResponse.getPrecio(),
+                    crearPlatoResponse.getImg(),
+                    crearPlatoResponse.getCategoria()), HttpStatus.OK);
 
-        }catch (IOException e){
+        }catch (Exception e){
             e.printStackTrace();
-            return null;
+            return new ResponseEntity<>(new Mensaje("Error al crear plato, No eres el propietario"),
+                    HttpStatus.NOT_FOUND);
         }
     }
 
@@ -59,9 +67,14 @@ public class PlatoController {
     }
 
     @PostMapping("/modificar")
-    public String mdificarPlato(@RequestBody ModificarPlatoRequest modificarPlatoRequest){
-
-        return platoService.modificarPlato(modificarPlatoRequest);
+    public ResponseEntity<?> mdificarPlato(@RequestBody ModificarPlatoRequest modificarPlatoRequest){
+        try {
+            platoService.modificarPlato(modificarPlatoRequest);
+            return new ResponseEntity<>(new Mensaje("Plato Modificado con exito"),HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(new Mensaje("Error al modificar el plato, No eres el propieatrio"),HttpStatus.NOT_FOUND);
+        }
 
     }
 

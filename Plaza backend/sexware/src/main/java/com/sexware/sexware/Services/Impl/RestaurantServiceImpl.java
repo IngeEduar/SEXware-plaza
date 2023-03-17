@@ -31,25 +31,26 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
     @Override
-    public Restaurant guardarRestaurant(RestaurantRequest restaurantRequest) {
+    public Restaurant guardarRestaurant(RestaurantRequest restaurantRequest) throws Exception {
+        List<Usuario> usuarioList = usuarioService.listarUsuario();
+        Usuario userA = null;
+        for (Usuario user: usuarioList){
+            if (user.getRoles().getRolNombre().equals("ADMIN")&&
+                    Objects.equals(user.getEmail(), restaurantRequest.getAdmin())){
+                userA = user;
+            }
+        }
+
+        if (userA == null){
+            throw new Exception("No eres Admin");
+        }
 
         String emailUser = restaurantRequest.getUser();
-        String emailAdmin = restaurantRequest.getAdmin();
-
-        List<Usuario> usuario = usuarioService.listarUsuario();
         Usuario userP = null;
-
-        Usuario userA = null;
-        for (Usuario user:usuario){
+        for (Usuario user:usuarioList){
             if (user.getRoles().getRolNombre().equals("PROPIETARIO")&&
                     Objects.equals(user.getEmail(), emailUser)){
                 userP = user;
-            }
-        }
-        for (Usuario user:usuario){
-            if (user.getRoles().getRolNombre().equals("ADMIN")&&
-                    Objects.equals(user.getEmail(), emailAdmin)){
-                userA = user;
             }
         }
 
