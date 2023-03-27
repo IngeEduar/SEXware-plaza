@@ -1,5 +1,6 @@
 package com.sexware.sexware.Services;
 
+import com.sexware.sexware.Model.Peticiones.RegisterEmpleadoRequest;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 
@@ -20,5 +21,7 @@ public interface UsuarioService {
     public List<Usuario> listarPropietarios();
     public Usuario getByTokenPassword(String token);
     public void save(Usuario usuario);
+
+    public Usuario guardarEmpleado(RegisterEmpleadoRequest usuario, Rol rol) throws Exception;
 
 }

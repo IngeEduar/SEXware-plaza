@@ -5,8 +5,6 @@ import com.sexware.sexware.ForgotPassword.DTO.Mensaje;
 import com.sexware.sexware.Model.*;
 import com.sexware.sexware.Model.Login.JwtRequest;
 import com.sexware.sexware.Model.Login.JwtResponse;
-import com.sexware.sexware.Model.Login.UserDatosRequest;
-import com.sexware.sexware.Model.Login.UserDatosRespons;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Security.AuthenticateService;
@@ -29,8 +27,6 @@ import java.util.Objects;
 public class AuthenticationController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
     private UserDatailsServiceImpl userDatailsService;
     @Autowired
     private JwtUtils jwtUtil;
@@ -38,8 +34,6 @@ public class AuthenticationController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UsuarioService usuarioService;
-    @Autowired
-    private AuthenticateService authenticateService;
 
 
     @PostMapping("/login")

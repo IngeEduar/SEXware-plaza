@@ -1,10 +1,14 @@
 package com.sexware.sexware.Services.Impl;
 
+import com.sexware.sexware.Model.Peticiones.RegisterEmpleadoRequest;
+import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
+import com.sexware.sexware.Model.Registrer.UserRegistrer.UsuarioEmpleado;
 import com.sexware.sexware.Repositorys.*;
 import com.sexware.sexware.Services.UsuarioService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +27,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     private RolRepository rolRepository;
     @Autowired
     private AuditoriaRepository auditoriaRepository;
+    @Autowired
+    private RestaurantRepository restaurantRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public Usuario guardarUsuario(Usuario usuario, Rol rol, String email) throws Exception {
@@ -150,6 +158,57 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void save(Usuario usuario) {
         usuarioRepository.save(usuario);
+    }
+
+    @Override
+    public Usuario guardarEmpleado(RegisterEmpleadoRequest usuario, Rol rol) throws Exception {
+
+        Restaurant restaurant = restaurantRepository.findByNombre(usuario.getNombreRestaurante());
+        List<Usuario> usuarioList = usuarioRepository.findAll();
+        Usuario userPropietario = null;
+
+        if (!usuarioList.isEmpty()){
+            for (Usuario user:usuarioList){
+                if (Objects.equals(user.getRoles().getRolNombre(),rol.getRolNombre()) &&
+                        Objects.equals(user.getEmail(), usuario.getEmail())){
+                    throw new Exception("Ya existe un usuario con este rol");
+                }
+            }
+            for (Usuario user:usuarioList){
+
+                if (user.getRoles().getRolNombre().equals("PROPIETARIO")&&
+                        Objects.equals(user.getEmail(), usuario.getPropietario())){
+                    userPropietario = user;
+                }
+            }
+        }
+
+        if (userPropietario == null){
+            throw new Exception("No eres propietario");
+        }
+
+        rolRepository.save(rol);
+
+        UsuarioEmpleado usuarioEmpleado = modelMapper.map(usuario, UsuarioEmpleado.class);
+        usuarioEmpleado.setRestaurant(restaurant);
+        usuarioEmpleado.setRoles(rol);
+
+        Usuario user = usuarioRepository.save(usuarioEmpleado);
+
+        String fecha = String.valueOf(LocalDate.now());
+        String hora = String.valueOf(LocalTime.now());
+
+
+        Auditoria auditoria = new Auditoria();
+        auditoria.setUsuario(userPropietario);
+        auditoria.setTitulo("REGISTRO");
+        auditoria.setDescripcion("Registro al usuario "+user.getNombre()+" Correo: "+user.getEmail() +
+                " como empleado del restaurante: "+restaurant.getNombre());
+        auditoria.setFecha(fecha+" "+hora);
+
+        auditoriaRepository.save(auditoria);
+
+        return user;
     }
 
 

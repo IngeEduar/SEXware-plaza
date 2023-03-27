@@ -103,4 +103,6 @@ public class UsuarioController {
     public List<Usuario> listarPropietarios(){
         return usuarioService.listarPropietarios();
     }
+
+
 }

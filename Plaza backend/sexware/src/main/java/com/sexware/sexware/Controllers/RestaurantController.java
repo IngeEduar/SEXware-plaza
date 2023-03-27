@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -40,7 +41,7 @@ public class RestaurantController {
     public ResponseEntity<?> guardarRestaurant(@RequestParam("restaurante") String strRestaurant, @RequestParam("img")MultipartFile img){
 
         try {
-            String fileName = StringUtils.cleanPath(img.getOriginalFilename());
+            String fileName = StringUtils.cleanPath(Objects.requireNonNull(img.getOriginalFilename()));
             System.out.println(fileName);
             String dirFile = "images/restaurante";
             fileName = "R"+fileName;

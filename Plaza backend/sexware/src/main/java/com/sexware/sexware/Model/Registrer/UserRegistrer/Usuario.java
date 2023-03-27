@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Table(name = "usuarios")
 public class Usuario implements UserDetails, Serializable {
