@@ -3,6 +3,7 @@ package com.sexware.sexware.Services;
 import com.sexware.sexware.Model.Peticiones.RegisterEmpleadoRequest;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
+import com.sexware.sexware.Model.Respuestas.ListarEmpleadoResponse;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public interface UsuarioService {
     public Usuario getByTokenPassword(String token);
     public void save(Usuario usuario);
 
-    public Usuario guardarEmpleado(RegisterEmpleadoRequest usuario, Rol rol) throws Exception;
+    public void guardarEmpleado(RegisterEmpleadoRequest usuario, Rol rol) throws Exception;
+    public List<ListarEmpleadoResponse> listarEmpleados (String rest) throws Exception;
 
 }

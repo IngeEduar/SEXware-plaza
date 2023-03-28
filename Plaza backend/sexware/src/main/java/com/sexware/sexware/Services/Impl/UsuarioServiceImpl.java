@@ -6,10 +6,14 @@ import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.UsuarioEmpleado;
+import com.sexware.sexware.Model.Respuestas.ListarEmpleadoResponse;
 import com.sexware.sexware.Repositorys.*;
+import com.sexware.sexware.Security.Exceptions.MyException;
 import com.sexware.sexware.Services.UsuarioService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -31,6 +35,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     private RestaurantRepository restaurantRepository;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private EmpleadoRepository empleadoRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Usuario guardarUsuario(Usuario usuario, Rol rol, String email) throws Exception {
@@ -161,9 +169,14 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario guardarEmpleado(RegisterEmpleadoRequest usuario, Rol rol) throws Exception {
+    public void guardarEmpleado(RegisterEmpleadoRequest usuario, Rol rol) throws Exception {
 
         Restaurant restaurant = restaurantRepository.findByNombre(usuario.getNombreRestaurante());
+
+        if (restaurant == null){
+            throw new MyException("El restaurante no existe");
+        }
+
         List<Usuario> usuarioList = usuarioRepository.findAll();
         Usuario userPropietario = null;
 
@@ -171,20 +184,22 @@ public class UsuarioServiceImpl implements UsuarioService {
             for (Usuario user:usuarioList){
                 if (Objects.equals(user.getRoles().getRolNombre(),rol.getRolNombre()) &&
                         Objects.equals(user.getEmail(), usuario.getEmail())){
-                    throw new Exception("Ya existe un usuario con este rol");
+                    throw new MyException("Ya existe un usuario con este rol");
                 }
             }
             for (Usuario user:usuarioList){
 
                 if (user.getRoles().getRolNombre().equals("PROPIETARIO")&&
-                        Objects.equals(user.getEmail(), usuario.getPropietario())){
+                        Objects.equals(user.getEmail(), usuario.getPropietario())&&
+                        Objects.equals(restaurant.getUsuarioId().getEmail(), usuario.getPropietario())
+                ){
                     userPropietario = user;
                 }
             }
         }
 
         if (userPropietario == null){
-            throw new Exception("No eres propietario");
+            throw new MyException("No eres el propietario de este restaurante");
         }
 
         rolRepository.save(rol);
@@ -192,6 +207,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         UsuarioEmpleado usuarioEmpleado = modelMapper.map(usuario, UsuarioEmpleado.class);
         usuarioEmpleado.setRestaurant(restaurant);
         usuarioEmpleado.setRoles(rol);
+        usuarioEmpleado.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
         Usuario user = usuarioRepository.save(usuarioEmpleado);
 
@@ -208,7 +224,34 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         auditoriaRepository.save(auditoria);
 
-        return user;
+    }
+
+    @Override
+    public List<ListarEmpleadoResponse> listarEmpleados(String rest){
+        Restaurant restaurant = restaurantRepository.findByNombre(rest);
+
+        if (restaurant == null){
+            throw new MyException("Este restaurante no existe");
+        }
+        List<UsuarioEmpleado> usuarioEmpleadoList = empleadoRepository.findByRestaurant(restaurant);
+        List<ListarEmpleadoResponse> list = new ArrayList<>();
+
+        if (usuarioEmpleadoList.isEmpty()){
+            throw new MyException("Este restaurante no tiene empleados");
+        }
+
+        for (UsuarioEmpleado empleado:usuarioEmpleadoList){
+            ListarEmpleadoResponse empleadoResponse = new ListarEmpleadoResponse();
+            empleadoResponse.setNombre(empleado.getNombre());
+            empleadoResponse.setApellido(empleado.getApellido());
+            empleadoResponse.setEmail(empleado.getEmail());
+            empleadoResponse.setRol(empleado.getRoles().getRolNombre());
+
+            list.add(empleadoResponse);
+        }
+
+
+        return list;
     }
 
 
