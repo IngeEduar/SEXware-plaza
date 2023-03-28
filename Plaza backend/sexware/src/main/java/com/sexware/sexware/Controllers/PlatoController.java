@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.sexware.sexware.ForgotPassword.DTO.Mensaje;
 import com.sexware.sexware.Model.Registrer.PlatoRegister.*;
 import com.sexware.sexware.SaveImage.FileUploadUtil;
+import com.sexware.sexware.Security.Exceptions.MyException;
 import com.sexware.sexware.Services.PlatoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,7 +55,10 @@ public class PlatoController {
                     crearPlatoResponse.getImg(),
                     crearPlatoResponse.getCategoria()), HttpStatus.OK);
 
-        }catch (Exception e){
+        }catch (MyException ex){
+            throw ex;
+        }
+        catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new Mensaje("Error al crear plato, No eres el propietario"),
                     HttpStatus.NOT_FOUND);
@@ -67,11 +71,14 @@ public class PlatoController {
     }
 
     @PostMapping("/modificar")
-    public ResponseEntity<?> mdificarPlato(@RequestBody ModificarPlatoRequest modificarPlatoRequest){
+    public ResponseEntity<?> modificarPlato(@RequestBody ModificarPlatoRequest modificarPlatoRequest){
         try {
             platoService.modificarPlato(modificarPlatoRequest);
             return new ResponseEntity<>(new Mensaje("Plato Modificado con exito"),HttpStatus.OK);
-        }catch (Exception e){
+        }catch (MyException ex){
+            throw ex;
+        }
+        catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new Mensaje("Error al modificar el plato, No eres el propieatrio"),HttpStatus.NOT_FOUND);
         }

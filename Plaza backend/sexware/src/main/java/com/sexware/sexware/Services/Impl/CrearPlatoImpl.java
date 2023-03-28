@@ -5,6 +5,7 @@ import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Repositorys.*;
+import com.sexware.sexware.Security.Exceptions.MyException;
 import com.sexware.sexware.Services.PlatoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class CrearPlatoImpl implements PlatoService {
     private ModelMapper modelMapper;
 
     @Override
-    public CrearPlatoResponse crearPlato(CrearPlatoRequest crearPlatoRequest) throws Exception {
+    public CrearPlatoResponse crearPlato(CrearPlatoRequest crearPlatoRequest) {
 
 
 
@@ -51,7 +52,7 @@ public class CrearPlatoImpl implements PlatoService {
             }
 
             if (users == null){
-                throw new Exception("No eres el propietario");
+                throw new MyException("No eres el propietario");
             }
 
             Plato plato = modelMapper.map(crearPlatoRequest, Plato.class);
@@ -126,7 +127,7 @@ public class CrearPlatoImpl implements PlatoService {
             }
         }
         if (userP == null){
-            throw new Exception("No eres el propietario");
+            throw new MyException("No eres el propietario");
         }
 
             Plato plato = platoRepository.findByNombre(modificarPlatoRequest.getNombre());

@@ -8,6 +8,7 @@ import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.UserRegisterRespons;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Repositorys.AuditoriaRepository;
+import com.sexware.sexware.Security.Exceptions.MyException;
 import com.sexware.sexware.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -50,7 +51,10 @@ public class UsuarioController {
                     user.getApellido(),
                     user.getCedula(),
                     user.getRoles().getRolNombre()), HttpStatus.OK);
-        }catch (Exception e){
+        }catch (MyException ex){
+            throw ex;
+        }
+        catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new Mensaje("Error al registrar el usuario, No eres Admin"),HttpStatus.NOT_FOUND);
         }

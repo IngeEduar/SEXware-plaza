@@ -10,6 +10,7 @@ import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Repositorys.RestaurantRepository;
 import com.sexware.sexware.SaveImage.FileUploadUtil;
 import com.sexware.sexware.SaveImage.MyController;
+import com.sexware.sexware.Security.Exceptions.MyException;
 import com.sexware.sexware.Services.RestaurantService;
 import com.sexware.sexware.Services.UsuarioService;
 import org.modelmapper.ModelMapper;
@@ -57,7 +58,10 @@ public class RestaurantController {
                     rest.getNit(),
                     rest.getUsuarioId().getNombre()),
                     HttpStatus.OK);
-        }catch (Exception e){
+        }catch (MyException ex){
+            throw ex;
+        }
+        catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new Mensaje("Error al crear restaurante, No eres Admin"),HttpStatus.NOT_FOUND);
         }

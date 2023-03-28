@@ -50,7 +50,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             for (Usuario user:usuario1){
                 if (Objects.equals(user.getRoles().getRolNombre(),rol.getRolNombre()) &&
                         Objects.equals(user.getEmail(), usuario.getEmail())){
-                    throw new Exception("Ya existe un usuario con este rol");
+                    throw new MyException("Ya existe un usuario con este rol");
                 }
             }
             for (Usuario users:usuario1){
@@ -62,7 +62,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             }
         }
         if (usuarioAdmin == null){
-            throw new Exception("No estas registrado como admin");
+            throw new MyException("No estas registrado como admin");
         }
             rolRepository.save(rol);
 
@@ -169,7 +169,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void guardarEmpleado(RegisterEmpleadoRequest usuario, Rol rol) throws Exception {
+    public void guardarEmpleado(RegisterEmpleadoRequest usuario, Rol rol) {
 
         Restaurant restaurant = restaurantRepository.findByNombre(usuario.getNombreRestaurante());
 
@@ -178,15 +178,20 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         List<Usuario> usuarioList = usuarioRepository.findAll();
+        List<UsuarioEmpleado> usuarioEmpleados = empleadoRepository.findAll();
         Usuario userPropietario = null;
 
-        if (!usuarioList.isEmpty()){
-            for (Usuario user:usuarioList){
-                if (Objects.equals(user.getRoles().getRolNombre(),rol.getRolNombre()) &&
-                        Objects.equals(user.getEmail(), usuario.getEmail())){
-                    throw new MyException("Ya existe un usuario con este rol");
+        if (!usuarioEmpleados.isEmpty()){
+            for (UsuarioEmpleado empleado:usuarioEmpleados){
+                if (Objects.equals(usuario.getEmail(),empleado.getEmail())&&
+                    Objects.equals(restaurant.getNombre(),empleado.getRestaurant().getNombre())
+                ){
+                    throw new MyException("Este usuario ya esta registrado en este restaurante");
                 }
             }
+        }
+
+        if (!usuarioList.isEmpty()){
             for (Usuario user:usuarioList){
 
                 if (user.getRoles().getRolNombre().equals("PROPIETARIO")&&

@@ -7,6 +7,7 @@ import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Repositorys.AuditoriaRepository;
 import com.sexware.sexware.Repositorys.RestaurantRepository;
 import com.sexware.sexware.Repositorys.UsuarioRepository;
+import com.sexware.sexware.Security.Exceptions.MyException;
 import com.sexware.sexware.Services.RestaurantService;
 import com.sexware.sexware.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
     @Override
-    public Restaurant guardarRestaurant(RestaurantRequest restaurantRequest) throws Exception {
+    public Restaurant guardarRestaurant(RestaurantRequest restaurantRequest){
         List<Usuario> usuarioList = usuarioService.listarUsuario();
         Usuario userA = null;
+        System.out.println("--- "+ restaurantRequest.getAdmin()+ " ------");
         for (Usuario user: usuarioList){
             if (user.getRoles().getRolNombre().equals("ADMIN")&&
                     Objects.equals(user.getEmail(), restaurantRequest.getAdmin())){
@@ -42,7 +44,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         }
 
         if (userA == null){
-            throw new Exception("No eres Admin");
+            throw new MyException("No eres Admin");
         }
 
         String emailUser = restaurantRequest.getUser();

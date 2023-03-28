@@ -8,6 +8,7 @@ import com.sexware.sexware.Model.Login.JwtResponse;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Security.AuthenticateService;
+import com.sexware.sexware.Security.Exceptions.MyException;
 import com.sexware.sexware.Security.JwtUtils;
 import com.sexware.sexware.Services.Impl.UserDatailsServiceImpl;
 import com.sexware.sexware.Services.UsuarioService;
@@ -48,7 +49,7 @@ public class AuthenticationController {
                 String token = this.jwtUtil.generateToken(userDetails);
                 return ResponseEntity.ok(new JwtResponse(token));
             case "FAIL":
-                return new  ResponseEntity<>(new Mensaje("Credenciales invalidas"), HttpStatus.NOT_FOUND);
+                throw new MyException("Credenciales invalidas");
             case "NX":
                 return new ResponseEntity<>(new Mensaje("No existe ningun usuario con esas credenciales"),HttpStatus.NOT_FOUND);
             default:
