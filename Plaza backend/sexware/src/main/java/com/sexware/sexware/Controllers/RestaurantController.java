@@ -38,8 +38,8 @@ public class RestaurantController {
     private UsuarioService usuarioService;
 
 
-    @PostMapping("/guardar")
-    public ResponseEntity<?> guardarRestaurant(@RequestParam("restaurante") String strRestaurant, @RequestParam("img")MultipartFile img){
+    @PostMapping("/guardar/{admin}")
+    public ResponseEntity<?> guardarRestaurant(@PathVariable("admin")String admin,@RequestParam("restaurante") String strRestaurant, @RequestParam("img")MultipartFile img){
 
         try {
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(img.getOriginalFilename()));
@@ -51,7 +51,7 @@ public class RestaurantController {
             RestaurantRequest restaurantRequest = gson.fromJson(strRestaurant, RestaurantRequest.class);
             restaurantRequest.setUrlLogo(fileName);
 
-            Restaurant rest = restaurantService.guardarRestaurant(restaurantRequest);
+            Restaurant rest = restaurantService.guardarRestaurant(restaurantRequest, admin);
             FileUploadUtil.saveFile(dirFile,fileName,img);
 
             return new ResponseEntity<>(new RestaurantRegisterRespons(rest.getNombre(),
@@ -67,11 +67,11 @@ public class RestaurantController {
         }
     }
 
-    @PostMapping("/guardar-sin")
-    public Restaurant guardarSinImagen(@RequestBody RestaurantRequest restaurantRequest) throws Exception {
+    @PostMapping("/guardar-sin/{admin}")
+    public Restaurant guardarSinImagen(@RequestBody RestaurantRequest restaurantRequest,@PathVariable("admin") String admin) throws Exception {
 
         restaurantRequest.setUrlLogo("default.jpg");
-        return restaurantService.guardarRestaurant(restaurantRequest);
+        return restaurantService.guardarRestaurant(restaurantRequest, admin);
     }
 
     @GetMapping("/listar")

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RestaurantService {
 
-    public Restaurant guardarRestaurant(RestaurantRequest restaurantRequest) throws Exception;
+    public Restaurant guardarRestaurant(RestaurantRequest restaurantRequest, String admin) throws Exception;
 
     public Restaurant obtenerRestaurante(String nombre);
     public List<Restaurant> listarRestaurante();

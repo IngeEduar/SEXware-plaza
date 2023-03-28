@@ -32,13 +32,12 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
     @Override
-    public Restaurant guardarRestaurant(RestaurantRequest restaurantRequest){
+    public Restaurant guardarRestaurant(RestaurantRequest restaurantRequest, String admin){
         List<Usuario> usuarioList = usuarioService.listarUsuario();
         Usuario userA = null;
-        System.out.println("--- "+ restaurantRequest.getAdmin()+ " ------");
         for (Usuario user: usuarioList){
             if (user.getRoles().getRolNombre().equals("ADMIN")&&
-                    Objects.equals(user.getEmail(), restaurantRequest.getAdmin())){
+                    Objects.equals(user.getEmail(), admin)){
                 userA = user;
             }
         }
