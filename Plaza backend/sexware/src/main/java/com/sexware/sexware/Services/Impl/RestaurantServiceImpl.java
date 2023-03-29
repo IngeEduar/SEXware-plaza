@@ -34,6 +34,17 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Restaurant guardarRestaurant(RestaurantRequest restaurantRequest, String admin){
         List<Usuario> usuarioList = usuarioService.listarUsuario();
+        List<Restaurant> restaurantList = restaurantRepository.findAll();
+
+        for (Restaurant rest : restaurantList){
+            if (restaurantRequest.getNombre().equals(rest.getNombre())){
+                throw new MyException("Ya existe un restaurante con este nombre");
+            }
+            if (restaurantRequest.getNit().equals(rest.getNit())){
+                throw new MyException("Ya hay un restaurante resgistrado con este NIT");
+            }
+        }
+
         Usuario userA = null;
         for (Usuario user: usuarioList){
             if (user.getRoles().getRolNombre().equals("ADMIN")&&
