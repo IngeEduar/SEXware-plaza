@@ -5,7 +5,7 @@
 }
 
 .body {
-	background: #f6f5f7;
+	background-color: #f6f5f7 !important;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -239,4 +239,9 @@ form {
 
 .social-container a:hover {
 	border: 1px solid rgba(155, 0, 0, 0.81);
+}
+
+.selectRol{
+	width: 80%;
+	margin-top: 20px;
 }

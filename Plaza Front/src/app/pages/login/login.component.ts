@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginRoles } from 'src/app/login-roles';
 import { LoginService } from 'src/app/services/login.service';
 
 
@@ -9,11 +10,22 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent{
+  
+  loginRoles:LoginRoles = new LoginRoles
+
+  public rolUsuario ={
+    rol:''
+  }
+
+  
 
   loginData = {
     "email" :'',
-    "password" : ''
+    "password" : '',
+    "rol": ''
+    
   }
+  
 
   constructor(private snack: MatSnackBar, private loginService:LoginService)
   {
@@ -21,15 +33,14 @@ export class LoginComponent{
 
   }
 
-
   ngOnInit(): void{
+    
 
   }
 
-
-
   formSubmit()
   {
+    console.log(this.rolUsuario.rol);
     //console.log("Click en el boton de login", this.loginData.username, this.loginData.password);
     if(this.loginData.email.trim() == '' || this.loginData.email.trim() == null)
     {
@@ -49,12 +60,13 @@ export class LoginComponent{
       return;
     }
 
+
     this.loginService.generateToken(this.loginData).subscribe(
       (data:any) => {
         console.log(data);
 
         this.loginService.loginUser(data.token);
-        this.loginService.getCurrentUser().subscribe((user:any) =>{
+        this.loginService.getCurrentUser(this.loginData).subscribe((user:any) =>{
           this.loginService.setUsuario(user);
           console.log(user);
           //close();
@@ -62,7 +74,7 @@ export class LoginComponent{
 
           if(this.loginService.getUserRol() =="ADMIN")
           {
-            window.location.href ="/admin";
+            window.location.href ="/actualizar-contrasegna/" + this.loginData.password;
           }
           else if(this.loginService.getUserRol() == "PROPIETARIO")
           {
@@ -77,6 +89,7 @@ export class LoginComponent{
 
       }, (error) => {
         console.log(error);
+
         this.snack.open('Las credenciales no son validas', 'Aceptar', {
           duration: 5000,
           verticalPosition: 'top',
@@ -89,6 +102,8 @@ export class LoginComponent{
     
 
   }
+
+
 
   
 

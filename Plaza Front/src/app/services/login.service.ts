@@ -80,9 +80,14 @@ export class LoginService {
     return user.authorities[0].authority;
   }
 
-  public getCurrentUser()
+  public getCurrentUser(loginData:any)
   {
-    return this.httpClient.get(`${baseUrl}/actual-usuario`);
+    return this.httpClient.post(`${baseUrl}/actual-usuario`, loginData);
+  }
+
+  public getLoginData()
+  {
+    
   }
 
   

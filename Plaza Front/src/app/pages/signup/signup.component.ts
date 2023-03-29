@@ -19,7 +19,7 @@ export class SignupComponent {
     apellido : '',
     email : '',
     celular : '',
-    nidentidad : ''
+    cedula : ''
 
   }
 
@@ -177,7 +177,7 @@ export class SignupComponent {
 
     for(let i=0; i<letras.length-1; i++){
 
-        if(this.user.nidentidad.includes(letras[i])){
+        if(this.user.cedula.includes(letras[i])){
           this.snack.open('El numero de documento no puede contener letras o simbolos', 'Aceptar', {
             duration: 8000,
             verticalPosition: 'top',
@@ -195,11 +195,22 @@ export class SignupComponent {
       (data)=> 
       {
         console.log(data);
-        Swal.fire('Usuario guardado', 'Usuario registrado con exito en el sistema', 'success')
+        Swal.fire({title: '<strong>Usuario registrado con éxito</strong>',
+            icon: 'success',
+            html:
+              '<form (ngSubmit) ="recargar()">'+
+              '<button id="but" type="submit" class="btn">'+
+              'Hecho'+
+              '</button>'+
+            '</form>',
+            showCloseButton: true,
+            showConfirmButton: false,
+
+          });
 
       }, (error) =>{
         console.log(error);
-        this.snack.open('Ha ocurrido un error en el sistema', 'Aceptar', {
+        this.snack.open(error.error, 'Aceptar', {
           duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right',
@@ -209,6 +220,10 @@ export class SignupComponent {
       }
     )
 
+  }
+
+  recargar(){
+    location.reload();
   }
 
   

@@ -7,6 +7,7 @@ import { UserService } from './user.service';
 import { LoginService } from './login.service';
 import { ListarPlatos } from '../listar-platos';
 import { ListaRestaurantesComponent } from '../pages/lista-restaurantes/lista-restaurantes.component';
+import { Empleado } from '../empleado';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,13 @@ export class PropietarioService {
   //añadir un plato de comida
   public añadirPlato(plato:any)
   {
-    return this.httpClient.post(`${baseUrl}/plato/agregar`, plato)
+    return this.httpClient.post(`${baseUrl}/plato/agregar/`, plato)
 
+  }
+
+  public modificarPlato(actualizarPlato:any)
+  {
+    return this.httpClient.post(`${baseUrl}/plato/modificar/`, actualizarPlato)
   }
 
     //Obtener el listado de la auditoria de la base de datos
@@ -37,5 +43,17 @@ export class PropietarioService {
     {
       
       return this.httpClient.get<ListarPlatos[]>(`${baseUrl}/plato/lista-rest/`+ nombre);
+    }
+
+    obtenerListaEmpleados(nombre:string): Observable<Empleado[]>
+    {
+      return this.httpClient.get<Empleado[]>(`${baseUrl}/empleado/listar/`+ nombre);
+
+
+    }
+
+    registrarEmpleado(user:any)
+    {
+      return this.httpClient.post(`${baseUrl}/empleado/guardar`, user);
     }
 }

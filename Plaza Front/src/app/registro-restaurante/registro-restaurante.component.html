@@ -9,7 +9,7 @@
         <li><a href="/signup"><i class="fa-regular fa-user"></i> Propietarios</a></li>
         <li><a class="active" href="/registro-restaurante"><i class="fa-solid fa-utensils"></i> Restaurantes</a></li>
         <li><a href="/auditoria"><i class="fa-regular fa-newspaper"></i> Auditorias</a></li>
-        <li><a href="/actualizar-contrasegna"><i class="fa-solid fa-lock"></i>Cambiar clave</a></li>
+        <li><a href="/actualizar-contrasegna/123123"><i class="fa-solid fa-lock"></i>Cambiar clave</a></li>
               <div style="display: flex; justify-content: center; width: 75%;">
                 <form (ngSubmit) ="salir()">
                   <button id="but" type="submit" class="cont">
@@ -58,62 +58,76 @@ img: <input type="file" class="file-input" (change)="onFileSelected($event)" #fi
             <div class="col-md-6 offset-md-3">
 
                     <form (ngSubmit) ="formSubmit()" id="form">
-                        <mat-form-field class="full-width" appearance="outline">
-                          <label><font color="#000000">Ingrese el nombre del restaurante</font></label>
-                          <input type="text" [formControl]="this.nombre">
 
-                        </mat-form-field>
+                      <p>Ingrese el nombre del restaurante</p>
+                      <mat-form-field class="full-width" appearance="outline">
+                        <input matInput placeholder="Nombre"
+                        id="nombre"
+                        [(ngModel)]="restaurantes.nombre"
+                        name="nombre">
 
-                    
-                        <mat-form-field class="full-width" appearance="outline">
-                          <label><font color="#000000">Ingrese la direccion</font></label>
-                          <input type="text" [formControl]="this.direccion">
+                    </mat-form-field>
 
-                        </mat-form-field>
+                    <p>Ingrese la dirección</p>
+                    <mat-form-field class="full-width" appearance="outline">
+                      <input matInput placeholder="Direccion"
+                      id="direccion"
+                      [(ngModel)]="restaurantes.direccion"
+                      name="direccion">
 
-                        <mat-form-field class="full-width" appearance="outline">
-                          <label><font color="#000000">Ingrese el nit</font></label>
-                          <input color="#000000" type="text" [formControl]="this.nit">
+                    </mat-form-field>
 
-                        </mat-form-field>
+                    <p>Ingrese el telefono</p>
+                    <mat-form-field class="full-width" appearance="outline">
+                      <input matInput placeholder="Telefono"
+                      id="telefono"
+                      [(ngModel)]="restaurantes.telefono"
+                      name="telefono">
 
-                        <mat-form-field class="full-width" appearance="outline">
-                          <label><font color="#000000">Ingrese el telefono</font></label>
-                          <input type="text" [formControl]="this.telefono">
+                    </mat-form-field>
 
-                        </mat-form-field>
 
-                        <mat-form-field class="full-width" appearance="outline">
-                          <label><font color="#000000">Ingrese el admin</font></label>
-                          <input type="text" [formControl]="this.admin">
+                    <p>Ingrese el nit</p>
+                    <mat-form-field class="full-width" appearance="outline">
+                      <input matInput placeholder="Nit"
+                      id="nit"
+                      [(ngModel)]="restaurantes.nit"
+                      name="nit">
 
-                            
+                    </mat-form-field>
 
-                        </mat-form-field>
-    
-                        <mat-form-field class="full-width" appearance="outline">
-                          <label><font color="#000000">Ingrese el usuario</font></label>
-                          <input type="text" [formControl]="this.user">
+                    <!--<mat-form-field class="full-width" appearance="outline">
+                      <input matInput placeholder="Admin"
+                      id="admin"
+                      [(ngModel)]="restaurantes.admin"
+                      name="admin">
 
-                        </mat-form-field>
+                    </mat-form-field>-->
 
-                        
+                    <p>Seleccione el propietario</p>
+                    <!--  
+                    <select id="select">
+                      <option value="xavieravendano9@gmail.com">Porpietario 1</option>
+                      <option value="2">Porpietario 2</option>
+                      <option value="3">Porpietario 3</option>
+                    </select>
+
+                  -->
+
+                  <select id="select" name="miselect" [(ngModel)]="restaurantes.user">
+                    <option [value]="item.email" *ngFor="let item of listaPropietarios">{{item.nombre}} - {{item.email}}</option>
+                  </select>
+                                
+                    <p>Ingrese el logo del restaurante</p>
+                    <div class="file-select">
                       <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
-
-                        
-
-                        
-
-    
-
+                    </div>
                         <div class="container text-center">
                             <button (click)="enviarFormulario()" mat-raised-button color="primary" id="btn1">Registrar</button>
-
                             <button type="reset" style="margin-left: 20px;" mat-raised-button color="accent" id="btn2">Limpiar</button>
                         </div>
 
                     </form>
-
                     <br><br><br>
 
                 </div>

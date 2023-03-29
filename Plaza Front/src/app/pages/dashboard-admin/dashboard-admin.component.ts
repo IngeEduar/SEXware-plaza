@@ -22,9 +22,10 @@ export class DashboardAdminComponent {
 
   salir(){
     this.LoginService.logout();
-    window.location.reload();
+    console.log("Saliendo");
+    close();
+    open("login");
   }
-
 
 
 }

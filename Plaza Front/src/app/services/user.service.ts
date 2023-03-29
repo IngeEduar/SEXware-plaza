@@ -4,6 +4,7 @@ import baseUrl from './helper';
 import { Observable } from 'rxjs';
 import { Auditoria } from '../auditoria';
 import { Restaurante } from 'src/restaurante';
+import { ListaPropietarios } from '../lista-propietarios';
 
 @Injectable({
   providedIn: 'root'
@@ -29,12 +30,18 @@ export class UserService {
   registrarRestaurante(restaurante:any)
   {
     //return this.httpClient.post(`${baseUrl}/restaurante/guardar`, restaurante);
-    return this.httpClient.post(`${baseUrl}/restaurante/guardar`, restaurante);
+    return this.httpClient.post(`${baseUrl}/restaurante/guardar-sin`, restaurante);
   }
 
   cambiarPassword(contrasegna:any)
   {
     return this.httpClient.post(`${baseUrl}/admin/actualizar-password`, contrasegna);
+
+  }
+
+  cambiarContrasegna(contrasegna:any)
+  {
+    return this.httpClient.post(`${baseUrl}/admin/change-password`, contrasegna);
 
   }
 
@@ -48,6 +55,13 @@ export class UserService {
     return this.httpClient.get<Restaurante>('http://localhost:8080/img/photos/')
 
   }
+
+  obtenerListaPropietarios(): Observable<ListaPropietarios[]>
+  {
+    return this.httpClient.get<ListaPropietarios[]>(`${baseUrl}/admin/lista-propietarios`);
+
+  }
+
 
 
 

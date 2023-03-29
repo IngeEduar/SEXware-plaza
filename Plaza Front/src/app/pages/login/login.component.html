@@ -50,11 +50,28 @@
                 <mat-form-field class="full-width input" appearance="outline" style="background-color: white;">
                     <input [(ngModel)] = "loginData.password" name="password" required type="password" matInput placeholder="Digite su contraseña">
                 </mat-form-field>
+                
+                 
+                <mat-form-field class="selectRol" >
+                    <mat-select placeholder="Seleccione Un rol" [(ngModel)]="loginData.rol" name="opcines">
+                      <mat-option value="PROPIETARIO">Propietario</mat-option>
+                      <mat-option value="ADMIN">Administrador</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                
+
+                <!-- 
+                <select id="select" name="miselect" [(ngModel)]="rolUsuario.rol">
+                    <option [value]="loginRoles.rol" >Propietario</option>
+                  </select>-->
+                
 
 
                 <a href="#">¿Olvidaste tu contraseña?</a>
                 <button>Ingresar</button>
             </form>
+
+            
         </div>
         <div class="overlay-container">
             <div class="overlay">

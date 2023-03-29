@@ -6,6 +6,7 @@ import { LoginService } from '../services/login.service';
 import { Restaurante } from 'src/restaurante';
 import { FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { ListaPropietarios } from '../lista-propietarios';
 
 @Component({
   selector: 'app-registro-restaurante',
@@ -15,14 +16,20 @@ import { HttpClient } from '@angular/common/http';
 export class RegistroRestauranteComponent {
 
   restaurante: Restaurante = new Restaurante;
+
+  listaPropietarios:ListaPropietarios[];
+
+  public restaurantes =
+  {
+    nombre: '',
+    direccion: '',
+    telefono: '',
+    nit: '',
+    adm : 'adminFesc@fesc.edu.co',
+    user:''
+  }
   
   title = 'formImage';
-  nombre = new FormControl('');
-  direccion = new FormControl('');
-  telefono = new FormControl('');
-  nit = new FormControl('');
-  admin = new FormControl('');
-  user = new FormControl('');
   formData = new FormData();
 
   constructor(private userService: UserService, private snack: MatSnackBar, private LoginService:LoginService, private httpClient:HttpClient)
@@ -33,33 +40,106 @@ export class RegistroRestauranteComponent {
 
   enviarFormulario() {
     //Creamos el objeto usuario, con las propiedades de nuestro formulario
-    let usuario = {
-      nombre: this.nombre.value,
-      direccion: this.direccion.value,
-      telefono: this.telefono.value,
-      nit: this.nit.value,
-      admin: this.admin.value,
-      user: this.user.value
-    };
+
+    console.log(this.restaurantes.adm)
+
+
+    const CARACTERES = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "!", "#", "$", "%", "&", "/", "(", ")", "=", "'", "?", "¿", "¡", ",", ";", ".", ":", "-", "_", "{", "}", "[", "]", "*" ];
+    let letras = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "!", "#", "$", "%", "&", "/", "(", ")", "=", "'", "?", "¿", "¡", ",", ";", ".", ":", "_", "{", "}", "[", "]", "*"];
+    //validaciones NIT
+
+    for(let i=0; i<letras.length; i++){
+      if(this.restaurantes.nit.includes(letras[i]) || this.restaurantes.nit.includes("+")){
+        this.snack.open('El NIT no puede contener letras o simbolos', 'Aceptar', {
+          duration: 8000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right',
+  
+        });
+        return;
+      }
+    }
+
+    //validaciones de telefono
+    for(let i=0; i<letras.length; i++){
+      
+      if(this.restaurantes.telefono.includes(letras[i])){
+        this.snack.open('El telefono solo puede contener numero o el simbolo +', 'Aceptar', {
+          duration: 8000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right',
+  
+        });
+        return;
+      }
+      
+
+    }
+
+    if(this.restaurantes.telefono.length > 13){
+      this.snack.open('El telefono no es valido', 'Aceptar', {
+        duration: 8000,
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+
+      });
+      return;
+    }
+
+    if(!this.restaurantes.telefono.includes("+57")){
+      this.snack.open('Por favor inidicar el prefijo del telefono. Ej: +57 3115263782', 'Aceptar', {
+        duration: 8000,
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+
+      });
+      return;
+    }
+
+    //validaciones de logo
+
+    //validacion de usuario
+    if(!this.restaurantes.user.includes("@")){
+      this.snack.open('El Email del propietario no es valido', 'Aceptar', {
+        duration: 8000,
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+
+      });
+      return;
+    }
+
+    this.restaurantes.adm = this.LoginService.getUser().Email
 
     //Añadimos a nuestro objeto formData nuestro objeto convertido a String
-    this.formData.append('restaurante', JSON.stringify(usuario));
+    this.formData.append('restaurante', JSON.stringify(this.restaurantes));
 
     //Realizamos la petición a SpringBoot
-    
-
     this.httpClient
-      .post<any>('http://localhost:8080/restaurante/guardar', this.formData)
+      .post<any>('http://localhost:8080/restaurante/guardar/'+ this.LoginService.getUser().username, this.formData)
       .subscribe((data) => {
         //En este punto nuestra petición ha funcionado correctamente
-        alert('Usuario creado correctamente');
+        Swal.fire({title: '<strong>Restaurante Creado</strong>',
+          icon: 'success',
+          html:
+            '<form (ngSubmit) ="recargar()">'+
+            '<button id="but" type="submit" class="btn">'+
+            'Hecho'+
+            '</button>'+
+          '</form>',
+          showCloseButton: true,
+          showConfirmButton: false,
+
+        });
       });
   }
   
+  recargar(){
+    location.reload();
+  }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
-
     this.formData.append('img', file);
   }
 
@@ -70,11 +150,24 @@ export class RegistroRestauranteComponent {
     this.LoginService.logout();
   }
 
-  formSubmit()
-  {
-    
-  }
+ formSubmit()
+ {
+  
+ }
 
+ ngOnInit()
+ {
+
+   this.obtenerListaPropietarios();
+ }
+
+ obtenerListaPropietarios()
+ {
+  this.userService.obtenerListaPropietarios().subscribe(dato =>{
+    console.log(dato);
+    this.listaPropietarios = dato;
+  })
+ }
 
   /*
   public restaurante =

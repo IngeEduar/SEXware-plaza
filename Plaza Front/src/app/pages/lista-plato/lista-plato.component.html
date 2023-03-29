@@ -1,45 +1,82 @@
-<app-navbar></app-navbar>
-
-<h1>{{nombre}}</h1>
-
-<div class=" p-5">
-    <table class="table table-dark table-striped">
-        <thead class="table-dark">
-            <tr >
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Precio</th>
-                <th>Imagen</th>
-
-            </tr>
-        </thead>
-        <tbody>
-          
-            <tr *ngFor="let auditorias of listaPlato">
-                <td><font color="#000000">{{auditorias.nombre}}</font></td>
-                <td><font color="#000000">{{auditorias.descripcion}}</font></td>
-                <td><font color="#000000">{{auditorias.precio}}</font></td>
-                <td><font color="#000000">{{auditorias.img}}</font></td>
-                <!-- <td><font color="#000000">{{auditorias.categoria}}</font></td> -->
-                <!-- <td><img src="http://localhost:8080/img/photos/{{auditorias.urlLogo}}" alt="imagen" height="100px" width="200px" /></td> -->
-                <!-- <td><font color="#000000"><a href="/registrar-plato">Registro del plato</a></font></td> -->
-                <!-- <td><font color="#000000"><a href="/listar-platos">Ver platos</a></font></td> -->
-
-                
+ 
+  <div class="w-full md:flex justify-between body" style="background-color: #bbbbbb;">
+    <div class="flex-shrenk-0 w-full md:w-80 h-screen sticky top-0 overflow-y-auto" style="border-right: 1px solid rgb(87, 87, 87);background-color: #374151; ">
+      <nav class="navbar shadow-lg p-5" style="background-color: #252c36;">
+        <div class="font-semibold" >PLAZA FESC</div>
+      </nav>
+      <ul class="menu p-5">
+        <li class="menu-title"><span>Navigation</span></li>
+        <li><a href="/propietario"><i class="fa-solid fa-house-chimney"></i> Inicio</a></li>
+        <li><a class="active" href="/lista-restaurantes"><i class="fa-solid fa-utensils"></i> Registrar plato</a></li>
+        <li><a href="/lista-restaurantes"><i class="fa-solid fa-utensils"></i> Lista de restaurantes</a></li>
+        <li><a href="/actualizar-contrasegna/123123"><i class="fa-solid fa-lock"></i>Cambiar clave</a></li>
+        <div style="display: flex; justify-content: center; width: 75%;">
+          <form (ngSubmit) ="salir()">
+            <button id="but" type="submit" class="cont">
+              <li style="bottom: 10px; position: absolute;"><i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 20px;"></i></li>
+            </button>
+          </form>
+        </div>
+              
+              
+      </ul>
+    </div>
+    <div class="flex-1">
+      <div class="flex items-center justify-between p-5">
+        <div class="breadcrumbs">
+            <h1 class="text-center" style="color: #252c36;"><i class="fa-solid fa-house"></i> Platos actuales del restaurante</h1>
+        </div>
+        <div>
             
+          <div class="avatar gap-5">
+            <input type="search" class="input input-bordered rounded-full" placeholder="Search">
+            <div class="w-12 rounded-full">
+              <img src="https://api.lorem.space/image/face?hash=64318">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- main content /-->
+      <div class="w-full p-5">
+
+        
+        <table>
+            <tr *ngFor="let auditorias of listaPlato">
+              <table class="card">
+                <tr><font color="#000000"><h2><b>{{auditorias.nombre}}</b></h2></font></tr>
+                <tr>
+                  <td class="img">
+                    <img src="http://localhost:8080/img/photos/{{auditorias.img}}" alt="imagen"/>
+                  </td>
+                </tr>
+                <tr><font color="#000000"><b>Descripción:</b> {{auditorias.descripcion}}</font></tr>
+                <tr><font color="#000000"><b>Precio: </b>${{auditorias.precio}}</font></tr>
+
+                <tr style="margin-top: 20px;"><button (click)="obtenerNombrePlato(auditorias.nombre)">Actualizar plato</button></tr>
+                
+                <!-- <td><font color="#000000"><a href="/lista-plato">Ver platos</a></font></td> -->
+                
+                <!-- <td><button (click)="obtenerNombreRestaurante(auditorias.nombre)">Obtener nombre</button></td> -->
+              </table>
+                
+                
             </tr>
-
+        </table>
         
-        </tbody>
-
+  
+       
+  
+  
+  
+  
+        <!--END Report-->
         
-
         
-        
-      </table>
-    
-
-    <!--END Report-->
-    
-    
+      </div>
+      <!-- END main content /-->
+    </div>
   </div>
+  
+  
+  
+

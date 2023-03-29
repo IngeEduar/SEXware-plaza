@@ -20,6 +20,19 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.footer{
+  background-color: white !important;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.h2Footer{
+  background-color: white !important;
+  margin-right: -55%;
+}
+
 /* ///////////..utility classes../////////// */
 
 .container {

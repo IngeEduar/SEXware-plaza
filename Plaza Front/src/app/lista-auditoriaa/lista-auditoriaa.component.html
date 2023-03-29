@@ -5,11 +5,12 @@
       </nav>
       <ul class="menu p-5">
         <li class="menu-title"><span>Navigation</span></li>
+
         <li><a href="/admin"><i class="fa-solid fa-house-chimney"></i> Inicio</a></li>
         <li><a href="/signup"><i class="fa-regular fa-user"></i> Propietarios</a></li>
         <li><a href="/registro-restaurante"><i class="fa-solid fa-utensils"></i> Restaurantes</a></li>
-        <li><a class="active" href="/auditoria"><i class="fa-regular fa-newspaper"></i> Auditorias</a></li>
-        <li><a href="/actualizar-contrasegna"><i class="fa-solid fa-lock"></i>Cambiar clave</a></li>
+        <li><a class ="active" href="/auditoria"><i class="fa-regular fa-newspaper"></i> Auditorias</a></li>
+        <li><a href="/actualizar-contrasegna/123123"><i class="fa-solid fa-lock"></i>Cambiar clave</a></li>
               <div style="display: flex; justify-content: center; width: 75%;">
                 <form (ngSubmit) ="salir()">
                   <button id="but" type="submit" class="cont">
@@ -39,7 +40,7 @@
       <!-- main content /-->
       <div class="w-full p-5">
   
-        <table class="table table-striped" id="table">
+        <table class="table table-striped" id="table" style="width: 100%; text-align: center;">
             <thead class="table-dark">
                 <tr >
                     <th>Titulo</th>
@@ -47,7 +48,7 @@
                     <th>Fecha</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody style="color: #374151; background-color: rgb(219, 216, 216);">
                 <tr *ngFor="let auditorias of auditoria">
                     <td>{{auditorias.titulo}}</td>
                     <td>{{auditorias.descripcion}}</td>

@@ -9,7 +9,7 @@
         <li><a class="active" href="/signup"><i class="fa-regular fa-user"></i> Propietarios</a></li>
         <li><a href="/registro-restaurante"><i class="fa-solid fa-utensils"></i> Restaurantes</a></li>
         <li><a href="/auditoria"><i class="fa-regular fa-newspaper"></i> Auditorias</a></li>
-        <li><a href="/actualizar-contrasegna"><i class="fa-solid fa-lock"></i>Cambiar clave</a></li>
+        <li><a href="/actualizar-contrasegna/123123"><i class="fa-solid fa-lock"></i>Cambiar clave</a></li>
               <div style="display: flex; justify-content: center; width: 75%;">
                 <form (ngSubmit) ="salir()">
                   <button id="but" type="submit" class="cont">
@@ -50,6 +50,7 @@
                         
 
                         <form (ngSubmit) ="formSubmit()" id="form">
+                            <p>Digite su email</p>
                             <mat-form-field class="full-width" appearance="outline">
                                 <input type="email" required matInput placeholder="Digite su email"
                                 id="email"
@@ -60,7 +61,7 @@
                             </mat-form-field>
 
                         
-
+                            <p>Digite su contraseña</p>
                             <mat-form-field class="full-width" appearance="outline">
                                 <input required
                                 type="password"      
@@ -71,6 +72,7 @@
 
                             </mat-form-field>
 
+                            <p>Digite su nombre</p>
                             <mat-form-field class="full-width" appearance="outline">
                                 <input matInput placeholder="Nombre"
                                 id="nombre"
@@ -79,6 +81,7 @@
 
                             </mat-form-field>
 
+                            <p>Digite su apellido</p>
                             <mat-form-field class="full-width" appearance="outline">
                                 <input matInput placeholder="Apellido"
                                 id="apellido"
@@ -87,7 +90,7 @@
 
                             </mat-form-field>
 
-
+                            <p>Digite su celular</p>
                             <mat-form-field class="full-width" appearance="outline">
                                 <input matInput placeholder="Telefono: +57 3115204335"
                                 id="celular"
@@ -96,10 +99,11 @@
 
                             </mat-form-field>
 
+                            <p>Digite su identificación</p>
                             <mat-form-field class="full-width" appearance="outline">
                                 <input matInput placeholder="Documento"
                                 id="nidentidad"
-                                [(ngModel)]="user.nidentidad"
+                                [(ngModel)]="user.cedula"
                                 name="nidentidad">
 
                             </mat-form-field>

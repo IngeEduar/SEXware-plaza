@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ActualizarPasswordComponent } from './actualizar-password/actualizar-password.component';
 import { ListaAuditoriaaComponent } from './lista-auditoriaa/lista-auditoriaa.component';
+import { ListaEmpleadosComponent } from './lista-empleados/lista-empleados.component';
 import { ListaRestaurantes } from './lista-restaurantes';
+import { ActualizarPlatoComponent } from './pages/actualizar-plato/actualizar-plato.component';
 import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ListaPlatoComponent } from './pages/lista-plato/lista-plato.component';
@@ -11,6 +13,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { DashboardPropietarioComponent } from './pages/propietario/dashboard-propietario/dashboard-propietario.component';
 import { RegistrarPlatoComponent } from './pages/registrar-plato/registrar-plato.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { RegistrarEmpleadoComponent } from './registrar-empleado/registrar-empleado.component';
 import { RegistroRestauranteComponent } from './registro-restaurante/registro-restaurante.component';
 import { AdminGuard } from './services/admin.guard';
 import { PropietarioGuard } from './services/propietario.guard';
@@ -55,9 +58,9 @@ const routes: Routes = [
     pathMatch:'full'
   },
   {
-    path:'actualizar-contrasegna',
+    path:'actualizar-contrasegna/:nombre',
     component:ActualizarPasswordComponent,
-    pathMatch:'full'
+    pathMatch:'full',
   },
   {
     path:'registrar-plato/:nombre',
@@ -72,6 +75,21 @@ const routes: Routes = [
   {
     path:'lista-plato/:nombre',
     component:ListaPlatoComponent,
+    pathMatch:'full'
+  },
+  {
+    path:'actualizar-plato/:nombre/:nombreRestaurante',
+    component:ActualizarPlatoComponent,
+    pathMatch:'full'
+  },
+  {
+    path:'registrar-empleado/:nombre',
+    component:RegistrarEmpleadoComponent,
+    pathMatch:'full'
+  },
+  {
+    path:'lista.empleados/:nombre',
+    component:ListaEmpleadosComponent,
     pathMatch:'full'
   }
   

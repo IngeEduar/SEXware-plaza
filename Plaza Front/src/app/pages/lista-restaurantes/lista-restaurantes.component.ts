@@ -39,6 +39,12 @@ export class ListaRestaurantesComponent {
     this.obtenerListaRestaurantes();
   }
 
+  salir(){
+    console.log("Saliendo");
+    close();
+    open("/login");
+    this.loginService.logout();
+  }
 
   obtenerNombreRestaurante(nombre:string)
   {
@@ -67,6 +73,24 @@ export class ListaRestaurantesComponent {
     console.log(this.nombreRestaurante.nombre);
 
     window.location.href = "/registrar-plato/"+nombre;
+  }
+
+  obtenerNombreRestauranteRegistroEmpleado(nombre:string)
+  {
+    this.resultadoNombre = nombre;
+    this.nombre.nombreRestaurante = this.resultadoNombre;
+    this.nombreRestaurante = 
+    {
+      nombre: this.resultadoNombre
+    }
+    console.log(this.nombreRestaurante.nombre);
+    window.location.href = "/registrar-empleado/"+nombre;
+
+  }
+
+  obtenerNombreRestauranteListaEmpleado(nombre:string)
+  {
+    window.location.href = "/lista.empleados/"+nombre;
   }
 
   obtenerListaRestaurantes()

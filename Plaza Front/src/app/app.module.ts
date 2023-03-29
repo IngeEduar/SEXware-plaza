@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatButtonModule} from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -27,6 +28,9 @@ import { DashboardPropietarioComponent } from './pages/propietario/dashboard-pro
 import { RegistrarPlatoComponent } from './pages/registrar-plato/registrar-plato.component';
 import { ListaRestaurantesComponent } from './pages/lista-restaurantes/lista-restaurantes.component';
 import { ListaPlatoComponent } from './pages/lista-plato/lista-plato.component';
+import { ActualizarPlatoComponent } from './pages/actualizar-plato/actualizar-plato.component';
+import { RegistrarEmpleadoComponent } from './registrar-empleado/registrar-empleado.component';
+import { ListaEmpleadosComponent } from './lista-empleados/lista-empleados.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,10 @@ import { ListaPlatoComponent } from './pages/lista-plato/lista-plato.component';
     DashboardPropietarioComponent,
     RegistrarPlatoComponent,
     ListaRestaurantesComponent,
-    ListaPlatoComponent
+    ListaPlatoComponent,
+    ActualizarPlatoComponent,
+    RegistrarEmpleadoComponent,
+    ListaEmpleadosComponent
     
   ],
   imports: [
@@ -57,7 +64,8 @@ import { ListaPlatoComponent } from './pages/lista-plato/lista-plato.component';
     MatCardModule,
     MatToolbarModule,
     MatIconModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule
   ],
   providers: [    {
         provide : HTTP_INTERCEPTORS,
