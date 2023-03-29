@@ -5,14 +5,12 @@ import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
-import com.sexware.sexware.Model.Registrer.UserRegistrer.UsuarioEmpleado;
 import com.sexware.sexware.Model.Respuestas.ListarEmpleadoResponse;
 import com.sexware.sexware.Repositorys.*;
 import com.sexware.sexware.Security.Exceptions.MyException;
 import com.sexware.sexware.Services.UsuarioService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +33,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     private RestaurantRepository restaurantRepository;
     @Autowired
     private ModelMapper modelMapper;
-    @Autowired
-    private EmpleadoRepository empleadoRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -178,13 +174,12 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         List<Usuario> usuarioList = usuarioRepository.findAll();
-        List<UsuarioEmpleado> usuarioEmpleados = empleadoRepository.findAll();
         Usuario userPropietario = null;
 
-        if (!usuarioEmpleados.isEmpty()){
-            for (UsuarioEmpleado empleado:usuarioEmpleados){
+        if (!usuarioList.isEmpty()){
+            for (Usuario empleado:usuarioList){
                 if (Objects.equals(usuario.getEmail(),empleado.getEmail())&&
-                    Objects.equals(restaurant.getNombre(),empleado.getRestaurant().getNombre())
+                    Objects.equals(restaurant.getNombre(),empleado.getRestaurant())
                 ){
                     throw new MyException("Este usuario ya esta registrado en este restaurante");
                 }
@@ -209,8 +204,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         rolRepository.save(rol);
 
-        UsuarioEmpleado usuarioEmpleado = modelMapper.map(usuario, UsuarioEmpleado.class);
-        usuarioEmpleado.setRestaurant(restaurant);
+        Usuario usuarioEmpleado = modelMapper.map(usuario, Usuario.class);
+        usuarioEmpleado.setRestaurant(restaurant.getNombre());
         usuarioEmpleado.setRoles(rol);
         usuarioEmpleado.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
@@ -238,14 +233,14 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (restaurant == null){
             throw new MyException("Este restaurante no existe");
         }
-        List<UsuarioEmpleado> usuarioEmpleadoList = empleadoRepository.findByRestaurant(restaurant);
+        List<Usuario> usuarioEmpleadoList = usuarioRepository.findByRestaurant(restaurant.getNombre());
         List<ListarEmpleadoResponse> list = new ArrayList<>();
 
         if (usuarioEmpleadoList.isEmpty()){
             throw new MyException("Este restaurante no tiene empleados");
         }
 
-        for (UsuarioEmpleado empleado:usuarioEmpleadoList){
+        for (Usuario empleado:usuarioEmpleadoList){
             ListarEmpleadoResponse empleadoResponse = new ListarEmpleadoResponse();
             empleadoResponse.setNombre(empleado.getNombre());
             empleadoResponse.setApellido(empleado.getApellido());

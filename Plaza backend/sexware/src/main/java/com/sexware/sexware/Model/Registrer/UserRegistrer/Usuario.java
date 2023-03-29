@@ -1,6 +1,7 @@
 package com.sexware.sexware.Model.Registrer.UserRegistrer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,6 +43,7 @@ public class Usuario implements UserDetails, Serializable {
     private boolean activo = true;
 
     private String tokenPassword;
+    private String restaurant;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
