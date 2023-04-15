@@ -2,6 +2,7 @@ package com.sexware.sexware.Controllers;
 
 import com.google.gson.Gson;
 import com.sexware.sexware.ForgotPassword.DTO.Mensaje;
+import com.sexware.sexware.Model.Peticiones.PlatoModEstado;
 import com.sexware.sexware.Model.Registrer.PlatoRegister.*;
 import com.sexware.sexware.SaveImage.FileUploadUtil;
 import com.sexware.sexware.Security.Exceptions.MyException;
@@ -66,8 +67,10 @@ public class PlatoController {
     }
 
     @GetMapping("/lista-rest/{nombre}")
-    public List<Plato> listarPlatosRest(@PathVariable("nombre")String nombre){
-        return platoService.listarPlatoRest(nombre);
+    public ResponseEntity<?> listarPlatosRest(@PathVariable("nombre")String nombre){
+
+        return new ResponseEntity<>(platoService.listarPlatoRest(nombre), HttpStatus.OK);
+
     }
 
     @PostMapping("/modificar")
@@ -84,6 +87,14 @@ public class PlatoController {
         }
 
     }
+
+    @PostMapping("/mod-estado")
+    public ResponseEntity<?> modificarEstado(@RequestBody PlatoModEstado platoModEstado){
+
+        return new ResponseEntity<>(platoService.deshabilitarPlato(platoModEstado), HttpStatus.OK);
+
+    }
+
 
     // Metodos para controlar categorias
     @PostMapping("/agregar-categoria")

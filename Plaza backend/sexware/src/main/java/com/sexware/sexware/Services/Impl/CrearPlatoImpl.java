@@ -1,5 +1,6 @@
 package com.sexware.sexware.Services.Impl;
 
+import com.sexware.sexware.Model.Peticiones.PlatoModEstado;
 import com.sexware.sexware.Model.Registrer.PlatoRegister.*;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
@@ -143,6 +144,46 @@ public class CrearPlatoImpl implements PlatoService {
 
 
 
+    }
+
+    @Override
+    public String deshabilitarPlato(PlatoModEstado platoModEstado) {
+
+        List<Plato> platoList = platoRepository.findAll();
+        List<Usuario> usuarioList = usuarioRepository.findAll();
+
+        Usuario user = null;
+
+        for (Usuario usuario: usuarioList){
+            if (Objects.equals(usuario.getEmail(), platoModEstado.getUserLogeado()) &&
+            Objects.equals(usuario.getRoles().getRolNombre(), "PROPIETARIO")){
+                user = usuario;
+            }
+        }
+
+        if (user == null){
+            throw new MyException("El usuario no es propietario");
+        }
+
+
+        Plato plato = null;
+
+        for (Plato plato1 : platoList){
+            if (Objects.equals(plato1.getNombre(), platoModEstado.getNombrePlato()) &&
+                    Objects.equals(plato1.getRestaurant().getNombre(), platoModEstado.getNombreRest())){
+                plato = plato1;
+            }
+        }
+
+        if (plato == null){
+            throw new MyException("Este plato no esta registrado en este restaurante");
+        }
+
+        plato.setEstado(platoModEstado.isEstado());
+        platoRepository.save(plato);
+
+
+        return "Se cambio el estado del plato";
     }
 
     public void agregarPlatoAuditoria(String email,String nombrePlato,String mensaje,String titulo){
