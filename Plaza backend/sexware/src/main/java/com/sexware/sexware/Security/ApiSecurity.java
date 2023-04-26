@@ -57,7 +57,7 @@ public class ApiSecurity {
                 .cors()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/login","/save-admin","/actual-usuario","/img/**","/restaurante/**","/email-password/**","/empleado/**").permitAll()
+                .antMatchers("/login","/save-admin","/actual-usuario","/img/**","/restaurante/**","/email-password/**","/empleado/**","/cliente/registrar").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated()
                 .and()
