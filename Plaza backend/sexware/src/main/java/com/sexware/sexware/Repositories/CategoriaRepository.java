@@ -1,4 +1,4 @@
-package com.sexware.sexware.Repositorys;
+package com.sexware.sexware.Repositories;
 
 import com.sexware.sexware.Model.Registrer.PlatoRegister.Categoria;
 import org.springframework.data.jpa.repository.JpaRepository;

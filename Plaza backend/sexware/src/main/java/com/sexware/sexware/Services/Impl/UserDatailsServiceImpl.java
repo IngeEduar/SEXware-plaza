@@ -1,7 +1,7 @@
 package com.sexware.sexware.Services.Impl;
 
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
-import com.sexware.sexware.Repositorys.UsuarioRepository;
+import com.sexware.sexware.Repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

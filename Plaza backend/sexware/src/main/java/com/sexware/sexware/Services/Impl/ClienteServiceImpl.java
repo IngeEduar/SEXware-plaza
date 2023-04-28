@@ -5,9 +5,9 @@ import com.sexware.sexware.Model.Peticiones.RegisterClienteRequest;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
-import com.sexware.sexware.Repositorys.RestaurantRepository;
-import com.sexware.sexware.Repositorys.RolRepository;
-import com.sexware.sexware.Repositorys.UsuarioRepository;
+import com.sexware.sexware.Repositories.RestaurantRepository;
+import com.sexware.sexware.Repositories.RolRepository;
+import com.sexware.sexware.Repositories.UsuarioRepository;
 import com.sexware.sexware.Security.Exceptions.MyException;
 import com.sexware.sexware.Services.ClienteService;
 import org.modelmapper.ModelMapper;
@@ -65,10 +65,8 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public List<Restaurant> listarRestaurantes() {
 
-        List<Restaurant> restaurantList = restaurantRepository.findAll();
-        restaurantList.sort(new OrdenarRestaurant());
+        return restaurantRepository.restaurantesOrdenados();
 
-        return restaurantList;
     }
 
 

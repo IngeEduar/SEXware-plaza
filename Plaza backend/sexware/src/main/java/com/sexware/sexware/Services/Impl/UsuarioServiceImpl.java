@@ -6,7 +6,7 @@ import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
 import com.sexware.sexware.Model.Respuestas.ListarEmpleadoResponse;
-import com.sexware.sexware.Repositorys.*;
+import com.sexware.sexware.Repositories.*;
 import com.sexware.sexware.Security.Exceptions.MyException;
 import com.sexware.sexware.Services.UsuarioService;
 import org.modelmapper.ModelMapper;

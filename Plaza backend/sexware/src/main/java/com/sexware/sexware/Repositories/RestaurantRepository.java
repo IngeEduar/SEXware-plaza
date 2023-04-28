@@ -1,4 +1,4 @@
-package com.sexware.sexware.Repositorys;
+package com.sexware.sexware.Repositories;
 
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,5 +10,8 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Long> {
 
 
     public Restaurant findByNombre(String nombre);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM restaurantes ORDER BY nombre ASC")
+    public List<Restaurant> restaurantesOrdenados();
 
 }

@@ -1,25 +1,20 @@
 package com.sexware.sexware.Controllers;
 
-import com.sexware.sexware.ForgotPassword.DTO.ChangePasswordDTO;
 import com.sexware.sexware.ForgotPassword.DTO.Mensaje;
 import com.sexware.sexware.Model.ConfigUser.UpdatePassRequest;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.UserRegisterRespons;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
-import com.sexware.sexware.Repositorys.AuditoriaRepository;
+import com.sexware.sexware.Repositories.AuditoriaRepository;
 import com.sexware.sexware.Security.Exceptions.MyException;
 import com.sexware.sexware.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 

@@ -2,7 +2,7 @@ package com.sexware.sexware.Security;
 
 import com.sexware.sexware.Model.Login.JwtRequest;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
-import com.sexware.sexware.Repositorys.UsuarioRepository;
+import com.sexware.sexware.Repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
