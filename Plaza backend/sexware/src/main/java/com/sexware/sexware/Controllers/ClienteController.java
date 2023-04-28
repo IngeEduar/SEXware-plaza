@@ -39,5 +39,12 @@ public class ClienteController {
 
     }
 
+    @GetMapping("/listar-platos/{nombreRest}")
+    public ResponseEntity<?> listarPlatosDelRestaurante (@PathVariable("nombreRest") String nombreRest){
+
+        return new ResponseEntity<>(clienteService.listarPlatoRest(nombreRest), HttpStatus.OK);
+
+    }
+
 
 }

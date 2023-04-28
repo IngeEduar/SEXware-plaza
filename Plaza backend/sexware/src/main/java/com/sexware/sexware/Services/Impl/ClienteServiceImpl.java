@@ -2,9 +2,11 @@ package com.sexware.sexware.Services.Impl;
 
 import com.sexware.sexware.Model.ConfigUser.OrdenarRestaurant;
 import com.sexware.sexware.Model.Peticiones.RegisterClienteRequest;
+import com.sexware.sexware.Model.Registrer.PlatoRegister.Plato;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
+import com.sexware.sexware.Repositories.PlatoRepository;
 import com.sexware.sexware.Repositories.RestaurantRepository;
 import com.sexware.sexware.Repositories.RolRepository;
 import com.sexware.sexware.Repositories.UsuarioRepository;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,6 +26,8 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private PlatoRepository platoRepository;
     @Autowired
     private RolRepository rolRepository;
     @Autowired
@@ -67,6 +72,30 @@ public class ClienteServiceImpl implements ClienteService {
 
         return restaurantRepository.restaurantesOrdenados();
 
+    }
+
+    @Override
+    public List<Plato> listarPlatoRest(String nombre) {
+
+        Restaurant restaurant = restaurantRepository.findByNombre(nombre);
+
+        if (restaurant == null){
+            throw new MyException("El restaurante no existe");
+        }
+
+        List<Plato> platosRest = new ArrayList<>();
+        List<Plato> platosHabilitados = platoRepository.listarPlatosHabilitados();
+
+
+        for (Plato plato : platosHabilitados){
+
+            if (Objects.equals(plato.getRestaurant().getNombre(),nombre)){
+                platosRest.add(plato);
+            }
+
+        }
+
+        return platosRest;
     }
 
 
