@@ -13,6 +13,7 @@ public interface ClienteService {
     public List<Restaurant> listarRestaurantes();
 
     public List<Plato> listarPlatoRest(String nombre);
+    public List<Plato> listarPlatoCategoria(String nombreRest, String categoria);
 
 
 }

@@ -14,4 +14,8 @@ public interface PlatoRepository extends JpaRepository<Plato, Long> {
     value = "SELECT * FROM plato p WHERE p.estado = true")
     public List<Plato> listarPlatosHabilitados();
 
+    @Query(nativeQuery = true,
+    value = "SELECT * FROM plato p WHERE p.estado = true AND p.id_categoria= :categoria")
+    public List<Plato> listarPlatoCategoria (long categoria);
+
 }
