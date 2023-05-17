@@ -6,6 +6,7 @@ import { NombreRestaurante } from 'src/app/nombre-restaurante';
 import { LoginService } from 'src/app/services/login.service';
 import { PropietarioService } from 'src/app/services/propietario.service';
 import { ListaRestaurantesComponent } from '../lista-restaurantes/lista-restaurantes.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-plato',
@@ -22,9 +23,17 @@ export class ListaPlatoComponent {
     nombrePlato : ''
   }
 
+  public plato={
+    "nombreRest": this.nombreRestaurante,
+    "nombrePlato": '',
+    "estado": true,
+    "userLogeado": this.loginService.getUser().username
+  }
+
   nombrePlato:NombrePlato;
 
   nombre = ' ';
+  snack: any;
   constructor(private propietarioService:PropietarioService, public loginService:LoginService, private router:Router, private route:ActivatedRoute)
   {}
 
@@ -36,6 +45,7 @@ export class ListaPlatoComponent {
     //this.nombre = this.route.snapshot.paramMap.get('nombre')
     console.log(nombre)
     this.obtenerListaPlato(nombre)
+    this.plato.nombreRest = nombre;
 
   }
 
@@ -56,6 +66,49 @@ export class ListaPlatoComponent {
 
       this.listaPlato = dato;
     })
+  }
+
+  cambiarEstado(nombre:string, estado:boolean){
+
+
+    this.plato.estado = estado;
+    this.plato.nombrePlato = nombre;
+
+    this.propietarioService.inhabilitarPlato(this.plato).subscribe(
+      (data)=> 
+      {
+        console.log(data);
+        Swal.fire({title: '<strong>Plato actualizado con éxito</strong>',
+            icon: 'success',
+            html:
+              '<form (ngSubmit) ="recargar()">'+
+              '<button id="but" type="submit" class="btn">'+
+              'Hecho'+
+              '</button>'+
+            '</form>',
+            showCloseButton: true,
+            showConfirmButton: false,
+
+          });
+
+      }, (error) =>{
+        console.log(error);
+        Swal.fire({title: '<strong>Plato actualizado con éxito</strong>',
+            icon: 'success',
+            html:
+              '<form (ngSubmit) ="recargar()">'+
+              '<button id="but" type="submit" class="btn">'+
+              'Hecho'+
+              '</button>'+
+            '</form>',
+            showCloseButton: true,
+            showConfirmButton: false,
+
+          });
+
+      }
+    )
+
   }
 
   obtenerNombrePlato(nombre:string)

@@ -1,16 +1,15 @@
 table{
     display: flex;
+    margin-left: 20px;
     flex-wrap: wrap;
-    width: 100%;
-    margin-top: 10px;
 }
 
 .card{
-    max-width: 300px;
+    width: 280px;
     text-align: center;
     margin-left: 10px;
     border: 1px solid black;
-    height: 430px;
+    height: 360px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.781);
     display: flex;
     justify-content: center;
@@ -31,7 +30,6 @@ table{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
 }
 
 .card font{
@@ -50,6 +48,8 @@ table{
     color: white;
     padding: 8px;
     border-radius: 10px;
+    margin-left: 14px;
+    width: 100%;
 }
 
 .card button:hover{
@@ -58,14 +58,21 @@ table{
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.781);
 }
 
-.inhabilitado{
-    max-width: 300px;
-    text-align: center;
-    margin-left: 10px;
-    border: 1px solid rgb(78, 78, 78);
-    height: 430px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.781);
-    display: flex;
-    justify-content: center;
-    background-color: #797878;
+#btnEmpleado{
+    margin-top: 10px;
+    width: 92%;
 }
+
+#btnEmpleado td{
+    width: 46%;
+}
+
+#btnPlatos{
+    margin-top: 20px;
+    width: 92%;
+}
+
+#btnPlatos td{
+    width: 46%;
+}
+

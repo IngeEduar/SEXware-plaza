@@ -31,6 +31,8 @@ import { ListaPlatoComponent } from './pages/lista-plato/lista-plato.component';
 import { ActualizarPlatoComponent } from './pages/actualizar-plato/actualizar-plato.component';
 import { RegistrarEmpleadoComponent } from './registrar-empleado/registrar-empleado.component';
 import { ListaEmpleadosComponent } from './lista-empleados/lista-empleados.component';
+import { ClienteRegisterComponent } from './cliente-register/cliente-register.component';
+import { ClienteDasboardComponent } from './cliente-dasboard/cliente-dasboard.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { ListaEmpleadosComponent } from './lista-empleados/lista-empleados.compo
     ListaPlatoComponent,
     ActualizarPlatoComponent,
     RegistrarEmpleadoComponent,
-    ListaEmpleadosComponent
+    ListaEmpleadosComponent,
+    ClienteRegisterComponent,
+    ClienteDasboardComponent
     
   ],
   imports: [

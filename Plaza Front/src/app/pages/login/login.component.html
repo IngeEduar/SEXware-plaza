@@ -56,6 +56,7 @@
                     <mat-select placeholder="Seleccione Un rol" [(ngModel)]="loginData.rol" name="opcines">
                       <mat-option value="PROPIETARIO">Propietario</mat-option>
                       <mat-option value="ADMIN">Administrador</mat-option>
+                      <mat-option value="CLIENTE">Cliente</mat-option>
                     </mat-select>
                   </mat-form-field>
                 
@@ -83,9 +84,12 @@
                 <div class="overlay-panel overlay-right">
                     <h1>Hola, amigo!</h1>
                     <p>Ingresa tus datos personales y comienza tu experiencia con nosotros</p>
-                    <button class="ghost" id="signUp">Registrarse</button>
+                    <a class="btn" href="/registro-cliente">Registrarse</a>
                 </div>
+
             </div>
+
+            
         </div>
     </div>
 

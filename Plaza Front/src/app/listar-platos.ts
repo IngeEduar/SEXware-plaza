@@ -6,4 +6,5 @@ export class ListarPlatos {
     img:string;
     categoria:string;
     restaurant:string;
+    estado:boolean;
 }

@@ -245,3 +245,10 @@ form {
 	width: 80%;
 	margin-top: 20px;
 }
+
+.btn{
+	background-color: #FF4B2B !important;
+	border-radius: 5px;
+	color: white;
+	border: 1px solid white;
+}

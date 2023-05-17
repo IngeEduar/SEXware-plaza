@@ -17,6 +17,8 @@ import { RegistrarEmpleadoComponent } from './registrar-empleado/registrar-emple
 import { RegistroRestauranteComponent } from './registro-restaurante/registro-restaurante.component';
 import { AdminGuard } from './services/admin.guard';
 import { PropietarioGuard } from './services/propietario.guard';
+import { ClienteRegisterComponent } from './cliente-register/cliente-register.component';
+import { ClienteDasboardComponent } from './cliente-dasboard/cliente-dasboard.component';
 
 const routes: Routes = [
   {
@@ -90,6 +92,16 @@ const routes: Routes = [
   {
     path:'lista.empleados/:nombre',
     component:ListaEmpleadosComponent,
+    pathMatch:'full'
+  },
+  {
+    path:'registro-cliente',
+    component:ClienteRegisterComponent,
+    pathMatch:'full'
+  },
+  {
+    path:'cliente',
+    component:ClienteDasboardComponent,
     pathMatch:'full'
   }
   

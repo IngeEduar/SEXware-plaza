@@ -24,6 +24,12 @@ export class PropietarioService {
 
   }
 
+  public inhabilitarPlato(plato:any){
+
+    return this.httpClient.post(`${baseUrl}/plato/mod-estado`, plato)
+
+  }
+
   public modificarPlato(actualizarPlato:any)
   {
     return this.httpClient.post(`${baseUrl}/plato/modificar/`, actualizarPlato)
@@ -34,6 +40,10 @@ export class PropietarioService {
     {
       //console.log(this.loginService.getUser())
       return this.httpClient.get<ListaRestaurantes[]>(`${baseUrl}/restaurante/lista-propietario/`+ this.loginService.getUser().username)
+    }
+
+    obtenerListaRestaurantesOrdenada(): Observable<ListaRestaurantes[]>{
+      return this.httpClient.get<ListaRestaurantes[]>(`${baseUrl}/cliente/listar-restaurantes`)
     }
 
 

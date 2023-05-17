@@ -38,6 +38,10 @@ export class LoginComponent{
 
   }
 
+  submitNewCliente(){
+    
+  }
+
   formSubmit()
   {
     console.log(this.rolUsuario.rol);
@@ -79,6 +83,10 @@ export class LoginComponent{
           else if(this.loginService.getUserRol() == "PROPIETARIO")
           {
             window.location.href = "/propietario";
+          }
+          else if(this.loginService.getUserRol() == "CLIENTE")
+          {
+            window.location.href = "/cliente";
           }
           else
           {

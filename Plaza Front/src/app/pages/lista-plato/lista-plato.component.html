@@ -42,7 +42,27 @@
         
         <table>
             <tr *ngFor="let auditorias of listaPlato">
-              <table class="card">
+              <table class="card inhabilitado" *ngIf="auditorias.estado == false">
+                <tr><font color="#000000"><h2><b>{{auditorias.nombre}}</b></h2></font></tr>
+                <tr>
+                  <td class="img">
+                    <img src="http://localhost:8080/img/photos/{{auditorias.img}}" alt="imagen"/>
+                  </td>
+                </tr>
+                <tr><font color="#fff"><b>Descripción:</b>Este plato está inhabilitado</font></tr>
+                
+
+                <tr style="margin-top: 20px;"><button (click)="obtenerNombrePlato(auditorias.nombre)">Actualizar plato</button></tr>
+
+                <tr style="margin-top: 5px;"><button (click)="cambiarEstado(auditorias.nombre, true)">habilitar plato</button></tr>
+
+                  
+                <!-- <td><font color="#000000"><a href="/lista-plato">Ver platos</a></font></td> -->
+                
+                <!-- <td><button (click)="obtenerNombreRestaurante(auditorias.nombre)">Obtener nombre</button></td> -->
+              </table>
+              <table class="card" *ngIf="auditorias.estado == true">
+                
                 <tr><font color="#000000"><h2><b>{{auditorias.nombre}}</b></h2></font></tr>
                 <tr>
                   <td class="img">
@@ -53,6 +73,7 @@
                 <tr><font color="#000000"><b>Precio: </b>${{auditorias.precio}}</font></tr>
 
                 <tr style="margin-top: 20px;"><button (click)="obtenerNombrePlato(auditorias.nombre)">Actualizar plato</button></tr>
+                <tr style="margin-top: 5px;"><button (click)="cambiarEstado(auditorias.nombre, false)">inhabilitar plato</button></tr>
                 
                 <!-- <td><font color="#000000"><a href="/lista-plato">Ver platos</a></font></td> -->
                 
