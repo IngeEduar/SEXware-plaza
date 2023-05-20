@@ -5,27 +5,19 @@ import { LoginService } from 'src/app/services/login.service';
 @Component({
   selector: 'app-dashboard-admin',
   templateUrl: './dashboard-admin.component.html',
-  styleUrls: ['./dashboard-admin.component.css']
+  styleUrls: ['./dashboard-admin.component.css'],
 })
 export class DashboardAdminComponent {
+  constructor(public LoginService: LoginService) {}
 
-
-  constructor (public LoginService: LoginService){
-
-  }
-
-
-  getName(){
+  getName() {
     return this.LoginService.getUser().username;
-    
   }
 
-  salir(){
+  salir() {
     this.LoginService.logout();
-    console.log("Saliendo");
+    console.log('Saliendo');
     close();
-    open("login");
+    open('login');
   }
-
-
 }

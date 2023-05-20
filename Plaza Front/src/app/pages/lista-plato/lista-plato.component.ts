@@ -11,119 +11,109 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-lista-plato',
   templateUrl: './lista-plato.component.html',
-  styleUrls: ['./lista-plato.component.css']
+  styleUrls: ['./lista-plato.component.css'],
 })
 export class ListaPlatoComponent {
-
   nombreRestaurante = '';
 
-  resultadoNombre:string;
+  resultadoNombre: string;
 
-  public nombrePlatos ={
-    nombrePlato : ''
-  }
+  public nombrePlatos = {
+    nombrePlato: '',
+  };
 
-  public plato={
-    "nombreRest": this.nombreRestaurante,
-    "nombrePlato": '',
-    "estado": true,
-    "userLogeado": this.loginService.getUser().username
-  }
+  public plato = {
+    nombreRest: this.nombreRestaurante,
+    nombrePlato: '',
+    estado: true,
+    userLogeado: this.loginService.getUser().username,
+  };
 
-  nombrePlato:NombrePlato;
+  nombrePlato: NombrePlato;
 
   nombre = ' ';
   snack: any;
-  constructor(private propietarioService:PropietarioService, public loginService:LoginService, private router:Router, private route:ActivatedRoute)
-  {}
+  constructor(
+    private propietarioService: PropietarioService,
+    public loginService: LoginService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
-  listaPlato:ListarPlatos[];
+  listaPlato: ListarPlatos[];
 
-  ngOnInit(): void{
-
+  ngOnInit(): void {
     const nombre = this.route.snapshot.paramMap.get('nombre')!;
     //this.nombre = this.route.snapshot.paramMap.get('nombre')
-    console.log(nombre)
-    this.obtenerListaPlato(nombre)
+    console.log(nombre);
+    this.obtenerListaPlato(nombre);
     this.plato.nombreRest = nombre;
-
   }
 
-  salir(){
-    console.log("Saliendo");
+  salir() {
+    console.log('Saliendo');
     close();
-    open("/login");
+    open('/login');
     this.loginService.logout();
   }
 
-
-  obtenerListaPlato(nombre:string)
-  {
-
+  obtenerListaPlato(nombre: string) {
     this.nombreRestaurante = nombre;
-    
-    return this.propietarioService.obtenerListaPlatos(nombre).subscribe(dato=>{
 
-      this.listaPlato = dato;
-    })
+    return this.propietarioService
+      .obtenerListaPlatos(nombre)
+      .subscribe((dato) => {
+        this.listaPlato = dato;
+      });
   }
 
-  cambiarEstado(nombre:string, estado:boolean){
-
-
+  cambiarEstado(nombre: string, estado: boolean) {
     this.plato.estado = estado;
     this.plato.nombrePlato = nombre;
 
     this.propietarioService.inhabilitarPlato(this.plato).subscribe(
-      (data)=> 
-      {
+      (data) => {
         console.log(data);
-        Swal.fire({title: '<strong>Plato actualizado con éxito</strong>',
-            icon: 'success',
-            html:
-              '<form (ngSubmit) ="recargar()">'+
-              '<button id="but" type="submit" class="btn">'+
-              'Hecho'+
-              '</button>'+
+        Swal.fire({
+          title: '<strong>Plato actualizado con éxito</strong>',
+          icon: 'success',
+          html:
+            '<form (ngSubmit) ="recargar()">' +
+            '<button id="but" type="submit" class="btn">' +
+            'Hecho' +
+            '</button>' +
             '</form>',
-            showCloseButton: true,
-            showConfirmButton: false,
-
-          });
-
-      }, (error) =>{
+          showCloseButton: true,
+          showConfirmButton: false,
+        });
+      },
+      (error) => {
         console.log(error);
-        Swal.fire({title: '<strong>Plato actualizado con éxito</strong>',
-            icon: 'success',
-            html:
-              '<form (ngSubmit) ="recargar()">'+
-              '<button id="but" type="submit" class="btn">'+
-              'Hecho'+
-              '</button>'+
+        Swal.fire({
+          title: '<strong>Plato actualizado con éxito</strong>',
+          icon: 'success',
+          html:
+            '<form (ngSubmit) ="recargar()">' +
+            '<button id="but" type="submit" class="btn">' +
+            'Hecho' +
+            '</button>' +
             '</form>',
-            showCloseButton: true,
-            showConfirmButton: false,
-
-          });
-
+          showCloseButton: true,
+          showConfirmButton: false,
+        });
       }
-    )
-
+    );
   }
 
-  obtenerNombrePlato(nombre:string)
-  {
-
+  obtenerNombrePlato(nombre: string) {
     this.resultadoNombre = nombre;
     this.nombrePlatos.nombrePlato = this.resultadoNombre;
-    this.nombrePlato =
-    {
-      nombre : this.resultadoNombre
-    }
-    console.log(this.nombrePlato.nombre)
+    this.nombrePlato = {
+      nombre: this.resultadoNombre,
+    };
+    console.log(this.nombrePlato.nombre);
 
-    window.location.href = "/actualizar-plato/"+nombre+"/"+this.nombreRestaurante;
-
+    window.location.href =
+      '/actualizar-plato/' + nombre + '/' + this.nombreRestaurante;
   }
-
 }

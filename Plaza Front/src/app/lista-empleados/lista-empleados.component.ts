@@ -8,43 +8,37 @@ import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-lista-empleados',
   templateUrl: './lista-empleados.component.html',
-  styleUrls: ['./lista-empleados.component.css']
+  styleUrls: ['./lista-empleados.component.css'],
 })
 export class ListaEmpleadosComponent {
-  
-  constructor(private propietarioService:PropietarioService, public loginService:LoginService, private userServices:UserService, private router:Router, private route:ActivatedRoute)
-  {
- 
-    
-  }
-  empleado:Empleado[];
+  constructor(
+    private propietarioService: PropietarioService,
+    public loginService: LoginService,
+    private userServices: UserService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+  empleado: Empleado[];
 
-  ngOnInit(): void{
-
+  ngOnInit(): void {
     const nombre = this.route.snapshot.paramMap.get('nombre')!;
     //this.nombre = this.route.snapshot.paramMap.get('nombre')
-    console.log(nombre)
+    console.log(nombre);
     this.obtenerEmpleados(nombre);
-
-
   }
 
-
-  salir(){
-    console.log("Saliendo");
+  salir() {
+    console.log('Saliendo');
     close();
-    open("/login");
+    open('/login');
     this.loginService.logout();
   }
 
-  obtenerEmpleados(nombre:string)
-  {
-    return this.propietarioService.obtenerListaEmpleados(nombre).subscribe(dato =>{
-      
-      this.empleado = dato;
-
-    });
-
+  obtenerEmpleados(nombre: string) {
+    return this.propietarioService
+      .obtenerListaEmpleados(nombre)
+      .subscribe((dato) => {
+        this.empleado = dato;
+      });
   }
-
 }
