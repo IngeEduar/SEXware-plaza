@@ -116,4 +116,17 @@ export class ListaPlatoComponent {
     window.location.href =
       '/actualizar-plato/' + nombre + '/' + this.nombreRestaurante;
   }
+
+  realizarPedido(nombre: string)
+  {
+
+    let correo = this.loginService.getUser().email;
+
+    let nombrePlato = nombre;
+
+ 
+    window.location.href =
+    '/realizar-pedido/' + correo + '/' + this.nombreRestaurante +'/'+ nombrePlato;
+
+  }
 }

@@ -172,7 +172,9 @@
             </tr>
 
             <tr style="margin-top: 5px">
-              <button *ngIf="loginService.getUserRol() == 'CLIENTE'">
+              <button *ngIf="loginService.getUserRol() == 'CLIENTE'"
+              (click)="realizarPedido(auditorias.nombre)"
+              >
                 Realizar el pedido
               </button>
             </tr>

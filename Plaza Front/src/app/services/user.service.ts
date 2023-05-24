@@ -19,6 +19,8 @@ export class UserService {
     return this.httpClient.post(`${baseUrl}/admin/registrar/adminFesc@fesc.edu.co`, user);
   }
 
+
+
   public addCliente(user:any){
     return this.httpClient.post(`${baseUrl}/cliente/registrar`, user);
   }

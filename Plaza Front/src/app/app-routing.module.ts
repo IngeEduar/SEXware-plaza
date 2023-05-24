@@ -19,6 +19,7 @@ import { AdminGuard } from './services/admin.guard';
 import { PropietarioGuard } from './services/propietario.guard';
 import { ClienteRegisterComponent } from './cliente-register/cliente-register.component';
 import { ClienteDasboardComponent } from './cliente-dasboard/cliente-dasboard.component';
+import { RealizarPedidoComponent } from './realizar-pedido/realizar-pedido.component';
 
 const routes: Routes = [
   {
@@ -102,6 +103,11 @@ const routes: Routes = [
   {
     path:'cliente',
     component:ClienteDasboardComponent,
+    pathMatch:'full'
+  },
+  {
+    path:'realizar-pedido/:correo/:nombreRestaurante/:nombrePlato',
+    component:RealizarPedidoComponent,
     pathMatch:'full'
   }
   
