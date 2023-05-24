@@ -1,9 +1,11 @@
 package com.sexware.sexware.Services.Impl;
 
-import com.sexware.sexware.Model.ConfigUser.OrdenarRestaurant;
+import com.sexware.sexware.Model.Peticiones.RealizarPedidoRequest;
 import com.sexware.sexware.Model.Peticiones.RegisterClienteRequest;
 import com.sexware.sexware.Model.Registrer.PlatoRegister.Categoria;
 import com.sexware.sexware.Model.Registrer.PlatoRegister.Plato;
+import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.DetallePedido;
+import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Pedidos;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +35,10 @@ public class ClienteServiceImpl implements ClienteService {
     private RestaurantRepository restaurantRepository;
     @Autowired
     private CategoriaRepository categoriaRepository;
+    @Autowired
+    private PedidoRepository pedidoRepository;
+    @Autowired
+    private DetallePedidoRepository detallePedidoRepository;
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
@@ -118,6 +125,51 @@ public class ClienteServiceImpl implements ClienteService {
         }
 
         return platos;
+    }
+
+    @Override
+    public String realizarPedido(String nombreRest, String email, RealizarPedidoRequest[] pedidoRequests) {
+
+        List<Pedidos> pedidosList = pedidoRepository.findAll();
+        Pedidos pedido = null;
+
+        for (Pedidos pedi : pedidosList){
+            if (Objects.equals(pedi.getUsuario().getEmail(), email) && !Objects.equals(pedi.getEstado(), "ENTREGADO")){
+                pedido = pedi;
+            }
+        }
+
+        if (pedido != null){
+            throw new MyException("Ya realizaste un pedido. ");
+        }
+
+
+        Usuario user = usuarioRepository.findByEmail(email);
+        Restaurant restaurant = restaurantRepository.findByNombre(nombreRest);
+
+        int numeroP = pedidosList.size() + 1;
+
+        Pedidos pedidos = new Pedidos();
+        pedidos.setNumeroP(numeroP);
+        pedidos.setEstado("PENDIENTE");
+        pedidos.setUsuario(user);
+        pedidos.setRestaurant(restaurant);
+        pedidos.setEmpleadoAsignado(null);
+
+        pedidoRepository.save(pedidos);
+
+
+        for (RealizarPedidoRequest pedido1 : pedidoRequests){
+            DetallePedido detallePedido = new DetallePedido();
+            detallePedido.setNombrePlato(pedido1.getNombrePlato());
+            detallePedido.setCantidad(pedido1.getCantidad());
+            detallePedido.setPedidos(pedidos);
+
+            detallePedidoRepository.save(detallePedido);
+        }
+
+
+        return "Pedido realizado con exito!";
     }
 
 

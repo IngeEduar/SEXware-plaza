@@ -1,6 +1,7 @@
 package com.sexware.sexware.Controllers;
 
 import com.sexware.sexware.ForgotPassword.DTO.Mensaje;
+import com.sexware.sexware.Model.Peticiones.RealizarPedidoRequest;
 import com.sexware.sexware.Model.Peticiones.RegisterClienteRequest;
 import com.sexware.sexware.Services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,13 @@ public class ClienteController {
 
     }
 
+    @PostMapping("/realizar-pedido/{nombreRest}/{email}")
+    public ResponseEntity<?> realizarPedido (@PathVariable("nombreRest") String nombreRest,
+                                             @PathVariable("email") String email,
+                                             @RequestBody RealizarPedidoRequest[] pedidoRequests){
 
+        return new ResponseEntity<>(clienteService.realizarPedido(nombreRest, email, pedidoRequests), HttpStatus.OK);
+
+    }
 
 }

@@ -4,6 +4,7 @@ import com.sexware.sexware.ForgotPassword.DTO.Mensaje;
 import com.sexware.sexware.Model.Peticiones.RegisterEmpleadoRequest;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Security.Exceptions.MyException;
+import com.sexware.sexware.Services.RestaurantService;
 import com.sexware.sexware.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,8 @@ public class EmpleadoController {
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private RestaurantService restaurantService;
 
     @PostMapping("/guardar")
     public ResponseEntity<?> guardarEmpleado(@RequestBody RegisterEmpleadoRequest empleadoRequest){
@@ -57,6 +60,21 @@ public class EmpleadoController {
             return new ResponseEntity<>(new Mensaje("Error"), HttpStatus.NOT_FOUND);
         }
 
+    }
+
+    @GetMapping("/listar-pedidos/{rest}/{estado}")
+    public ResponseEntity<?> listarPedidosDelRestaurante(@PathVariable("rest")String nombreRest,
+                                                         @PathVariable("estado")String estado){
+
+        return new ResponseEntity<>(restaurantService.listarPedidosDelRest(nombreRest, estado), HttpStatus.OK);
+
+    }
+
+    @PostMapping("/asignar-pedido/{nPedido}/{empleado}")
+    public ResponseEntity<?> asignarmePedido (@PathVariable("nPedido")int numeroP,
+                                              @PathVariable("empleado") String email){
+
+        return new ResponseEntity<>(restaurantService.asignarmePedido(numeroP, email), HttpStatus.OK);
     }
 
 }

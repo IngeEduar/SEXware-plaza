@@ -1,10 +1,15 @@
 package com.sexware.sexware.Services.Impl;
 
+import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.DetallePedido;
+import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Pedidos;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.RestaurantRequest;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Auditoria;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Usuario;
+import com.sexware.sexware.Model.Respuestas.ListarPedidosResponse;
 import com.sexware.sexware.Repositories.AuditoriaRepository;
+import com.sexware.sexware.Repositories.DetallePedidoRepository;
+import com.sexware.sexware.Repositories.PedidoRepository;
 import com.sexware.sexware.Repositories.RestaurantRepository;
 import com.sexware.sexware.Security.Exceptions.MyException;
 import com.sexware.sexware.Services.RestaurantService;
@@ -24,6 +29,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
+    @Autowired
+    private PedidoRepository pedidoRepository;
+    @Autowired
+    private DetallePedidoRepository detallePedidoRepository;
     @Autowired
     private UsuarioService usuarioService;
     @Autowired
@@ -136,5 +145,52 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Restaurant actualizarRestaurante(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
+    }
+
+    @Override
+    public List<ListarPedidosResponse> listarPedidosDelRest(String nombreRest, String estado) {
+
+        Restaurant restaurant = restaurantRepository.findByNombre(nombreRest);
+
+        List<Pedidos> pedidosList = pedidoRepository.listarPedidosRest(restaurant.getNit(), estado);
+
+        List<ListarPedidosResponse> pedidosResponses = new ArrayList<>();
+
+        for (Pedidos pedidos : pedidosList){
+            List<DetallePedido> detallePedidos = detallePedidoRepository.listarDetallePedido(pedidos.getNumeroP());
+
+            ListarPedidosResponse pedidosResponse = new ListarPedidosResponse();
+            pedidosResponse.setNumeroP(pedidos.getNumeroP());
+            pedidosResponse.setEstado(pedidos.getEstado());
+            pedidosResponse.setNombreCliente(pedidos.getUsuario().getNombre());
+            pedidosResponse.setDetallePedidos(detallePedidos);
+
+            pedidosResponses.add(pedidosResponse);
+        }
+
+
+        return pedidosResponses;
+    }
+
+    @Override
+    public ListarPedidosResponse asignarmePedido(int numeroP, String email) {
+
+        Usuario usuario = usuarioService.obtenerUsuario(email);
+        Pedidos pedidos = pedidoRepository.findByNumeroP(numeroP);
+
+        pedidos.setEmpleadoAsignado(usuario);
+        pedidos.setEstado("EN PREPARACION");
+
+        pedidoRepository.save(pedidos);
+
+        List<DetallePedido> detallePedidos = detallePedidoRepository.listarDetallePedido(pedidos.getNumeroP());
+
+        ListarPedidosResponse pedidosResponse = new ListarPedidosResponse();
+        pedidosResponse.setNumeroP(pedidos.getNumeroP());
+        pedidosResponse.setEstado(pedidos.getEstado());
+        pedidosResponse.setNombreCliente(pedidos.getUsuario().getNombre());
+        pedidosResponse.setDetallePedidos(detallePedidos);
+
+        return pedidosResponse;
     }
 }
