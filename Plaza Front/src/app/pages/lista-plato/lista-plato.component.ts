@@ -7,6 +7,8 @@ import { LoginService } from 'src/app/services/login.service';
 import { PropietarioService } from 'src/app/services/propietario.service';
 import { ListaRestaurantesComponent } from '../lista-restaurantes/lista-restaurantes.component';
 import Swal from 'sweetalert2';
+import { Pedido } from 'src/app/pedido';
+import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
   selector: 'app-lista-plato',
@@ -14,6 +16,15 @@ import Swal from 'sweetalert2';
   styleUrls: ['./lista-plato.component.css'],
 })
 export class ListaPlatoComponent {
+  lista: Pedido[] = [
+    // Ejemplo: { id: 1, nombre: 'Elemento 1' }
+  ];
+
+  pedido = {
+    nombrePlato: '',
+    cantidad: '',
+  };
+
   nombreRestaurante = '';
 
   resultadoNombre: string;
@@ -37,7 +48,8 @@ export class ListaPlatoComponent {
     private propietarioService: PropietarioService,
     public loginService: LoginService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private clienteServive:ClienteService
   ) {}
 
   listaPlato: ListarPlatos[];
@@ -117,16 +129,37 @@ export class ListaPlatoComponent {
       '/actualizar-plato/' + nombre + '/' + this.nombreRestaurante;
   }
 
-  realizarPedido(nombre: string)
-  {
-
-    let correo = this.loginService.getUser().email;
-
+  realizarPedido(nombre: string, descripcion: string) {
+    
     let nombrePlato = nombre;
+    let descripcionPlato = descripcion;
 
- 
+    const pedido: Pedido = {
+      nombrePlato: nombrePlato,
+      cantidad: this.pedido.cantidad,
+    };
+
+    this.lista.push(pedido);
+
+    this.lista.forEach((pedido) => {
+      console.log(`Plato: ${pedido.nombrePlato}, Cantidad: ${pedido.cantidad}`);
+    });
+
+    /*
     window.location.href =
     '/realizar-pedido/' + correo + '/' + this.nombreRestaurante +'/'+ nombrePlato;
 
+    */
+  }
+
+  hacerCompra() {
+    let correo = this.loginService.getUser().email;
+
+    console.log(this.lista);
+    this.clienteServive
+      .hacerPedido(this.lista, correo, this.nombreRestaurante)
+      .subscribe((data) => {
+        console.log(data);
+      });
   }
 }

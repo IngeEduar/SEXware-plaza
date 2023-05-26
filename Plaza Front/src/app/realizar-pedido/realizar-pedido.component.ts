@@ -21,9 +21,6 @@ export class RealizarPedidoComponent {
     // Agrega los elementos a tu lista
     // Ejemplo: { id: 1, nombre: 'Elemento 1' }
 
-    { nombrePlato: 'plato', cantidad: '2' },
-    { nombrePlato: 'plato1', cantidad: '3' },
-    { nombrePlato: 'plato2', cantidad: '7' }
   ];
 
 

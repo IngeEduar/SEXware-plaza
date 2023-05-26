@@ -10,7 +10,6 @@
       <div class="font-semibold">PLAZA FESC</div>
     </nav>
     <ul class="menu p-5">
-      <li class="menu-title"><span>Navigation</span></li>
       <li>
         <a
           *ngIf="loginService.getUserRol() == 'CLIENTE'"
@@ -69,19 +68,12 @@
           <i class="fa-solid fa-house"></i> Platos actuales del restaurante
         </h1>
       </div>
+
       <div>
-        <div class="avatar gap-5">
-          <input
-            type="search"
-            class="input input-bordered rounded-full"
-            placeholder="Search"
-          />
-          <div class="w-12 rounded-full">
-            <img src="https://api.lorem.space/image/face?hash=64318" />
-          </div>
-        </div>
+        <div class="avatar gap-5"></div>
       </div>
     </div>
+
     <!-- main content /-->
     <div class="w-full p-5">
       <table>
@@ -145,7 +137,7 @@
             </tr>
             <tr>
               <font color="#000000"
-                ><b>Descripción:</b> {{ auditorias.descripcion }}</font
+                ><b>Descripcion:</b> {{ auditorias.descripcion }}</font
               >
             </tr>
             <tr>
@@ -170,13 +162,35 @@
                 inhabilitar plato
               </button>
             </tr>
+            
+            <mat-form-field>
+              <mat-select
+                placeholder="Cuantos quiere?"
+                [(ngModel)]="pedido.cantidad"
+                name="opcines"
+              >
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+              </mat-select>
+            </mat-form-field>
 
             <tr style="margin-top: 5px">
-              <button *ngIf="loginService.getUserRol() == 'CLIENTE'"
-              (click)="realizarPedido(auditorias.nombre)"
+
+              
+
+              <button
+                *ngIf="loginService.getUserRol() == 'CLIENTE'"
+                (click)="
+                  realizarPedido(auditorias.nombre, auditorias.descripcion)
+                "
               >
-                Realizar el pedido
+                Agregar al carrito
               </button>
+
+
             </tr>
 
             <!-- <td><font color="#000000"><a href="/lista-plato">Ver platos</a></font></td> -->
@@ -189,5 +203,49 @@
       <!--END Report-->
     </div>
     <!-- END main content /-->
+  </div>
+  <div class="dropdown" >
+    <button class="dropbtn"><i class="fas fa-bars"></i></button>
+    <div class="dropdown-content" style="border-right: 1px solid rgb(87, 87, 87); background-color: #374151">
+
+      <h1 id="miCarrito">     Mi carrito</h1>
+      <table>
+        <tr *ngFor="let pedidos of lista">
+          <table class="card">
+            <tr>
+              <font color="#000000"
+                ><h2>
+                  <b>{{ pedidos.nombrePlato }}</b>
+                </h2></font
+              >
+            </tr>
+            <tr></tr>
+
+            <tr>
+              <font color="#000000"
+                ><b>Canitdad en carrito: </b> {{ pedidos.cantidad }}</font
+              >
+            </tr>
+
+            <button style="margin-top: 50%;">Eliminar compra</button>
+
+
+
+            <!-- <td><font color="#000000"><a href="/lista-plato">Ver platos</a></font></td> -->
+
+            <!-- <td><button (click)="obtenerNombreRestaurante(auditorias.nombre)">Obtener nombre</button></td> -->
+          </table>
+          
+          
+        </tr>
+        <button (click)="hacerCompra()" id="hacerCompra" >Hacer compra</button>
+        
+         
+      </table>
+     
+      
+    </div>
+    
+    
   </div>
 </div>
