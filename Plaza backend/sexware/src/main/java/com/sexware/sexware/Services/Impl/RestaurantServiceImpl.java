@@ -157,17 +157,16 @@ public class RestaurantServiceImpl implements RestaurantService {
         List<ListarPedidosResponse> pedidosResponses = new ArrayList<>();
 
         for (Pedidos pedidos : pedidosList){
-            List<DetallePedido> detallePedidos = detallePedidoRepository.listarDetallePedido(pedidos.getNumeroP());
+                List<DetallePedido> detallePedidos = detallePedidoRepository.listarDetallePedido(pedidos.getNumeroP());
 
-            ListarPedidosResponse pedidosResponse = new ListarPedidosResponse();
-            pedidosResponse.setNumeroP(pedidos.getNumeroP());
-            pedidosResponse.setEstado(pedidos.getEstado());
-            pedidosResponse.setNombreCliente(pedidos.getUsuario().getNombre());
-            pedidosResponse.setDetallePedidos(detallePedidos);
+                ListarPedidosResponse pedidosResponse = new ListarPedidosResponse();
+                pedidosResponse.setNumeroP(pedidos.getNumeroP());
+                pedidosResponse.setEstado(pedidos.getEstado());
+                pedidosResponse.setNombreCliente(pedidos.getUsuario().getNombre());
+                pedidosResponse.setDetallePedidos(detallePedidos);
 
-            pedidosResponses.add(pedidosResponse);
+                pedidosResponses.add(pedidosResponse);
         }
-
 
         return pedidosResponses;
     }
@@ -177,6 +176,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         Usuario usuario = usuarioService.obtenerUsuario(email);
         Pedidos pedidos = pedidoRepository.findByNumeroP(numeroP);
+
+        if (!Objects.equals(pedidos.getEstado(), "PENDIENTE")){
+            throw new MyException("EL pedido ya esta: "+pedidos.getEstado());
+        }
 
         pedidos.setEmpleadoAsignado(usuario);
         pedidos.setEstado("EN PREPARACION");
@@ -192,5 +195,44 @@ public class RestaurantServiceImpl implements RestaurantService {
         pedidosResponse.setDetallePedidos(detallePedidos);
 
         return pedidosResponse;
+    }
+
+    @Override
+    public List<ListarPedidosResponse> listarPedidosEmpleado(String email) {
+
+        Usuario user = usuarioService.obtenerUsuario(email);
+        List<Pedidos> pedidosList = pedidoRepository.findByEmpleadoAsignado(user);
+
+        return ordenarListaPedidos(pedidosList);
+    }
+
+    @Override
+    public List<ListarPedidosResponse> listarPedidosCliente(String email) {
+
+        Usuario user = usuarioService.obtenerUsuario(email);
+        List<Pedidos> pedidosList = pedidoRepository.findByUsuario(user);
+
+        return ordenarListaPedidos(pedidosList);
+    }
+
+    public List<ListarPedidosResponse> ordenarListaPedidos(List<Pedidos> pedidosList){
+        List<ListarPedidosResponse> pedidosResponses = new ArrayList<>();
+
+        for (Pedidos pedidos : pedidosList){
+            if (Objects.equals(pedidos.getEstado(), "EN PREPARACION") ||
+                    Objects.equals(pedidos.getEstado(), "PENDIENTE")){
+                List<DetallePedido> detallePedidos = detallePedidoRepository.listarDetallePedido(pedidos.getNumeroP());
+
+                ListarPedidosResponse pedidosResponse = new ListarPedidosResponse();
+                pedidosResponse.setNumeroP(pedidos.getNumeroP());
+                pedidosResponse.setEstado(pedidos.getEstado());
+                pedidosResponse.setNombreCliente(pedidos.getUsuario().getNombre());
+                pedidosResponse.setDetallePedidos(detallePedidos);
+
+                pedidosResponses.add(pedidosResponse);
+            }
+        }
+
+        return pedidosResponses;
     }
 }

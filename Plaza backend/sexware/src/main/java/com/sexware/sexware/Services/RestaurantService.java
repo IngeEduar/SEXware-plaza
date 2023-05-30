@@ -18,5 +18,7 @@ public interface RestaurantService {
     public Restaurant actualizarRestaurante(Restaurant restaurant);
     public List<ListarPedidosResponse> listarPedidosDelRest (String nombreRest, String estado);
     public ListarPedidosResponse asignarmePedido (int numeroP, String email);
+    public List<ListarPedidosResponse> listarPedidosEmpleado(String email);
+    public List<ListarPedidosResponse> listarPedidosCliente(String email);
 
 }

@@ -21,6 +21,7 @@ public class Pedidos {
     private Long id;
     private int numeroP;
     private String estado;
+    private String codigo;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "empleado_id", referencedColumnName = "ID")
     private Usuario empleadoAsignado;

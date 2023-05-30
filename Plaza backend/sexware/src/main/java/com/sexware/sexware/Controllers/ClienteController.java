@@ -4,6 +4,7 @@ import com.sexware.sexware.ForgotPassword.DTO.Mensaje;
 import com.sexware.sexware.Model.Peticiones.RealizarPedidoRequest;
 import com.sexware.sexware.Model.Peticiones.RegisterClienteRequest;
 import com.sexware.sexware.Services.ClienteService;
+import com.sexware.sexware.Services.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,8 @@ public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
+    @Autowired
+    private RestaurantService restaurantService;
 
 
     @PostMapping("/registrar")
@@ -62,6 +65,11 @@ public class ClienteController {
 
         return new ResponseEntity<>(clienteService.realizarPedido(nombreRest, email, pedidoRequests), HttpStatus.OK);
 
+    }
+
+    @GetMapping("mis-pedidos/{email}")
+    public ResponseEntity<?> listarMisPedidos (@PathVariable("email")String email){
+        return new ResponseEntity<>(restaurantService.listarPedidosCliente(email),HttpStatus.OK);
     }
 
 }

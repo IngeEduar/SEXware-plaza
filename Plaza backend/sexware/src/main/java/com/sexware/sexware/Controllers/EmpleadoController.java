@@ -77,4 +77,11 @@ public class EmpleadoController {
         return new ResponseEntity<>(restaurantService.asignarmePedido(numeroP, email), HttpStatus.OK);
     }
 
+    @GetMapping("/pedidos-asignados/{email}")
+    public ResponseEntity<?> listarPedidosAsign(@PathVariable("email")String email){
+
+        return new ResponseEntity<>(restaurantService.listarPedidosEmpleado(email),HttpStatus.OK);
+
+    }
+
 }
