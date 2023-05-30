@@ -72,4 +72,11 @@ public class ClienteController {
         return new ResponseEntity<>(restaurantService.listarPedidosCliente(email),HttpStatus.OK);
     }
 
+    @PostMapping("/cancelar-pedido/{numeroP}")
+    public ResponseEntity<?> cancelarPedido (@PathVariable("numeroP") int numeroP){
+        clienteService.cancelarPedido(numeroP);
+
+        return new ResponseEntity<>(new Mensaje("Pedido numero: "+numeroP+" ha sido cancelado"), HttpStatus.OK);
+    }
+
 }

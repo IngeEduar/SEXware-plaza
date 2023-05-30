@@ -1,5 +1,6 @@
 package com.sexware.sexware.Services.Impl;
 
+import com.sexware.sexware.Model.Peticiones.EntregarPedidoRequest;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.DetallePedido;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Pedidos;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
@@ -198,12 +199,26 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<ListarPedidosResponse> listarPedidosEmpleado(String email) {
+    public List<ListarPedidosResponse> listarPedidosEmpleado(String email, String estado) {
 
         Usuario user = usuarioService.obtenerUsuario(email);
-        List<Pedidos> pedidosList = pedidoRepository.findByEmpleadoAsignado(user);
+        List<Pedidos> pedidosList = pedidoRepository.pedidosAsigEmpleado(user.getId(), estado);
 
-        return ordenarListaPedidos(pedidosList);
+        List<ListarPedidosResponse> pedidosResponses = new ArrayList<>();
+
+        for (Pedidos pedidos : pedidosList){
+                List<DetallePedido> detallePedidos = detallePedidoRepository.listarDetallePedido(pedidos.getNumeroP());
+
+                ListarPedidosResponse pedidosResponse = new ListarPedidosResponse();
+                pedidosResponse.setNumeroP(pedidos.getNumeroP());
+                pedidosResponse.setEstado(pedidos.getEstado());
+                pedidosResponse.setNombreCliente(pedidos.getUsuario().getNombre());
+                pedidosResponse.setDetallePedidos(detallePedidos);
+
+                pedidosResponses.add(pedidosResponse);
+        }
+
+        return pedidosResponses;
     }
 
     @Override
@@ -213,6 +228,29 @@ public class RestaurantServiceImpl implements RestaurantService {
         List<Pedidos> pedidosList = pedidoRepository.findByUsuario(user);
 
         return ordenarListaPedidos(pedidosList);
+    }
+
+    @Override
+    public void entregarPedido(EntregarPedidoRequest pedidoRequest) {
+
+        Pedidos pedido = pedidoRepository.findByNumeroP(pedidoRequest.getNumeroP());
+
+        if (pedido == null){
+            throw new MyException("No se encuentra el pedido");
+        }
+        if (!Objects.equals(pedido.getEstado(), "LISTO")){
+            throw new MyException("El pedido no esta listo");
+        }
+
+        if (!Objects.equals(pedido.getCodigo(), pedidoRequest.getCodigo())){
+            throw new MyException("El PIN es incorrecto");
+        }
+
+        pedido.setEstado("ENTREGADO");
+        pedido.setCodigo("");
+
+        pedidoRepository.save(pedido);
+
     }
 
     public List<ListarPedidosResponse> ordenarListaPedidos(List<Pedidos> pedidosList){

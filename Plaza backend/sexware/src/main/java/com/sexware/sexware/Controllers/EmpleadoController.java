@@ -1,6 +1,7 @@
 package com.sexware.sexware.Controllers;
 
 import com.sexware.sexware.ForgotPassword.DTO.Mensaje;
+import com.sexware.sexware.Model.Peticiones.EntregarPedidoRequest;
 import com.sexware.sexware.Model.Peticiones.RegisterEmpleadoRequest;
 import com.sexware.sexware.Model.Registrer.UserRegistrer.Rol;
 import com.sexware.sexware.Security.Exceptions.MyException;
@@ -77,11 +78,19 @@ public class EmpleadoController {
         return new ResponseEntity<>(restaurantService.asignarmePedido(numeroP, email), HttpStatus.OK);
     }
 
-    @GetMapping("/pedidos-asignados/{email}")
-    public ResponseEntity<?> listarPedidosAsign(@PathVariable("email")String email){
+    @GetMapping("/pedidos-asignados/{email}/{estado}")
+    public ResponseEntity<?> listarPedidosAsign(@PathVariable("email")String email,
+                                                @PathVariable("estado")String estado){
 
-        return new ResponseEntity<>(restaurantService.listarPedidosEmpleado(email),HttpStatus.OK);
+        return new ResponseEntity<>(restaurantService.listarPedidosEmpleado(email, estado),HttpStatus.OK);
 
+    }
+
+    @PostMapping("/entregar-pedido")
+    public ResponseEntity<?> entregarPedido (@RequestBody EntregarPedidoRequest pedidoRequest){
+
+        restaurantService.entregarPedido(pedidoRequest);
+        return new ResponseEntity<>(new Mensaje("PIN correcto! ya puede entregar el pedido"), HttpStatus.OK);
     }
 
 }

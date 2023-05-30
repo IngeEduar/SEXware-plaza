@@ -16,6 +16,7 @@ public interface ClienteService {
     public List<Plato> listarPlatoRest(String nombre);
     public List<Plato> listarPlatoCategoria(String nombreRest, String categoria);
     public String realizarPedido (String nombreRest, String email, RealizarPedidoRequest[] pedidoRequests);
+    public void cancelarPedido (int numeroP);
 
 
 }

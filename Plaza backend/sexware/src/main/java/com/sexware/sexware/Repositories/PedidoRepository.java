@@ -14,7 +14,9 @@ public interface PedidoRepository extends JpaRepository<Pedidos, Long> {
     public List<Pedidos> listarPedidosRest(String nit, String estado);
 
     public Pedidos findByNumeroP (int numeroP);
-    public List<Pedidos> findByEmpleadoAsignado(Usuario usuario);
+    @Query(nativeQuery = true,
+            value = "SELECT * FROM pedido p WHERE p.empleado_id= :empleado AND p.estado= :estado ")
+    public List<Pedidos> pedidosAsigEmpleado(long empleado, String estado);
     public List<Pedidos> findByUsuario(Usuario usuario);
 
 }

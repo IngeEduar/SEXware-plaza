@@ -172,5 +172,21 @@ public class ClienteServiceImpl implements ClienteService {
         return "Pedido realizado con exito!";
     }
 
+    @Override
+    public void cancelarPedido(int numeroP) {
+        Pedidos pedido = pedidoRepository.findByNumeroP(numeroP);
+
+        if (pedido == null){
+            throw new MyException("No se encuentra el pedido");
+        }
+        if (!Objects.equals(pedido.getEstado(),"PENDIENTE")){
+            throw new MyException("Lo sentimos, tu pedido ya esta en preparacion y no puede cancelarse");
+        }
+
+        pedido.setEstado("CANCELADO");
+        pedidoRepository.save(pedido);
+
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.sexware.sexware.Services;
 
+import com.sexware.sexware.Model.Peticiones.EntregarPedidoRequest;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Restaurant;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.RestaurantRequest;
 import com.sexware.sexware.Model.Respuestas.ListarPedidosResponse;
@@ -18,7 +19,8 @@ public interface RestaurantService {
     public Restaurant actualizarRestaurante(Restaurant restaurant);
     public List<ListarPedidosResponse> listarPedidosDelRest (String nombreRest, String estado);
     public ListarPedidosResponse asignarmePedido (int numeroP, String email);
-    public List<ListarPedidosResponse> listarPedidosEmpleado(String email);
+    public List<ListarPedidosResponse> listarPedidosEmpleado(String email, String estado);
     public List<ListarPedidosResponse> listarPedidosCliente(String email);
+    public void entregarPedido (EntregarPedidoRequest pedidoRequest);
 
 }
