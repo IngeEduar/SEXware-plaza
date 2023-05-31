@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ListaPedidos } from 'src/app/lista-pedidos';
 import { LoginService } from 'src/app/services/login.service';
 import { PropietarioService } from 'src/app/services/propietario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-mis-pedidos-cliente',
@@ -29,13 +30,52 @@ export class MisPedidosClienteComponent {
 
     const logeado = this.LoginService.getUser().username;
 
-    // return this.propietarioService
-    // .misPedidosCliente('cliente@gmail.com')
-    // .subscribe((dato) => {
-    //   console.log(dato);
+     return this.propietarioService
+     .misPedidosCliente(logeado)
+     .subscribe((dato) => {
+     console.log(dato);
 
-    //   this.pedido = dato;
-    // });
+       this.pedido = dato;
+     });
+  }
+
+  eliminarPedido(id: string)
+  {
+
+
+     return this.propietarioService
+     .eliminarPedido(id)
+     .subscribe((data) => {
+      console.log(data);
+      Swal.fire({
+        title: '<strong>Pedido cancelado con éxito</strong>',
+        icon: 'success',
+        html:
+          '<form (ngSubmit) ="recargar()">' +
+          '<button id="but" type="submit" class="btn">' +
+          'Hecho' +
+          '</button>' +
+          '</form>',
+        showCloseButton: true,
+        showConfirmButton: false,
+      });
+     }, (error)=>{
+
+      Swal.fire({
+        title: '<strong>Pedido cancelado con éxito</strong>',
+        icon: 'error',
+        html:
+        '<p>'+error+'</p>'+
+          '<form (ngSubmit) ="recargar()">' +
+          '<button id="but" type="submit" class="btn">' +
+          'Hecho' +
+          '</button>' +
+          '</form>',
+        showCloseButton: true,
+        showConfirmButton: false,
+      });
+
+     });
   }
 
 

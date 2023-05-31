@@ -1,7 +1,19 @@
+
 table{
     display: flex;
     margin-left: 20px;
     flex-wrap: wrap;
+}
+
+.labelestado{
+    margin-left: 15px;
+}
+
+.button{
+    margin-left: 15px;
+    padding: 5px 10px 5px 10px;
+    background-color: #374151;
+    border-radius: 5px;
 }
 
 .card{
@@ -9,7 +21,7 @@ table{
     text-align: center;
     margin-left: 10px;
     border: 1px solid black;
-    height: 360px;
+    height: 280px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.781);
     display: flex;
     justify-content: center;
@@ -48,9 +60,10 @@ table{
     color: white;
     padding: 8px;
     border-radius: 10px;
-    margin-left: 14px;
-    width: 100%;
+    width: 80%;
+    margin-top: 5px;
 }
+
 
 .card button:hover{
     background-color: #8ca4ca;

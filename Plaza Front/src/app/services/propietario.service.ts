@@ -94,9 +94,15 @@ export class PropietarioService {
 
     }
 
+    eliminarPedido(id:string)
+    {
+      return this.httpClient.post(`${baseUrl}/cliente/cancelar-pedido/` + id, null);
+
+    }
+
     misPedidosCliente(email:string): Observable<ListaPedidos[]>
     {
-      return this.httpClient.get<ListaPedidos[]>(`${baseUrl}/empleado/mis-pedidos/`+ email);
+      return this.httpClient.get<ListaPedidos[]>(`${baseUrl}/cliente/mis-pedidos/`+ email);
     }
 
     registrarEmpleado(user:any)

@@ -67,16 +67,65 @@
         <h1 class="text-center" style="color: #252c36">
           <i class="fa-solid fa-house"></i> Platos actuales del restaurante
         </h1>
+        
       </div>
 
-      <div>
-        <div class="avatar gap-5"></div>
+      <div class="dropdown" >
+        <button class="dropbtn"><span class="carrito mdi mdi-cart-outline"></span></button>
+        <div class="dropdown-content" style="border-right: 1px solid rgb(87, 87, 87); background-color: #374151">
+    
+          <h1 id="miCarrito">     Mi carrito</h1>
+          <table>
+            <tr *ngFor="let pedidos of lista">
+              <table class="cardMini">
+                <tr>
+                <td>
+                  <font color="#000000"
+                    ><h2>
+                      <b>{{ pedidos.nombrePlato }}</b>
+                    </h2></font
+                  >
+                </td>
+
+    
+                <td>
+                  <font color="#000000"
+                    ><b>Canitdad en carrito: </b> {{ pedidos.cantidad }}</font
+                  >
+                </td>
+              </tr>
+
+                <br>
+    
+                
+                <button class="btnEliminar" 
+               >Eliminar compra</button>
+    
+    
+    
+                <!-- <td><font color="#000000"><a href="/lista-plato">Ver platos</a></font></td> -->
+    
+                <!-- <td><button (click)="obtenerNombreRestaurante(auditorias.nombre)">Obtener nombre</button></td> -->
+              </table>
+              
+              
+            </tr>
+            <button (click)="hacerCompra()" id="hacerCompra" ><span class="mdi mdi-credit-card-outline"></span> Hacer compra</button>
+            
+             
+          </table>
+         
+          
+        </div>
+        
+        
       </div>
+
     </div>
 
     <!-- main content /-->
-    <div class="w-full p-5">
-      <table>
+    <table>
+
         <tr *ngFor="let auditorias of listaPlato">
           <table class="card inhabilitado" *ngIf="auditorias.estado == false">
             <tr>
@@ -119,6 +168,7 @@
 
             <!-- <td><button (click)="obtenerNombreRestaurante(auditorias.nombre)">Obtener nombre</button></td> -->
           </table>
+
           <table class="card" *ngIf="auditorias.estado == true">
             <tr>
               <font color="#000000"
@@ -167,7 +217,7 @@
               <mat-select
                 placeholder="Cuantos quiere?"
                 [(ngModel)]="pedido.cantidad"
-                name="opcines"
+                name= 'opcines'
               >
                 <mat-option value="1">1</mat-option>
                 <mat-option value="2">2</mat-option>
@@ -187,7 +237,7 @@
                   realizarPedido(auditorias.nombre, auditorias.descripcion)
                 "
               >
-                Agregar al carrito
+              <span class="mdi mdi-cart-plus"></span> Agregar al carrito
               </button>
 
 
@@ -198,54 +248,10 @@
             <!-- <td><button (click)="obtenerNombreRestaurante(auditorias.nombre)">Obtener nombre</button></td> -->
           </table>
         </tr>
-      </table>
+      
+    </table>
 
-      <!--END Report-->
-    </div>
     <!-- END main content /-->
   </div>
-  <div class="dropdown" >
-    <button class="dropbtn"><i class="fas fa-bars"></i></button>
-    <div class="dropdown-content" style="border-right: 1px solid rgb(87, 87, 87); background-color: #374151">
-
-      <h1 id="miCarrito">     Mi carrito</h1>
-      <table>
-        <tr *ngFor="let pedidos of lista">
-          <table class="card">
-            <tr>
-              <font color="#000000"
-                ><h2>
-                  <b>{{ pedidos.nombrePlato }}</b>
-                </h2></font
-              >
-            </tr>
-            <tr></tr>
-
-            <tr>
-              <font color="#000000"
-                ><b>Canitdad en carrito: </b> {{ pedidos.cantidad }}</font
-              >
-            </tr>
-
-            <button style="margin-top: 50%;">Eliminar compra</button>
-
-
-
-            <!-- <td><font color="#000000"><a href="/lista-plato">Ver platos</a></font></td> -->
-
-            <!-- <td><button (click)="obtenerNombreRestaurante(auditorias.nombre)">Obtener nombre</button></td> -->
-          </table>
-          
-          
-        </tr>
-        <button (click)="hacerCompra()" id="hacerCompra" >Hacer compra</button>
-        
-         
-      </table>
-     
-      
-    </div>
-    
-    
-  </div>
+  
 </div>

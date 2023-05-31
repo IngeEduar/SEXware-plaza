@@ -139,18 +139,24 @@ export class ListaPlatoComponent {
       cantidad: this.pedido.cantidad,
     };
 
+
     this.lista.push(pedido);
+
+    Swal.fire({
+      title: '<strong>Se ha agregado '+pedido.nombrePlato+'</strong>',
+      icon: 'success',
+      html: '<p>Se han añadido '+pedido.cantidad+' '+pedido.nombrePlato+'</p>',
+      showCloseButton: true,
+      showConfirmButton: false,
+    });
 
     this.lista.forEach((pedido) => {
       console.log(`Plato: ${pedido.nombrePlato}, Cantidad: ${pedido.cantidad}`);
     });
 
-    /*
-    window.location.href =
-    '/realizar-pedido/' + correo + '/' + this.nombreRestaurante +'/'+ nombrePlato;
-
-    */
+  
   }
+
 
   hacerCompra() {
     let correo = this.loginService.getUser().email;
@@ -160,6 +166,58 @@ export class ListaPlatoComponent {
       .hacerPedido(this.lista, correo, this.nombreRestaurante)
       .subscribe((data) => {
         console.log(data);
+
+        Swal.fire({
+          title: '<strong>El pedido ha sido realizado con éxito</strong>',
+          icon: 'success',
+          html:
+            '<form (ngSubmit) ="recargar()">' +
+            '<button id="but" type="submit" class="btn">' +
+            'Hecho' +
+            '</button>' +
+            '</form>',
+          showCloseButton: true,
+          showConfirmButton: false,
+        });
+        
+      }, (error)=>{
+        
+        console.log(error);
+        if(error.status == 200){
+
+          Swal.fire({
+            title: '<strong>El pedido ha sido realizado con éxito</strong>',
+            icon: 'success',
+            html:
+              '<form (ngSubmit) ="recargar()">' +
+              '<button id="but" type="submit" class="btn">' +
+              'Hecho' +
+              '</button>' +
+              '</form>',
+            showCloseButton: true,
+            showConfirmButton: false,
+          });
+
+        }
+        else{
+          Swal.fire({
+            title: '<strong>El pedido no se ha realizado</strong>',
+            icon: 'error',
+            html:
+              '<h2>'+error.error+'<h2/><form (ngSubmit) ="recargar()">' +
+              '<button id="but" type="submit" class="btn">' +
+              'Hecho' +
+              '</button>' +
+              '</form>',
+            showCloseButton: true,
+            showConfirmButton: false,
+          });
+        }
+        
+
       });
+  }
+  recargar() {
+    location.reload();
   }
 }

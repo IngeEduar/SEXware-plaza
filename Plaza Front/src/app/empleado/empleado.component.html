@@ -68,10 +68,12 @@
       </div>
     </div>
 
-    <form (ngSubmit)="formSubmit()">  
+    <form class="labelestado" (ngSubmit)="formSubmit()">  
+
       <mat-form-field class="selectRol">
+        
         <mat-select
-          placeholder="Seleccione Un rol"
+          placeholder="Seleccione el estado"
           [(ngModel)]="filtro.valor"
           name="opcines"
         >
@@ -79,10 +81,13 @@
           <mat-option value="PENDIENTE">Pendiente</mat-option>
           <mat-option value="LISTO">Listo</mat-option>
           <mat-option value="ENTREGADO">Entregados</mat-option>
+          <i></i>
         </mat-select>
+      
       </mat-form-field>
+      
 
-      <button class="button"> Enviar</button>
+      <button  class="button"> Enviar <span class="mdi mdi-send"></span></button>
 
     </form>
 
@@ -96,22 +101,20 @@
                 <font color="#000000"
                   ><b
                     ><h2>{{ auditorias.estado }}</h2></b
-                  ></font
+                  ><p><b>Cliente: </b> {{auditorias.nombreCliente}}</p></font
                 >
               </tr>
 
 
               <td>
-                <font color="#000000"
-                  ><a href="/lista-platos-pedido">Ver platos</a></font
-                >
+                <button class="button" (click)="pag()" >Ver platos</button>
               </td>
 
-              <td>
+              <td *ngIf="auditorias.estado != 'LISTO' && auditorias.estado !='EN PREPARACION'">
                 <button  class="button" (click)="asignarme()">Asignarme a este pedido</button>
                 
               </td>
-              <td>
+              <td *ngIf="auditorias.estado != 'LISTO' && auditorias.estado =='EN PREPARACION'">
                 <button  class="button" (click)="pedidoListo()">Pedido listo</button>
                 
               </td>

@@ -9,7 +9,7 @@ table{
     text-align: center;
     margin-left: 10px;
     border: 1px solid black;
-    height: 360px;
+    height: 200px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.781);
     display: flex;
     justify-content: center;
@@ -48,8 +48,9 @@ table{
     color: white;
     padding: 8px;
     border-radius: 10px;
-    margin-left: 14px;
-    width: 100%;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 5px;
 }
 
 .card button:hover{

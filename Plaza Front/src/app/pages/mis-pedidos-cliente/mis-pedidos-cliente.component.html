@@ -29,8 +29,43 @@
                 style="font-size: 20px"
               ></i>
             </li>
+
+            
           </button>
         </form>
       </div>
     </ul>
+  </div>
+
+  <div class="w-full p-5">
+    <div class="w-full p-5">
+
+      <table>
+        <tr *ngFor="let auditorias of pedido">
+          <table class="card">
+            <tr>
+              <div style="display: flex; justify-content: center;">
+              <font color="#000000"
+                ><b
+                  ><h2>{{ auditorias.estado }}</h2></b
+                ><p><b>Id: </b> {{auditorias.numeroP}}</p>
+                <p><b>Cliente: </b> {{auditorias.nombreCliente}}</p>
+                <p><b>Email: </b> {{auditorias.email}}</p></font
+              >
+              
+            </div>
+            <button (click)="eliminarPedido(auditorias.numeroP)" *ngIf="auditorias.estado =='PENDIENTE'" >Eliminar pedido</button>
+            </tr>
+
+            <td>
+              
+            </td>
+          </table>
+        </tr>
+      </table>
+
+      <!--END Report-->
+    </div>
+
+    <!--END Report-->
   </div>

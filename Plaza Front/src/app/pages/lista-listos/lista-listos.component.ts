@@ -23,6 +23,8 @@ export class ListaListosComponent {
   };
 
   peticion = {
+    nombreCliente : '',
+    email : '',
     numeroP: '',
     codigo: this.pedidoCodigo.codigo,
   };
@@ -42,9 +44,11 @@ export class ListaListosComponent {
         console.log(dato);
 
         for (let i = 0; i < dato.length; i++) {
-          this.codigoP.numeroP = dato[0].numeroP;
+          this.codigoP.numeroP = dato[i].numeroP;
+          this.peticion.nombreCliente = dato[i].nombreCliente;
+          this.peticion.email = dato[i].email;
 
-          this.peticion.numeroP = dato[0].numeroP;
+          this.peticion.numeroP = dato[i].numeroP;
 
           console.log(this.codigoP.numeroP);
         }

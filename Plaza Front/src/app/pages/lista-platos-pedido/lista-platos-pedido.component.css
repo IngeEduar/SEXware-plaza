@@ -5,11 +5,11 @@ table{
 }
 
 .card{
-    width: 280px;
+    width: 240px;
     text-align: center;
     margin-left: 10px;
     border: 1px solid black;
-    height: 360px;
+    height: 200px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.781);
     display: flex;
     justify-content: center;

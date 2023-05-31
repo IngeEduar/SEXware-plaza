@@ -43,6 +43,10 @@ export class EmpleadoComponent {
     open('login');
   }
 
+  pag(){
+    window.open("/lista-platos-pedido", "_self")
+  }
+
   obtenerListaPedido() {
     const restaurante = this.LoginService.getUser().restaurant;
 
