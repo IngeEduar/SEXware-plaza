@@ -67,7 +67,7 @@ public class ClienteController {
 
     }
 
-    @GetMapping("mis-pedidos/{email}")
+    @GetMapping("/mis-pedidos/{email}")
     public ResponseEntity<?> listarMisPedidos (@PathVariable("email")String email){
         return new ResponseEntity<>(restaurantService.listarPedidosCliente(email),HttpStatus.OK);
     }
