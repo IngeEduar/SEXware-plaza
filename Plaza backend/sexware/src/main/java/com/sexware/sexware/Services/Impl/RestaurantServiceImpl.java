@@ -158,13 +158,11 @@ public class RestaurantServiceImpl implements RestaurantService {
         List<ListarPedidosResponse> pedidosResponses = new ArrayList<>();
 
         for (Pedidos pedidos : pedidosList){
-                List<DetallePedido> detallePedidos = detallePedidoRepository.listarDetallePedido(pedidos.getNumeroP());
 
                 ListarPedidosResponse pedidosResponse = new ListarPedidosResponse();
                 pedidosResponse.setNumeroP(pedidos.getNumeroP());
                 pedidosResponse.setEstado(pedidos.getEstado());
                 pedidosResponse.setNombreCliente(pedidos.getUsuario().getNombre());
-                pedidosResponse.setDetallePedidos(detallePedidos);
 
                 pedidosResponses.add(pedidosResponse);
         }
@@ -187,13 +185,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         pedidoRepository.save(pedidos);
 
-        List<DetallePedido> detallePedidos = detallePedidoRepository.listarDetallePedido(pedidos.getNumeroP());
 
         ListarPedidosResponse pedidosResponse = new ListarPedidosResponse();
         pedidosResponse.setNumeroP(pedidos.getNumeroP());
         pedidosResponse.setEstado(pedidos.getEstado());
         pedidosResponse.setNombreCliente(pedidos.getUsuario().getNombre());
-        pedidosResponse.setDetallePedidos(detallePedidos);
 
         return pedidosResponse;
     }
@@ -207,13 +203,11 @@ public class RestaurantServiceImpl implements RestaurantService {
         List<ListarPedidosResponse> pedidosResponses = new ArrayList<>();
 
         for (Pedidos pedidos : pedidosList){
-                List<DetallePedido> detallePedidos = detallePedidoRepository.listarDetallePedido(pedidos.getNumeroP());
 
                 ListarPedidosResponse pedidosResponse = new ListarPedidosResponse();
                 pedidosResponse.setNumeroP(pedidos.getNumeroP());
                 pedidosResponse.setEstado(pedidos.getEstado());
                 pedidosResponse.setNombreCliente(pedidos.getUsuario().getNombre());
-                pedidosResponse.setDetallePedidos(detallePedidos);
 
                 pedidosResponses.add(pedidosResponse);
         }
@@ -253,19 +247,23 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     }
 
+    @Override
+    public List<DetallePedido> obtenerDetallePedido(int numeroP) {
+
+        return detallePedidoRepository.listarDetallePedido(numeroP);
+    }
+
     public List<ListarPedidosResponse> ordenarListaPedidos(List<Pedidos> pedidosList){
         List<ListarPedidosResponse> pedidosResponses = new ArrayList<>();
 
         for (Pedidos pedidos : pedidosList){
             if (Objects.equals(pedidos.getEstado(), "EN PREPARACION") ||
                     Objects.equals(pedidos.getEstado(), "PENDIENTE")){
-                List<DetallePedido> detallePedidos = detallePedidoRepository.listarDetallePedido(pedidos.getNumeroP());
 
                 ListarPedidosResponse pedidosResponse = new ListarPedidosResponse();
                 pedidosResponse.setNumeroP(pedidos.getNumeroP());
                 pedidosResponse.setEstado(pedidos.getEstado());
                 pedidosResponse.setNombreCliente(pedidos.getUsuario().getNombre());
-                pedidosResponse.setDetallePedidos(detallePedidos);
 
                 pedidosResponses.add(pedidosResponse);
             }

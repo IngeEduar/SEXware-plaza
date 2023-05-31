@@ -13,7 +13,6 @@ import java.util.List;
 public class ListarPedidosResponse {
 
     private int numeroP;
-    private List<DetallePedido> detallePedidos = new ArrayList<>();
     private String nombreCliente;
     private String estado;
 }

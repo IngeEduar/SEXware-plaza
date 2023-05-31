@@ -86,6 +86,11 @@ public class EmpleadoController {
 
     }
 
+    @GetMapping("/detalle-pedido/{numeroP}")
+    public ResponseEntity<?> obtenerDetallePedido (@PathVariable("numeroP")int numeroP){
+        return new ResponseEntity<>(restaurantService.obtenerDetallePedido(numeroP), HttpStatus.OK);
+    }
+
     @PostMapping("/entregar-pedido")
     public ResponseEntity<?> entregarPedido (@RequestBody EntregarPedidoRequest pedidoRequest){
 
