@@ -1,0 +1,24 @@
+.full-width
+{
+    width: 100%;
+}
+#btn1{
+    background: linear-gradient(to right, #FF4B2B, #FF416C);
+}
+
+#btn1:hover{
+    background: white;
+    border: 1px solid #FF4B2B;
+    color: #FF4B2B;
+}
+
+#btn2{
+    background: white;
+    border: 1px solid #FF4B2B;
+    color: #FF4B2B;
+}
+
+#btn2:hover{
+    background: linear-gradient(to right, #FF4B2B, #FF416C);
+    color: white;
+}

@@ -1,0 +1,97 @@
+<div
+  class="w-full md:flex justify-between body"
+  style="background-color: #bbbbbb"
+>
+  <div
+    class="flex-shrenk-0 w-full md:w-80 h-screen sticky top-0 overflow-y-auto"
+    style="border-right: 1px solid rgb(87, 87, 87); background-color: #374151"
+  >
+    <nav class="navbar shadow-lg p-5" style="background-color: #252c36">
+      <div class="font-semibold">PLAZA FESC</div>
+    </nav>
+    <ul class="menu p-5">
+      <li>
+        <a *ngIf="LoginService.getUserRol() == 'CLIENTE'"
+        
+        href="/cliente" class="active"
+          ><i class="fa-solid fa-house-chimney"></i> Ver restaurantes</a
+        >
+      </li>
+      <li>
+        <a *ngIf="LoginService.getUserRol() == 'EMPLEADO'"
+        
+        href="/empleado" class="active"
+          ><i class="fa-solid fa-house-chimney"></i> Ver pedidos</a
+        >
+      </li>
+      <div style="display: flex; justify-content: center; width: 75%">
+        <form (ngSubmit)="salir()">
+          <button (click)="salir()" id="but" type="submit" class="cont">
+            <li style="bottom: 10px; position: absolute">
+              <i
+                class="fa-solid fa-arrow-right-from-bracket"
+                style="font-size: 20px"
+              ></i>
+            </li>
+          </button>
+        </form>
+      </div>
+    </ul>
+  </div>
+
+  <div class="flex-1">
+    <div class="flex items-center justify-between p-5">
+      <div class="breadcrumbs">
+        <h1 class="text-center" style="color: #252c36">
+          <i class="fa-solid fa-house"></i> Inicio
+        </h1>
+      </div>
+      <div>
+        <div class="avatar gap-5">
+          <h3 style="color: #000; margin-top: 10px">
+            {{
+              LoginService.getUser().nombre +
+                " " +
+                LoginService.getUser().apellido
+            }}
+          </h3>
+          <div class="w-12 rounded-full">
+            <img src="https://api.lorem.space/image/face?hash=64318" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full p-5">
+      <div class="w-full p-5">
+  
+        <table>
+          <tr *ngFor="let auditorias of pedido">
+            <table class="card">
+              <tr>
+                <font color="#000000"
+                  ><b
+                    ><h2>Nombre del plato: {{ auditorias.nombrePlato }}</h2></b
+                  ></font
+                >
+              </tr>
+
+              <tr>
+                <font color="#000000"
+                  ><b
+                    ><h2> Cantidad: {{ auditorias.cantidad }}</h2></b
+                  ></font
+                >
+              </tr>
+              <td>
+                
+              </td>
+            </table>
+          </tr>
+        </table>
+
+        <!--END Report-->
+      </div>
+
+      <!--END Report-->
+    </div>

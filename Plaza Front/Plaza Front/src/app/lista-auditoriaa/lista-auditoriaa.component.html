@@ -1,0 +1,102 @@
+<div
+  class="w-full md:flex justify-between body"
+  style="background-color: #bbbbbb"
+>
+  <div
+    class="flex-shrenk-0 w-full md:w-80 h-screen sticky top-0 overflow-y-auto"
+    style="border-right: 1px solid rgb(87, 87, 87); background-color: #374151"
+  >
+    <nav class="navbar shadow-lg p-5" style="background-color: #252c36">
+      <div class="font-semibold">PLAZA FESC</div>
+    </nav>
+    <ul class="menu p-5">
+      <li class="menu-title"><span>Navigation</span></li>
+
+      <li>
+        <a href="/admin"><i class="fa-solid fa-house-chimney"></i> Inicio</a>
+      </li>
+      <li>
+        <a href="/signup"><i class="fa-regular fa-user"></i> Propietarios</a>
+      </li>
+      <li>
+        <a href="/registro-restaurante"
+          ><i class="fa-solid fa-utensils"></i> Restaurantes</a
+        >
+      </li>
+      <li>
+        <a class="active" href="/auditoria"
+          ><i class="fa-regular fa-newspaper"></i> Auditorias</a
+        >
+      </li>
+      <li>
+        <a href="/actualizar-contrasegna/123123"
+          ><i class="fa-solid fa-lock"></i>Cambiar clave</a
+        >
+      </li>
+      <div style="display: flex; justify-content: center; width: 75%">
+        <form (ngSubmit)="salir()">
+          <button id="but" type="submit" class="cont">
+            <li style="bottom: 10px; position: absolute">
+              <i
+                class="fa-solid fa-arrow-right-from-bracket"
+                style="font-size: 20px"
+              ></i>
+            </li>
+          </button>
+        </form>
+      </div>
+    </ul>
+  </div>
+  <div class="flex-1">
+    <div class="flex items-center justify-between p-5">
+      <div class="breadcrumbs">
+        <h1 class="text-center" style="color: #252c36">
+          <i
+            style="font-size: 30px; margin-right: 10px"
+            class="fa-solid fa-file-invoice"
+          >
+          </i
+          >Auditoría
+        </h1>
+      </div>
+      <div>
+        <div class="avatar gap-5">
+          <input
+            type="search"
+            class="input input-bordered rounded-full"
+            placeholder="Search"
+          />
+          <div class="w-12 rounded-full">
+            <img src="https://api.lorem.space/image/face?hash=64318" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- main content /-->
+    <div class="w-full p-5">
+      <table
+        class="table table-striped"
+        id="table"
+        style="width: 100%; text-align: center"
+      >
+        <thead class="table-dark">
+          <tr>
+            <th>Titulo</th>
+            <th>Descripción</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody style="color: #374151; background-color: rgb(219, 216, 216)">
+          <tr *ngFor="let auditorias of auditoria">
+            <td>{{ auditorias.titulo }}</td>
+            <td>{{ auditorias.descripcion }}</td>
+            <td>{{ auditorias.fecha }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--END Report-->
+    </div>
+    <!-- END main content /-->
+  </div>
+</div>

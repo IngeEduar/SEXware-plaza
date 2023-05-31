@@ -1,0 +1,251 @@
+<div
+  class="w-full md:flex justify-between body"
+  style="background-color: #bbbbbb"
+>
+  <div
+    class="flex-shrenk-0 w-full md:w-80 h-screen sticky top-0 overflow-y-auto"
+    style="border-right: 1px solid rgb(87, 87, 87); background-color: #374151"
+  >
+    <nav class="navbar shadow-lg p-5" style="background-color: #252c36">
+      <div class="font-semibold">PLAZA FESC</div>
+    </nav>
+    <ul class="menu p-5">
+      <li>
+        <a
+          *ngIf="loginService.getUserRol() == 'CLIENTE'"
+          href="/cliente"
+          class="active"
+          ><i class="fa-solid fa-house-chimney"></i> Ver restaurantes</a
+        >
+      </li>
+      <li>
+        <a
+          *ngIf="loginService.getUserRol() == 'PROPIETARIO'"
+          href="/propietario"
+          ><i class="fa-solid fa-house-chimney"></i> Inicio</a
+        >
+      </li>
+      <li>
+        <a
+          *ngIf="loginService.getUserRol() == 'PROPIETARIO'"
+          class="active"
+          href="/lista-restaurantes"
+          ><i class="fa-solid fa-utensils"></i> Registrar plato</a
+        >
+      </li>
+      <li>
+        <a
+          *ngIf="loginService.getUserRol() == 'PROPIETARIO'"
+          href="/lista-restaurantes"
+          ><i class="fa-solid fa-utensils"></i> Lista de restaurantes</a
+        >
+      </li>
+      <li>
+        <a
+          *ngIf="loginService.getUserRol() == 'PROPIETARIO'"
+          href="/actualizar-contrasegna/123123"
+          ><i class="fa-solid fa-lock"></i>Cambiar clave</a
+        >
+      </li>
+      <div style="display: flex; justify-content: center; width: 75%">
+        <form (ngSubmit)="salir()">
+          <button id="but" type="submit" class="cont">
+            <li style="bottom: 10px; position: absolute">
+              <i
+                class="fa-solid fa-arrow-right-from-bracket"
+                style="font-size: 20px"
+              ></i>
+            </li>
+          </button>
+        </form>
+      </div>
+    </ul>
+  </div>
+  <div class="flex-1">
+    <div class="flex items-center justify-between p-5">
+      <div class="breadcrumbs">
+        <h1 class="text-center" style="color: #252c36">
+          <i class="fa-solid fa-house"></i> Platos actuales del restaurante
+        </h1>
+      </div>
+
+      <div>
+        <div class="avatar gap-5"></div>
+      </div>
+    </div>
+
+    <!-- main content /-->
+    <div class="w-full p-5">
+      <table>
+        <tr *ngFor="let auditorias of listaPlato">
+          <table class="card inhabilitado" *ngIf="auditorias.estado == false">
+            <tr>
+              <font color="#000000"
+                ><h2>
+                  <b>{{ auditorias.nombre }}</b>
+                </h2></font
+              >
+            </tr>
+            <tr>
+              <td class="img">
+                <img
+                  src="http://localhost:8080/img/photos/{{ auditorias.img }}"
+                  alt="imagen"
+                />
+              </td>
+            </tr>
+            <tr>
+              <font color="#fff"
+                ><b>Descripción:</b>Este plato está inhabilitado</font
+              >
+            </tr>
+
+            <tr style="margin-top: 20px">
+              <button
+                (click)="obtenerNombrePlato(auditorias.nombre)"
+                *ngIf="loginService.getUserRol() == 'PROPIETARIO'"
+              >
+                Actualizar plato
+              </button>
+            </tr>
+
+            <tr style="margin-top: 5px">
+              <button (click)="cambiarEstado(auditorias.nombre, true)">
+                habilitar plato
+              </button>
+            </tr>
+
+            <!-- <td><font color="#000000"><a href="/lista-plato">Ver platos</a></font></td> -->
+
+            <!-- <td><button (click)="obtenerNombreRestaurante(auditorias.nombre)">Obtener nombre</button></td> -->
+          </table>
+          <table class="card" *ngIf="auditorias.estado == true">
+            <tr>
+              <font color="#000000"
+                ><h2>
+                  <b>{{ auditorias.nombre }}</b>
+                </h2></font
+              >
+            </tr>
+            <tr>
+              <td class="img">
+                <img
+                  src="http://localhost:8080/img/photos/{{ auditorias.img }}"
+                  alt="imagen"
+                />
+              </td>
+            </tr>
+            <tr>
+              <font color="#000000"
+                ><b>Descripcion:</b> {{ auditorias.descripcion }}</font
+              >
+            </tr>
+            <tr>
+              <font color="#000000"
+                ><b>Precio: </b>${{ auditorias.precio }}</font
+              >
+            </tr>
+
+            <tr style="margin-top: 20px">
+              <button
+                *ngIf="loginService.getUserRol() == 'PROPIETARIO'"
+                (click)="obtenerNombrePlato(auditorias.nombre)"
+              >
+                Actualizar plato
+              </button>
+            </tr>
+            <tr style="margin-top: 5px">
+              <button
+                *ngIf="loginService.getUserRol() == 'PROPIETARIO'"
+                (click)="cambiarEstado(auditorias.nombre, false)"
+              >
+                inhabilitar plato
+              </button>
+            </tr>
+            
+            <mat-form-field>
+              <mat-select
+                placeholder="Cuantos quiere?"
+                [(ngModel)]="pedido.cantidad"
+                name="opcines"
+              >
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <tr style="margin-top: 5px">
+
+              
+
+              <button
+                *ngIf="loginService.getUserRol() == 'CLIENTE'"
+                (click)="
+                  realizarPedido(auditorias.nombre, auditorias.descripcion)
+                "
+              >
+                Agregar al carrito
+              </button>
+
+
+            </tr>
+
+            <!-- <td><font color="#000000"><a href="/lista-plato">Ver platos</a></font></td> -->
+
+            <!-- <td><button (click)="obtenerNombreRestaurante(auditorias.nombre)">Obtener nombre</button></td> -->
+          </table>
+        </tr>
+      </table>
+
+      <!--END Report-->
+    </div>
+    <!-- END main content /-->
+  </div>
+  <div class="dropdown" >
+    <button class="dropbtn"><i class="fas fa-bars"></i></button>
+    <div class="dropdown-content" style="border-right: 1px solid rgb(87, 87, 87); background-color: #374151">
+
+      <h1 id="miCarrito">     Mi carrito</h1>
+      <table>
+        <tr *ngFor="let pedidos of lista">
+          <table class="card">
+            <tr>
+              <font color="#000000"
+                ><h2>
+                  <b>{{ pedidos.nombrePlato }}</b>
+                </h2></font
+              >
+            </tr>
+            <tr></tr>
+
+            <tr>
+              <font color="#000000"
+                ><b>Canitdad en carrito: </b> {{ pedidos.cantidad }}</font
+              >
+            </tr>
+
+            <button style="margin-top: 50%;">Eliminar compra</button>
+
+
+
+            <!-- <td><font color="#000000"><a href="/lista-plato">Ver platos</a></font></td> -->
+
+            <!-- <td><button (click)="obtenerNombreRestaurante(auditorias.nombre)">Obtener nombre</button></td> -->
+          </table>
+          
+          
+        </tr>
+        <button (click)="hacerCompra()" id="hacerCompra" >Hacer compra</button>
+        
+         
+      </table>
+     
+      
+    </div>
+    
+    
+  </div>
+</div>
