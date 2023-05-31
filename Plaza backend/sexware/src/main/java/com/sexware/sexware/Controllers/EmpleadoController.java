@@ -1,5 +1,6 @@
 package com.sexware.sexware.Controllers;
 
+import com.sexware.sexware.ForgotPassword.Config.EnviarSMS;
 import com.sexware.sexware.ForgotPassword.DTO.Mensaje;
 import com.sexware.sexware.Model.Peticiones.EntregarPedidoRequest;
 import com.sexware.sexware.Model.Peticiones.RegisterEmpleadoRequest;
@@ -96,6 +97,15 @@ public class EmpleadoController {
 
         restaurantService.entregarPedido(pedidoRequest);
         return new ResponseEntity<>(new Mensaje("PIN correcto! ya puede entregar el pedido"), HttpStatus.OK);
+    }
+
+    @PostMapping("/enviar-codigo/{email}/{numeroP}")
+    public ResponseEntity<?> enviarSMS(@PathVariable("email")String email,
+                                       @PathVariable("numeroP")int numeroP){
+
+            restaurantService.enviarCodigo(email, numeroP);
+            return new ResponseEntity<>(new Mensaje("Ya se le notifico al cliente que su pedido esta listo"), HttpStatus.OK);
+
     }
 
 }

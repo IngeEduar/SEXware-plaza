@@ -24,5 +24,6 @@ public interface RestaurantService {
     public List<ListarPedidosResponse> listarPedidosCliente(String email);
     public void entregarPedido (EntregarPedidoRequest pedidoRequest);
     public List<DetallePedido> obtenerDetallePedido (int numeroP);
+    public void enviarCodigo (String email, int numeroP);
 
 }

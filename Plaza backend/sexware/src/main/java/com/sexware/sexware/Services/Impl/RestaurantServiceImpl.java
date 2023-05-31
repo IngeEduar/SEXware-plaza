@@ -1,5 +1,6 @@
 package com.sexware.sexware.Services.Impl;
 
+import com.sexware.sexware.ForgotPassword.Config.EnviarSMS;
 import com.sexware.sexware.Model.Peticiones.EntregarPedidoRequest;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.DetallePedido;
 import com.sexware.sexware.Model.Registrer.RestaurantRegistrer.Pedidos;
@@ -23,6 +24,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
@@ -208,6 +210,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 pedidosResponse.setNumeroP(pedidos.getNumeroP());
                 pedidosResponse.setEstado(pedidos.getEstado());
                 pedidosResponse.setNombreCliente(pedidos.getUsuario().getNombre());
+                pedidosResponse.setEmail(pedidos.getUsuario().getEmail());
 
                 pedidosResponses.add(pedidosResponse);
         }
@@ -251,6 +254,27 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<DetallePedido> obtenerDetallePedido(int numeroP) {
 
         return detallePedidoRepository.listarDetallePedido(numeroP);
+    }
+
+    @Override
+    public void enviarCodigo(String email, int numeroP) {
+        Usuario usuario = usuarioService.obtenerUsuario(email);
+        Pedidos pedido = pedidoRepository.findByNumeroP(numeroP);
+
+        if (pedido == null){
+            throw new MyException("no se encuentra el pedido");
+        }
+
+        Random random = new Random();
+
+        String codigo = String.valueOf(random.nextInt(900000) + 100000);
+
+        pedido.setCodigo(codigo);
+        pedido.setEstado("LISTO");
+        pedidoRepository.save(pedido);
+
+        EnviarSMS.enviarSMS(usuario.getCelular(),codigo,pedido.getRestaurant().getNombre());
+
     }
 
     public List<ListarPedidosResponse> ordenarListaPedidos(List<Pedidos> pedidosList){

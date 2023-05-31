@@ -14,5 +14,6 @@ public class ListarPedidosResponse {
 
     private int numeroP;
     private String nombreCliente;
+    private String email; //email cliente
     private String estado;
 }
