@@ -165,6 +165,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 pedidosResponse.setNumeroP(pedidos.getNumeroP());
                 pedidosResponse.setEstado(pedidos.getEstado());
                 pedidosResponse.setNombreCliente(pedidos.getUsuario().getNombre());
+                pedidosResponse.setEmail(pedidos.getUsuario().getEmail());
 
                 pedidosResponses.add(pedidosResponse);
         }
@@ -192,6 +193,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         pedidosResponse.setNumeroP(pedidos.getNumeroP());
         pedidosResponse.setEstado(pedidos.getEstado());
         pedidosResponse.setNombreCliente(pedidos.getUsuario().getNombre());
+        pedidosResponse.setEmail(pedidos.getUsuario().getEmail());
 
         return pedidosResponse;
     }
@@ -288,6 +290,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 pedidosResponse.setNumeroP(pedidos.getNumeroP());
                 pedidosResponse.setEstado(pedidos.getEstado());
                 pedidosResponse.setNombreCliente(pedidos.getUsuario().getNombre());
+                pedidosResponse.setEmail(pedidos.getUsuario().getEmail());
 
                 pedidosResponses.add(pedidosResponse);
             }
