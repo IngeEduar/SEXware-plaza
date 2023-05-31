@@ -74,6 +74,8 @@ export class LoginComponent {
               window.location.href = '/propietario';
             } else if (this.loginService.getUserRol() == 'CLIENTE') {
               window.location.href = '/cliente';
+            } else if (this.loginService.getUserRol() == 'EMPLEADO') {
+              window.location.href = '/empleado';
             } else {
               this.loginService.logout();
             }

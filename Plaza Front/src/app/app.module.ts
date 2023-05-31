@@ -34,6 +34,10 @@ import { ListaEmpleadosComponent } from './lista-empleados/lista-empleados.compo
 import { ClienteRegisterComponent } from './cliente-register/cliente-register.component';
 import { ClienteDasboardComponent } from './cliente-dasboard/cliente-dasboard.component';
 import { RealizarPedidoComponent } from './realizar-pedido/realizar-pedido.component';
+import { EmpleadoComponent } from './empleado/empleado.component';
+import { ListaPlatosPedidoComponent } from './pages/lista-platos-pedido/lista-platos-pedido.component';
+import { ListaListosComponent } from './pages/lista-listos/lista-listos.component';
+import { MisPedidosClienteComponent } from './pages/mis-pedidos-cliente/mis-pedidos-cliente.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +58,11 @@ import { RealizarPedidoComponent } from './realizar-pedido/realizar-pedido.compo
     ListaEmpleadosComponent,
     ClienteRegisterComponent,
     ClienteDasboardComponent,
-    RealizarPedidoComponent
+    RealizarPedidoComponent,
+    EmpleadoComponent,
+    ListaPlatosPedidoComponent,
+    ListaListosComponent,
+    MisPedidosClienteComponent
     
   ],
   imports: [

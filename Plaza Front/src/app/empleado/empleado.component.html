@@ -11,13 +11,22 @@
     </nav>
     <ul class="menu p-5">
       <li>
-        <a href="/cliente" 
+        <a *ngIf="LoginService.getUserRol() == 'CLIENTE'"
+         href="/cliente" 
           ><i class="fa-solid fa-house-chimney"></i> Ver restaurantes</a
         >
       </li>
       <li>
-        <a href="/mis-pedidos-cliente" 
-          ><i class="fa-solid fa-utensils"></i>Mis pedidos</a
+        <a *ngIf="LoginService.getUserRol() == 'EMPLEADO'"
+         href="/empleado" 
+          ><i class="fa-solid fa-house-chimney"></i> Ver mis pedidos</a
+        >
+      </li>
+
+      <li>
+        <a *ngIf="LoginService.getUserRol() == 'EMPLEADO'"
+         href="/lista-listos" 
+          ><i class="fa-solid fa-utensils"></i>Pedidos para entregar</a
         >
       </li>
       <div style="display: flex; justify-content: center; width: 75%">
@@ -50,47 +59,65 @@
                 LoginService.getUser().apellido
             }}
           </h3>
+
+
           <div class="w-12 rounded-full">
             <img src="https://api.lorem.space/image/face?hash=64318" />
           </div>
         </div>
       </div>
     </div>
-    <!-- main content /-->
+
+    <form (ngSubmit)="formSubmit()">  
+      <mat-form-field class="selectRol">
+        <mat-select
+          placeholder="Seleccione Un rol"
+          [(ngModel)]="filtro.valor"
+          name="opcines"
+        >
+          <mat-option value="EN PREPARACION">En preparacion</mat-option>
+          <mat-option value="PENDIENTE">Pendiente</mat-option>
+          <mat-option value="LISTO">Listo</mat-option>
+          <mat-option value="ENTREGADO">Entregados</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button class="button"> Enviar</button>
+
+    </form>
+
     <div class="w-full p-5">
       <div class="w-full p-5">
-        <h3 style="color: black">Restaurantes</h3>
+  
         <table>
-          <tr *ngFor="let auditorias of restaurante">
+          <tr *ngFor="let auditorias of pedido">
             <table class="card">
               <tr>
                 <font color="#000000"
                   ><b
-                    ><h2>{{ auditorias.nombre }}</h2></b
+                    ><h2>{{ auditorias.estado }}</h2></b
                   ></font
                 >
               </tr>
-              <tr>
-                <td class="img">
-                  <img
-                    src="http://localhost:8080/img/photos/{{
-                      auditorias.urlLogo
-                    }}"
-                    alt="imagen"
-                  />
-                </td>
-              </tr>
+
 
               <td>
                 <font color="#000000"
-                  ><a href="/lista-plato">Ver platos</a></font
+                  ><a href="/lista-platos-pedido">Ver platos</a></font
                 >
               </td>
 
               <td>
-                <button (click)="obtenerNombreRestaurante(auditorias.nombre)">
-                  Listar platos
-                </button>
+                <button  class="button" (click)="asignarme()">Asignarme a este pedido</button>
+                
+              </td>
+              <td>
+                <button  class="button" (click)="pedidoListo()">Pedido listo</button>
+                
+              </td>
+
+              <td>
+                
               </td>
             </table>
           </tr>
@@ -101,6 +128,3 @@
 
       <!--END Report-->
     </div>
-    <!-- END main content /-->
-  </div>
-</div>

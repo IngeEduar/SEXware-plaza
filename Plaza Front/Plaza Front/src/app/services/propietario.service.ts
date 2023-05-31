@@ -8,7 +8,6 @@ import { LoginService } from './login.service';
 import { ListarPlatos } from '../listar-platos';
 import { ListaRestaurantesComponent } from '../pages/lista-restaurantes/lista-restaurantes.component';
 import { Empleado } from '../empleado';
-import { ListaPedidos } from '../lista-pedidos';
 
 @Injectable({
   providedIn: 'root'
@@ -60,31 +59,6 @@ export class PropietarioService {
     {
       return this.httpClient.get<Empleado[]>(`${baseUrl}/empleado/listar/`+ nombre);
 
-
-    }
-
-    obtenerListaPedidos(nombre:string, estado:string): Observable<ListaPedidos[]>
-    {
-      return this.httpClient.get<ListaPedidos[]>(`${baseUrl}/empleado/listar-pedidos/`+ nombre + `/` +estado);
-
-    }
-
-    obtenerListaPlatoPedidos(numerop:string): Observable<ListaPedidos[]>
-    {
-
-      return this.httpClient.get<ListaPedidos[]>(`${baseUrl}/empleado/detalle-pedido/`+ numerop);
-      
-    }
-
-    enviarMensaje(email:string, numeroP:string)
-    {
-      return this.httpClient.post(`${baseUrl}/empleado/enviar-codigo/`+ email + `/` +numeroP, null);
-    }
-
-    asignarmePedido(nPedido:string, empleado:string)
-    {
-      return this.httpClient.post(`${baseUrl}/empleado/asignar-pedido/`+ nPedido + `/` +empleado, null);
-      
 
     }
 

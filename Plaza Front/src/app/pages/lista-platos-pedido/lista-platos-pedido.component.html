@@ -11,13 +11,17 @@
     </nav>
     <ul class="menu p-5">
       <li>
-        <a href="/cliente" 
+        <a *ngIf="LoginService.getUserRol() == 'CLIENTE'"
+        
+        href="/cliente" class="active"
           ><i class="fa-solid fa-house-chimney"></i> Ver restaurantes</a
         >
       </li>
       <li>
-        <a href="/mis-pedidos-cliente" 
-          ><i class="fa-solid fa-utensils"></i>Mis pedidos</a
+        <a *ngIf="LoginService.getUserRol() == 'EMPLEADO'"
+        
+        href="/empleado" class="active"
+          ><i class="fa-solid fa-house-chimney"></i> Ver pedidos</a
         >
       </li>
       <div style="display: flex; justify-content: center; width: 75%">
@@ -34,6 +38,7 @@
       </div>
     </ul>
   </div>
+
   <div class="flex-1">
     <div class="flex items-center justify-between p-5">
       <div class="breadcrumbs">
@@ -56,41 +61,30 @@
         </div>
       </div>
     </div>
-    <!-- main content /-->
+
     <div class="w-full p-5">
       <div class="w-full p-5">
-        <h3 style="color: black">Restaurantes</h3>
+  
         <table>
-          <tr *ngFor="let auditorias of restaurante">
+          <tr *ngFor="let auditorias of pedido">
             <table class="card">
               <tr>
                 <font color="#000000"
                   ><b
-                    ><h2>{{ auditorias.nombre }}</h2></b
+                    ><h2>Nombre del plato: {{ auditorias.nombrePlato }}</h2></b
                   ></font
                 >
               </tr>
+
               <tr>
-                <td class="img">
-                  <img
-                    src="http://localhost:8080/img/photos/{{
-                      auditorias.urlLogo
-                    }}"
-                    alt="imagen"
-                  />
-                </td>
-              </tr>
-
-              <td>
                 <font color="#000000"
-                  ><a href="/lista-plato">Ver platos</a></font
+                  ><b
+                    ><h2> Cantidad: {{ auditorias.cantidad }}</h2></b
+                  ></font
                 >
-              </td>
-
+              </tr>
               <td>
-                <button (click)="obtenerNombreRestaurante(auditorias.nombre)">
-                  Listar platos
-                </button>
+                
               </td>
             </table>
           </tr>
@@ -101,6 +95,3 @@
 
       <!--END Report-->
     </div>
-    <!-- END main content /-->
-  </div>
-</div>

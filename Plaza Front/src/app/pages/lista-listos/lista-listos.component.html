@@ -11,15 +11,20 @@
     </nav>
     <ul class="menu p-5">
       <li>
-        <a href="/cliente" 
+        <a *ngIf="LoginService.getUserRol() == 'CLIENTE'" href="/cliente"
           ><i class="fa-solid fa-house-chimney"></i> Ver restaurantes</a
         >
       </li>
       <li>
-        <a href="/mis-pedidos-cliente" 
-          ><i class="fa-solid fa-utensils"></i>Mis pedidos</a
+        <a *ngIf="LoginService.getUserRol() == 'EMPLEADO'" href="/empleado"
+          ><i class="fa-solid fa-house-chimney"></i> Ver mis pedidos</a
+        >
+
+        <a *ngIf="LoginService.getUserRol() == 'EMPLEADO'" href="/lista-listos"
+          ><i class="fa-solid fa-utensils"></i>Pedidos para entregar</a
         >
       </li>
+
       <div style="display: flex; justify-content: center; width: 75%">
         <form (ngSubmit)="salir()">
           <button (click)="salir()" id="but" type="submit" class="cont">
@@ -50,48 +55,39 @@
                 LoginService.getUser().apellido
             }}
           </h3>
+
           <div class="w-12 rounded-full">
             <img src="https://api.lorem.space/image/face?hash=64318" />
           </div>
         </div>
       </div>
     </div>
-    <!-- main content /-->
     <div class="w-full p-5">
       <div class="w-full p-5">
-        <h3 style="color: black">Restaurantes</h3>
         <table>
-          <tr *ngFor="let auditorias of restaurante">
+          <tr *ngFor="let auditorias of pedido">
             <table class="card">
               <tr>
                 <font color="#000000"
                   ><b
-                    ><h2>{{ auditorias.nombre }}</h2></b
+                    ><h2>{{ auditorias.estado }}</h2></b
                   ></font
                 >
               </tr>
-              <tr>
-                <td class="img">
-                  <img
-                    src="http://localhost:8080/img/photos/{{
-                      auditorias.urlLogo
-                    }}"
-                    alt="imagen"
-                  />
-                </td>
-              </tr>
 
-              <td>
-                <font color="#000000"
-                  ><a href="/lista-plato">Ver platos</a></font
-                >
-              </td>
+              <mat-form-field class="full-width" appearance="outline">
+                <input
+                  required
+                  type="password"
+                  matInput
+                  placeholder="Código del pedido"
+                  id="miInput"
+                  [(ngModel)]="pedidoCodigo.codigo"
+                  name="password"
+                />
+              </mat-form-field>
 
-              <td>
-                <button (click)="obtenerNombreRestaurante(auditorias.nombre)">
-                  Listar platos
-                </button>
-              </td>
+              <button (click)="formSubmit()" id="miBoton">Entregar</button>
             </table>
           </tr>
         </table>
@@ -101,6 +97,5 @@
 
       <!--END Report-->
     </div>
-    <!-- END main content /-->
   </div>
 </div>

@@ -20,8 +20,7 @@ import { PropietarioGuard } from './services/propietario.guard';
 import { ClienteRegisterComponent } from './cliente-register/cliente-register.component';
 import { ClienteDasboardComponent } from './cliente-dasboard/cliente-dasboard.component';
 import { RealizarPedidoComponent } from './realizar-pedido/realizar-pedido.component';
-import { EmpleadoComponent } from './empleado/empleado.component';
-import { ListaPlatosPedidoComponent } from './pages/lista-platos-pedido/lista-platos-pedido.component';
+import { EmpleadoComponent } from './pages/empleado/empleado.component';
 
 const routes: Routes = [
   {
@@ -115,11 +114,6 @@ const routes: Routes = [
   {
     path:'empleado',
     component:EmpleadoComponent,
-    pathMatch:'full'
-  },
-  {
-    path:'lista-platos-pedido',
-    component:ListaPlatosPedidoComponent,
     pathMatch:'full'
   }
   

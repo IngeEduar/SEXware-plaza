@@ -20,6 +20,10 @@ import { PropietarioGuard } from './services/propietario.guard';
 import { ClienteRegisterComponent } from './cliente-register/cliente-register.component';
 import { ClienteDasboardComponent } from './cliente-dasboard/cliente-dasboard.component';
 import { RealizarPedidoComponent } from './realizar-pedido/realizar-pedido.component';
+import { EmpleadoComponent } from './empleado/empleado.component';
+import { ListaPlatosPedidoComponent } from './pages/lista-platos-pedido/lista-platos-pedido.component';
+import { ListaListosComponent } from './pages/lista-listos/lista-listos.component';
+import { MisPedidosClienteComponent } from './pages/mis-pedidos-cliente/mis-pedidos-cliente.component';
 
 const routes: Routes = [
   {
@@ -109,7 +113,30 @@ const routes: Routes = [
     path:'realizar-pedido/:correo/:nombreRestaurante/:nombrePlato',
     component:RealizarPedidoComponent,
     pathMatch:'full'
+  },
+  {
+    path:'empleado',
+    component:EmpleadoComponent,
+    pathMatch:'full'
+  },
+  {
+    path:'lista-platos-pedido',
+    component:ListaPlatosPedidoComponent,
+    pathMatch:'full'
+  },
+  {
+    path:'lista-listos',
+    component:ListaListosComponent,
+    pathMatch:'full'
+  },
+  {
+    path:'mis-pedidos-cliente',
+    component:MisPedidosClienteComponent,
+    pathMatch:'full'
+
   }
+ 
+  
   
 ];
 

@@ -34,8 +34,7 @@ import { ListaEmpleadosComponent } from './lista-empleados/lista-empleados.compo
 import { ClienteRegisterComponent } from './cliente-register/cliente-register.component';
 import { ClienteDasboardComponent } from './cliente-dasboard/cliente-dasboard.component';
 import { RealizarPedidoComponent } from './realizar-pedido/realizar-pedido.component';
-import { EmpleadoComponent } from './empleado/empleado.component';
-import { ListaPlatosPedidoComponent } from './pages/lista-platos-pedido/lista-platos-pedido.component';
+import { EmpleadoComponent } from './pages/empleado/empleado.component';
 
 @NgModule({
   declarations: [
@@ -57,8 +56,7 @@ import { ListaPlatosPedidoComponent } from './pages/lista-platos-pedido/lista-pl
     ClienteRegisterComponent,
     ClienteDasboardComponent,
     RealizarPedidoComponent,
-    EmpleadoComponent,
-    ListaPlatosPedidoComponent
+    EmpleadoComponent
     
   ],
   imports: [
