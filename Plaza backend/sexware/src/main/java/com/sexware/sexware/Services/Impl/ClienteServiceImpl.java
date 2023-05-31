@@ -134,10 +134,13 @@ public class ClienteServiceImpl implements ClienteService {
         Pedidos pedido = null;
 
         for (Pedidos pedi : pedidosList){
-            if (Objects.equals(pedi.getUsuario().getEmail(), email) && !Objects.equals(pedi.getEstado(), "ENTREGADO")){
+            if (Objects.equals(pedi.getUsuario().getEmail(), email) && Objects.equals(pedi.getEstado(), "PENDIENTE")){
                 pedido = pedi;
             }
-            if (Objects.equals(pedi.getUsuario().getEmail(), email) && !Objects.equals(pedi.getEstado(), "CANCELADO")){
+            if (Objects.equals(pedi.getUsuario().getEmail(), email) && Objects.equals(pedi.getEstado(), "EN PREPARACION")){
+                pedido = pedi;
+            }
+            if (Objects.equals(pedi.getUsuario().getEmail(), email) && Objects.equals(pedi.getEstado(), "LISTO")){
                 pedido = pedi;
             }
         }
