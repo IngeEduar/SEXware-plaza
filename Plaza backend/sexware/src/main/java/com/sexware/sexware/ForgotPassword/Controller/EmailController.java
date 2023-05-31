@@ -83,7 +83,7 @@ public class EmailController {
         Usuario usuario = modelMapper.map(usuarioOpt, Usuario.class);
         String newPassword = passwordEncoder.encode(dto.getPassword());
         usuario.setPassword(newPassword);
-        usuario.setTokenPassword(null);
+        usuario.setTokenPassword("");
         usuarioService.save(usuario);
         return new ResponseEntity<>(new Mensaje("Contraseña actualizada"), HttpStatus.OK);
     }
