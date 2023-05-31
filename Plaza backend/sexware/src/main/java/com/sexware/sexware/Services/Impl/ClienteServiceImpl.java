@@ -137,6 +137,9 @@ public class ClienteServiceImpl implements ClienteService {
             if (Objects.equals(pedi.getUsuario().getEmail(), email) && !Objects.equals(pedi.getEstado(), "ENTREGADO")){
                 pedido = pedi;
             }
+            if (Objects.equals(pedi.getUsuario().getEmail(), email) && !Objects.equals(pedi.getEstado(), "CANCELADO")){
+                pedido = pedi;
+            }
         }
 
         if (pedido != null){
