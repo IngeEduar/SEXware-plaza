@@ -1,3 +1,7 @@
+npm install -g @angular/cli // instalación de angular
+
+npm install -g node-modules  // instalación de node
+
 # SistemaExamenesFrontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.6.
