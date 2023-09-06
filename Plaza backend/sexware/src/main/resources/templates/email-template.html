@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Olvide mi contraseña</title>
+
+</head>
+<body>
+    <table class="entire-page" style="background: #C7C7C7;
+    width: 100%;
+    padding: 20px 0;
+    font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    line-height: 1.5;
+    border-radius: 10px;"
+>
+
+        <tr>
+
+            <td style="font-size: 13px; color: #878787;">
+
+                <table class="email-body" style="max-width: 500px ;
+                margin: 0 auto;
+                background: white;
+                border-radius: 10px;
+                ">
+
+                    <tr>
+                        <td class="email-header" style= "background: black; padding: 30px; border-radius: 10px;">
+                            <a href="https://codepen.io">
+                                <center> <img src="https://i.ibb.co/tMvqvnG/logoplaza.png" alt="CodePen News" style="width: 45%; border-radius: 10px;"></center>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td class="news-section" style="padding: 20px 30px;">
+
+                            <h1 style="color: black; font-size: 25; padding-top: 10%;" >	RECUPERAR CONTRASEÑA</h1>
+
+                            <H3><span>Hola </span><span th:text="${userName}"></span></H3>
+
+                            <p style="font-size: 20px; color: #000000;">Haz click en el siguiente enlace para acceder a tu cuenta:
+
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td width="100%" bgcolor="#ffffff" style="text-align:center; padding-top: 20%;"><a style="font-weight:bold; text-decoration:none; padding-top: 30%;" th:href="@{${url}}"><div style="display:block; max-width:100% ; width:93%; height:auto ;background-color:#da621c;padding-top:15px;padding-right:15px;padding-bottom:15px;padding-left:15px;border-radius:8px;color:#ffffff;font-size:24px;font-family:Arial, Helvetica, sans-serif; " >Ir a mi cuenta!</div></a>
+
+
+                            <a href="https://blog.codepen.io/documentation/features/oembed/"><img src="https://i.ibb.co/YynydzX/sexware-2.jpg" style="width: 30%; padding-top: 20%;"></a>
+
+
+
+                        </td>
+
+
+
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
+
+
