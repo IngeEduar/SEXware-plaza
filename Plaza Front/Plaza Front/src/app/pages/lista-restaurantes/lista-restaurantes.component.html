@@ -1,0 +1,161 @@
+<div
+  class="w-full md:flex justify-between body"
+  style="background-color: #bbbbbb"
+>
+  <div
+    class="flex-shrenk-0 w-full md:w-80 h-screen sticky top-0 overflow-y-auto"
+    style="border-right: 1px solid rgb(87, 87, 87); background-color: #374151"
+  >
+    <nav class="navbar shadow-lg p-5" style="background-color: #252c36">
+      <div class="font-semibold">PLAZA FESC</div>
+    </nav>
+    <ul class="menu p-5">
+      <li class="menu-title"><span>Navigation</span></li>
+      <li>
+        <a href="/propietario"
+          ><i class="fa-solid fa-house-chimney"></i> Inicio</a
+        >
+      </li>
+      <li>
+        <a href="/lista-restaurantes"
+          ><i class="fa-solid fa-utensils"></i> Registrar plato</a
+        >
+      </li>
+      <li>
+        <a class="active" href="/lista-restaurantes"
+          ><i class="fa-solid fa-utensils"></i> Lista de restaurantes</a
+        >
+      </li>
+      <li>
+        <a href="/actualizar-contrasegna/123"
+          ><i class="fa-solid fa-lock"></i>Cambiar clave</a
+        >
+      </li>
+      <div style="display: flex; justify-content: center; width: 75%">
+        <form (ngSubmit)="salir()">
+          <button id="but" type="submit" class="cont">
+            <li style="bottom: 10px; position: absolute">
+              <i
+                class="fa-solid fa-arrow-right-from-bracket"
+                style="font-size: 20px"
+              ></i>
+            </li>
+          </button>
+        </form>
+      </div>
+    </ul>
+  </div>
+  <div class="flex-1">
+    <div class="flex items-center justify-between p-5">
+      <div class="breadcrumbs">
+        <h1 class="text-center" style="color: #252c36">
+          <i class="fa-solid fa-house"></i> Restaurantes que posee el
+          propietario
+        </h1>
+      </div>
+      <div>
+        <div class="avatar gap-5">
+          <input
+            type="search"
+            class="input input-bordered rounded-full"
+            placeholder="Search"
+          />
+          <div class="w-12 rounded-full">
+            <img src="https://api.lorem.space/image/face?hash=64318" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- main content /-->
+    <div class="w-full p-5">
+      <p style="margin-left: 10px; color: #3d4858">
+        Recuerde que para registrar un plato nuevo debe primero seleccionar el
+        restaurante
+      </p>
+
+      <table>
+        <tr *ngFor="let auditorias of listaRestaurantes">
+          <table class="card">
+            <tr>
+              <font color="#000000"
+                ><b
+                  ><h2>{{ auditorias.nombre }}</h2></b
+                ></font
+              >
+            </tr>
+            <tr>
+              <td class="img">
+                <img
+                  src="http://localhost:8080/img/photos/{{
+                    auditorias.urlLogo
+                  }}"
+                  alt="imagen"
+                />
+              </td>
+            </tr>
+            <tr>
+              <font color="#000000" id="id"
+                ><b>ID: </b>{{ auditorias.id }}</font
+              >
+            </tr>
+            <tr>
+              <font color="#000000"><b>NIT:</b> {{ auditorias.nit }}</font>
+            </tr>
+            <tr>
+              <font color="#000000"
+                ><b>Direccion:</b> {{ auditorias.direccion }}</font
+              >
+            </tr>
+            <tr>
+              <font color="#000000"
+                ><b>Telefono:</b> {{ auditorias.telefono }}</font
+              >
+            </tr>
+
+            <tr id="btnPlatos">
+              <td>
+                <button
+                  (click)="obtenerNombreRestauranteRegistro(auditorias.nombre)"
+                >
+                  Registrar platos
+                </button>
+              </td>
+              <td>
+                <button (click)="obtenerNombreRestaurante(auditorias.nombre)">
+                  Ver platos
+                </button>
+              </td>
+            </tr>
+            <tr id="btnEmpleado">
+              <td>
+                <button
+                  (click)="
+                    obtenerNombreRestauranteListaEmpleado(auditorias.nombre)
+                  "
+                >
+                  Lista empleados
+                </button>
+              </td>
+              <td>
+                <button
+                  (click)="
+                    obtenerNombreRestauranteRegistroEmpleado(auditorias.nombre)
+                  "
+                >
+                  Registro empleado
+                </button>
+              </td>
+            </tr>
+
+            <!-- <td><font color="#000000"><a href="/lista-plato">Ver platos</a></font></td> -->
+
+            <!-- <td><button (click)="obtenerNombreRestaurante(auditorias.nombre)">Obtener nombre</button></td> -->
+          </table>
+        </tr>
+      </table>
+
+      <!--END Report-->
+    </div>
+    <!-- END main content /-->
+  </div>
+</div>

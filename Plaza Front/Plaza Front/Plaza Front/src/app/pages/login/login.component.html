@@ -1,0 +1,120 @@
+<div class="body">
+  <div class="container" id="container">
+    <div class="form-container sign-up-container">
+      <!--<form (ngSubmit)="formSubmit()">
+
+                <h1>Registrar</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><img src="../../../assets/facebook.png" width="85%"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><img src="../../../assets/instagram.png" width="85%"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><img src="../../../assets/twitter.png" width="85%"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>Use su email para registrarse</span>
+
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Ingrese el usuario</mat-label>
+                    <input [(ngModel)] ="loginData.email" name="email" required matInput placeholder="Digite su usuario">
+                    <mat-hint>El nombre de usuario deber se unico</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Ingrese su contraseña</mat-label>
+                    <input [(ngModel)] = "loginData.password" name="password" required type="password" matInput placeholder="Digite su usuario">
+                </mat-form-field>
+
+                <br><br>
+
+                <div class="container text-center">
+                    <button mat-raised-button color="primary">Ingresar</button>
+                    <button type="reset" style="margin-left: 20px;" mat-raised-button color="accent">Limpiar</button>
+                </div>
+                <button>Registrarse</button>
+            </form>-->
+    </div>
+    <div class="form-container sign-in-container">
+      <form (ngSubmit)="formSubmit()">
+        <h1 style="color: black">Iniciar Sesión</h1>
+        <div class="social-container">
+          <a href="#" class="social"
+            ><img src="../../../assets/facebook.png" width="85%"
+          /></a>
+          <a href="#" class="social"
+            ><img src="../../../assets/instagram.png" width="85%"
+          /></a>
+          <a href="#" class="social"
+            ><img src="../../../assets/twitter.png" width="85%"
+          /></a>
+        </div>
+
+        <mat-form-field
+          class="full-width input"
+          appearance="outline"
+          style="background-color: white"
+        >
+          <input
+            [(ngModel)]="loginData.email"
+            name="email"
+            required
+            matInput
+            placeholder="Digite su usuario"
+          />
+        </mat-form-field>
+
+        <mat-form-field
+          class="full-width input"
+          appearance="outline"
+          style="background-color: white"
+        >
+          <input
+            [(ngModel)]="loginData.password"
+            name="password"
+            required
+            type="password"
+            matInput
+            placeholder="Digite su contraseña"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="selectRol">
+          <mat-select
+            placeholder="Seleccione Un rol"
+            [(ngModel)]="loginData.rol"
+            name="opcines"
+          >
+            <mat-option value="PROPIETARIO">Propietario</mat-option>
+            <mat-option value="ADMIN">Administrador</mat-option>
+            <mat-option value="CLIENTE">Cliente</mat-option>
+            <mat-option value="EMPLEADO">Empleado</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- 
+                <select id="select" name="miselect" [(ngModel)]="rolUsuario.rol">
+                    <option [value]="loginRoles.rol" >Propietario</option>
+                  </select>-->
+
+        <a href="#">¿Olvidaste tu contraseña?</a>
+        <button>Ingresar</button>
+      </form>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>Bienvenido!</h1>
+          <p>
+            Para mantenerse conectado con nosotros por favor ingrese su
+            información personal
+          </p>
+          <button class="ghost" id="signIn">Ingresar</button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Hola, amigo!</h1>
+          <p>
+            Ingresa tus datos personales y comienza tu experiencia con nosotros
+          </p>
+          <a class="btn" href="/registro-cliente">Registrarse</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

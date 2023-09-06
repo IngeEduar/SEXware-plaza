@@ -1,0 +1,114 @@
+<div
+  class="w-full md:flex justify-between body"
+  style="background-color: #bbbbbb"
+>
+  <div
+    class="flex-shrenk-0 w-full md:w-80 h-screen sticky top-0 overflow-y-auto"
+    style="border-right: 1px solid rgb(87, 87, 87); background-color: #374151"
+  >
+    <nav class="navbar shadow-lg p-5" style="background-color: #252c36">
+      <div class="font-semibold">PLAZA FESC</div>
+    </nav>
+    <ul class="menu p-5">
+      <li class="menu-title"><span>Navigation</span></li>
+      <li>
+        <a class="active" href="/propietario"
+          ><i class="fa-solid fa-house-chimney"></i> Inicio</a
+        >
+      </li>
+      <li>
+        <a href="/lista-restaurantes"
+          ><i class="fa-solid fa-utensils"></i> Registrar plato</a
+        >
+      </li>
+      <li>
+        <a href="/lista-restaurantes"
+          ><i class="fa-solid fa-utensils"></i> Lista de restaurantes</a
+        >
+      </li>
+      <li>
+        <a href="/actualizar-contrasegna/123"
+          ><i class="fa-solid fa-lock"></i>Cambiar clave</a
+        >
+      </li>
+      <div style="display: flex; justify-content: center; width: 75%">
+        <form (ngSubmit)="salir()">
+          <button id="but" type="submit" class="cont">
+            <li style="bottom: 10px; position: absolute">
+              <i
+                class="fa-solid fa-arrow-right-from-bracket"
+                style="font-size: 20px"
+              ></i>
+            </li>
+          </button>
+        </form>
+      </div>
+    </ul>
+  </div>
+  <div class="flex-1">
+    <div class="flex items-center justify-between p-5">
+      <div class="breadcrumbs">
+        <h1 class="text-center" style="color: #252c36">
+          <i class="fa-solid fa-house"></i> Inicio
+        </h1>
+      </div>
+      <div>
+        <div class="avatar gap-5">
+          <input
+            type="search"
+            class="input input-bordered rounded-full"
+            placeholder="Search"
+          />
+          <div class="w-12 rounded-full">
+            <img src="https://api.lorem.space/image/face?hash=64318" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- main content /-->
+    <div class="w-full p-5">
+      <div class="bootstrap-wrapper">
+        <div class="container">
+          <div class="row" style="margin-top: 20px">
+            <div class="col-md-6 offset-md-3">
+              <div class="container mt-3 con" style="margin-bottom: 100px">
+                <div
+                  class="card cont"
+                  style="width: 400px; border: 1px solid rgb(56, 56, 56)"
+                >
+                  <img
+                    class="card-img-top"
+                    src="../../../assets/propietario.png"
+                    alt="Card image"
+                    style="
+                      width: 80%;
+                      margin-left: 10%;
+                      margin-right: 10%;
+                      padding-top: 10px;
+                    "
+                  />
+                  <div class="card-body" ng-app="">
+                    <h4 class="card-title"></h4>
+                    <p class="card-text">
+                      <font color="	#000000"
+                        ><h1>{{ loginService.getUser().username }}</h1>
+                        <br />Esta es una cuenta de propietario</font
+                      >
+                    </p>
+                    <a href="/actualizar-contrasegna/123" class="btn"
+                      >Cambiar clave</a
+                    >
+                  </div>
+                </div>
+                <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--END Report-->
+    </div>
+    <!-- END main content /-->
+  </div>
+</div>

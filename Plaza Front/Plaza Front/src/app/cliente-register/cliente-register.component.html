@@ -1,0 +1,86 @@
+<div class="body">
+  <form (ngSubmit)="formSubmit()" class="form">
+    <h1>Registrar un nuevo cliente</h1>
+
+    <span>Ingrese el nombre</span>
+    <mat-form-field class="full-width">
+      <input
+        [(ngModel)]="user.nombre"
+        name="name"
+        required
+        matInput
+        placeholder="Digite su nombre"
+      />
+      <mat-hint>El nombre de usuario deber se unico</mat-hint>
+    </mat-form-field>
+
+    <span>Ingrese el apellido</span>
+    <mat-form-field class="full-width">
+      <input
+        [(ngModel)]="user.apellido"
+        name="lastname"
+        required
+        matInput
+        placeholder="Digite su apellido"
+      />
+      <mat-hint>El nombre de usuario deber se unico</mat-hint>
+    </mat-form-field>
+
+    <span>Ingrese el correo</span>
+    <mat-form-field class="full-width">
+      <input
+        [(ngModel)]="user.email"
+        name="email"
+        type="email"
+        required
+        matInput
+        placeholder="Digite su email"
+      />
+      <mat-hint>El nombre de usuario deber se unico</mat-hint>
+    </mat-form-field>
+
+    <span>Ingrese el telefono</span>
+    <mat-form-field class="full-width">
+      <input
+        [(ngModel)]="user.celular"
+        name="email"
+        type="text"
+        required
+        matInput
+        placeholder="Digite su celular"
+      />
+      <mat-hint>El nombre de usuario deber se unico</mat-hint>
+    </mat-form-field>
+
+    <span>Ingrese su documento</span>
+    <mat-form-field class="full-width">
+      <input
+        [(ngModel)]="user.cedula"
+        name="email"
+        type="text"
+        required
+        matInput
+        placeholder="Digite su documento"
+      />
+      <mat-hint>El nombre de usuario deber se unico</mat-hint>
+    </mat-form-field>
+
+    <span>Ingrese su contraseña</span>
+    <mat-form-field class="full-width">
+      <input
+        [(ngModel)]="user.password"
+        name="password"
+        required
+        type="password"
+        matInput
+        placeholder="Digite su contraseña"
+      />
+    </mat-form-field>
+
+    <br /><br />
+
+    <div class="container text-center">
+      <button mat-raised-button color="primary">Registrar</button>
+    </div>
+  </form>
+</div>

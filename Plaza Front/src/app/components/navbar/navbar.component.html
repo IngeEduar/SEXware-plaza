@@ -1,0 +1,39 @@
+<div class="navbar">
+  <div class="dropdown">
+    <button class="dropbtn">Opciones</button>
+    <div class="dropdown-content">
+      <a *ngIf="loginService.getUserRol() == 'ADMIN'" href="/admin">Inicio</a>
+
+      <a *ngIf="loginService.getUserRol() == 'ADMIN'" href="/signup"
+        >Usuarios</a
+      >
+      <a
+        *ngIf="loginService.getUserRol() == 'ADMIN'"
+        href="/registro-restaurante"
+        >Restaurantes</a
+      >
+      <a *ngIf="loginService.getUserRol() == 'ADMIN'" href="/auditoria"
+        >Auditorías</a
+      >
+
+      <a *ngIf="loginService.getUserRol() == 'PROPIETARIO'" href="/propietario"
+        >Inicio</a
+      >
+
+      <a
+        *ngIf="loginService.getUserRol() == 'PROPIETARIO'"
+        href="/lista-restaurantes"
+        >Lista de restaurantes</a
+      >
+
+      <a
+        *ngIf="loginService.getUserRol() == 'PROPIETARIO'"
+        href="/lista-restaurantes"
+        >Registrar plato</a
+      >
+    </div>
+  </div>
+  <form (ngSubmit)="salir()">
+    <button id="but" type="submit" class="cont">Cerrar sesión</button>
+  </form>
+</div>
